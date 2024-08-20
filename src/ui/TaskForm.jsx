@@ -3,13 +3,13 @@ import Button from "./Button";
 import { useState } from "react";
 import { useApp } from "../contexts/AppProvider";
 import Select from "react-select";
-
-function ProjectForm() {
+function TaskFrom() {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
-  const [teamName, setTeamName] = useState("");
+  const [enganged, setEnganged] = useState("");
   const [description, setDescription] = useState();
+  const [priority, setPriority] = useState("");
   const options = [
     {
       value: "chocolate",
@@ -23,6 +23,17 @@ function ProjectForm() {
     },
     { value: "vanilla", label: "Vanilla", icon: "file.png" },
   ];
+  const optionsPrio = [
+    {
+      value: "High",
+      label: "High",
+    },
+    {
+      value: "Middle",
+      label: "Middle",
+    },
+    { value: "Low", label: "Low" },
+  ];
   const { dispatch } = useApp();
   return (
     <form className="project-form">
@@ -32,25 +43,22 @@ function ProjectForm() {
           className="btn-close-form"
           onClick={(e) => {
             e.preventDefault();
-            dispatch({ type: "project/toggleForm" });
+            dispatch({ type: "task/toggleForm" });
           }}
         >
           <X />
         </button>
       </div>
       <header>
-        <h3>New Project</h3>
-        <Button type="tertiary">
-          <Plus /> Add Task
-        </Button>
+        <h3>Create New Task</h3>
       </header>
 
       <div className="form-group">
-        <label htmlFor="projectName">Project Name</label>
+        <label htmlFor="projectName">Task Name</label>
         <input
           type="text"
           id="projectName"
-          placeholder="Set your project Name"
+          placeholder="Set task Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -79,12 +87,22 @@ function ProjectForm() {
       </div>
 
       <div className="form-group">
-        <label htmlFor="selectTeam">Select Team</label>
+        <label htmlFor="selectTeam">Enganged People</label>
+
         <Select
           options={options}
           components={{ Option: CustomOption }}
-          value={teamName}
-          onChange={(e) => setTeamName(e)}
+          value={enganged}
+          onChange={(e) => setEnganged(e)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="selectTeam">Select Priority</label>
+
+        <Select
+          options={optionsPrio}
+          value={priority}
+          onChange={(e) => setPriority(e)}
         />
       </div>
       <div className="form-group">
@@ -124,4 +142,4 @@ const CustomOption = (props) => {
     </div>
   );
 };
-export default ProjectForm;
+export default TaskFrom;

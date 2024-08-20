@@ -28,14 +28,14 @@ function NavList() {
         </li>
         <li>
           <NavLink to="todaytasks">
-            <Clipboard /> {showSideBar && `Today's Tasks`}
+            <Clipboard /> {showSideBar && `Tasks`}
           </NavLink>
         </li>
-        <li>
+        {/* <li>
           <NavLink to="tasks">
             <FolderPlus /> {showSideBar && `All Tasks`}
           </NavLink>
-        </li>
+        </li> */}
         <li>
           <NavLink to="calender">
             <Calendar /> {showSideBar && `Calender`}

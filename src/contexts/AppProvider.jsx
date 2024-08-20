@@ -5,11 +5,14 @@ const initalState = {
   showTaskForm: false,
   showProjectForm: false,
   showSideBar: false,
+  showProjectTask: "task",
 };
 function reducer(state, action) {
   switch (action.type) {
     case "project/toggleForm":
       return { ...state, showProjectForm: !state.showProjectForm };
+    case "project/showTasks":
+      return { ...state, showProjectTask: action.payload };
     case "task/toggleForm":
       return { ...state, showTaskForm: !state.showTaskForm };
     case "app/showSideBar":
@@ -19,13 +22,19 @@ function reducer(state, action) {
   }
 }
 function AppProvider({ children }) {
-  const [{ showTaskForm, showProjectForm, showSideBar }, dispatch] = useReducer(
-    reducer,
-    initalState
-  );
+  const [
+    { showTaskForm, showProjectForm, showSideBar, showProjectTask },
+    dispatch,
+  ] = useReducer(reducer, initalState);
   return (
     <AppContext.Provider
-      value={{ showProjectForm, showTaskForm, showSideBar, dispatch }}
+      value={{
+        showProjectForm,
+        showTaskForm,
+        showSideBar,
+        showProjectTask,
+        dispatch,
+      }}
     >
       {children}
     </AppContext.Provider>

@@ -718,18 +718,29 @@ label {
 }
 
 .project-form input,
+.project-form select,
 textarea {
   width: 100%;
   padding: 1.2rem 1rem;
   font-size: inherit;
   background: none;
   border: 1px solid var(--main-gray-scale-3);
-  border-radius: 1rem;
+  border-radius: 0.5rem;
   color: inherit;
   font-family: inherit;
 }
 
+.customOption:hover {
+  background-color: var(--main-color);
+  color: var(--main-light-color);
+}
+
+.customOption img {
+  border-radius: 50%;
+}
+
 .project-form input:focus,
+.project-form select:focus,
 textarea:focus {
   outline: none;
   background-color: var(--main-gray-scale-2);
@@ -928,6 +939,11 @@ textarea:focus {
 }
 
 .project-filter-nav {
+  display: flex;
+  gap: 2rem;
+}
+
+.project-filter-nav ul {
   background-color: var(--main-gray-scale-1);
   border-radius: 0.5rem;
 }
@@ -1023,4 +1039,179 @@ textarea:focus {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* STYLING THE PROJECT DETAIL */
+.project-detail-container {
+  padding: 0 2rem;
+  height: calc(100vh - 33.5rem);
+  overflow-y: auto;
+}
+
+.project-detail-container::-webkit-scrollbar {
+  max-width: 8px;
+  height: 2px;
+}
+
+
+.project-detail-container:hover::-webkit-scrollbar-track {
+  background-color: var(--main-gray-scale-1)
+}
+
+.project-detail-container:hover::-webkit-scrollbar-thumb {
+  background-color: var(--main-gray-scale-3);
+}
+
+.detail-tag {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+}
+
+.detail-box {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.detail-box .detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+
+}
+
+.detail-box .detail {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-box .detail .icon {
+  width: 5rem;
+  height: 5rem;
+  background-color: var(--main-gray-scale-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1rem;
+  color: var(--main-color);
+}
+
+.detail .content-inf {
+  font-weight: 500;
+  color: var(--main-primary-text);
+  font-size: 1.8rem;
+}
+
+/* STYLING THE PROGRESS BAR */
+.detail-box .progress-bar {
+  width: 100%;
+  height: 0.8rem;
+  background-color: var(--main-gray-scale-2);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  margin-top: 1rem;
+}
+
+.detail-box .progress {
+  width: 46%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-color: var(--main-color);
+}
+
+.detail-team-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detail-team-box img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  margin-left: -1rem;
+}
+
+/* STYLING THE DETAIL NOTES FORM */
+.add-project-note {
+  width: 30rem;
+  border: 1px solid var(--main-gray-scale-3);
+  height: 4rem;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  display: flex;
+}
+
+.add-project-note input {
+  background: none;
+  width: 100%;
+  padding: 1rem;
+  font-size: inherit;
+}
+
+.add-project-note input:focus {
+  outline: none;
+
+}
+
+.add-project-note button {
+  width: 4rem;
+  background-color: var(--main-color);
+  color: var(--main-light-color);
+}
+
+/* STYLING THE NOTE LIST */
+.note-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note-item {
+  display: grid;
+  grid-template-columns: 4rem 1fr 4rem;
+  align-items: center;
+  gap: 1rem;
+}
+
+.note-item img {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+}
+
+.note-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.note-content h4 {
+  color: var(--main-primary-text);
+  font-weight: 500;
+}
+
+.note-item button {
+  background: none;
+  color: inherit;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 0.5rem;
+}
+
+.note-item button:hover {
+  background: var(--main-gray-scale-2);
+  color: inherit;
 }
