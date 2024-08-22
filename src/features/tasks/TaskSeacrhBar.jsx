@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search } from "react-feather";
 
-function ProjectSearchBar() {
+function TaskSearchBar() {
   const [query, setQuery] = useState("");
 
   return (
@@ -9,7 +9,7 @@ function ProjectSearchBar() {
       <Search />
       <input
         type="text"
-        placeholder="Find your Project"
+        placeholder="Find your Tasks"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
@@ -17,4 +17,4 @@ function ProjectSearchBar() {
   );
 }
 
-export default ProjectSearchBar;
+export default TaskSearchBar;

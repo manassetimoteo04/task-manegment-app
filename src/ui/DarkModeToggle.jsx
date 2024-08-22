@@ -1,5 +1,5 @@
 import { Moon, Sun } from "react-feather";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 
 function DarkModeToggle() {
   const { showSideBar } = useApp();

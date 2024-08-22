@@ -25,12 +25,6 @@ function ProjectMenuFilter() {
             Detail
           </li>
         </ul>
-        <Button
-          type="secondary"
-          onClick={() => dispatch({ type: "task/toggleForm" })}
-        >
-          <Plus /> Add Task
-        </Button>
       </nav>
       <div className="filter-box">
         <form className="project-search-bar">

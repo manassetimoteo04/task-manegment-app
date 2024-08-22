@@ -1,5 +1,5 @@
 import { ChevronDown } from "react-feather";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 function UserBox() {
   const { showSideBar } = useApp();
 

@@ -1,5 +1,17 @@
-import { useEffect, useState } from "react";
-function formateDate(date) {
+//FUNCTION FOR SETTING THE CALENDAR DAYS
+
+export const settingArrDays = function () {
+  const today = new Date().getDate();
+  const daysBefore = Array.from(
+    { length: 7 },
+    (_, i) => today - (i + 1)
+  ).reverse();
+  const daysAfter = Array.from({ length: 7 }, (_, i) => today + (i + 1));
+  console.log(daysBefore);
+  return [...daysBefore, today, ...daysAfter];
+};
+
+export function formateDate(date) {
   const options = {
     // hour: "numeric",
     // minute: "numeric",
@@ -13,7 +25,7 @@ function formateDate(date) {
 
   return new Intl.DateTimeFormat("EN", options).format(date);
 }
-function formatHour(date) {
+export function formatHour(date) {
   const hour = date.getHours();
   const min = date.getMinutes();
   const secs = date.getSeconds();
@@ -21,18 +33,3 @@ function formatHour(date) {
     secs < 10 ? `0${secs}` : secs
   }`;
 }
-function DateHeader() {
-  const [date, setDate] = useState(new Date());
-
-  useEffect(() => {
-    setInterval(() => setDate(new Date()), 1000);
-  }, [date]);
-  return (
-    <div className="date-header">
-      <h4>{formatHour(date)}</h4>
-      <span>{formateDate(date)}</span>
-    </div>
-  );
-}
-
-export default DateHeader;

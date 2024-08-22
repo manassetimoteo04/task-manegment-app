@@ -1,5 +1,5 @@
 import { Plus } from "react-feather";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 
 function TeamList() {
   const { showSideBar } = useApp();

@@ -1,8 +1,7 @@
 import { Outlet } from "react-router";
-import Header from "../components/header/Header";
-import Main from "../components/main/Main";
-import Menu from "../components/menu/Menu";
+import Menu from "../ui/Menu";
 import { useApp } from "../contexts/AppProvider";
+import Header from "../ui/Header";
 
 function AppLayout() {
   const { showSideBar } = useApp();

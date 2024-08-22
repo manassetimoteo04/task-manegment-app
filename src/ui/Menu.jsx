@@ -4,7 +4,7 @@ import TeamList from "./TeamList";
 import General from "./General";
 import DarkModeToggle from "./DarkModeToggle";
 import { ChevronsLeft, ChevronsRight } from "react-feather";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 function Menu() {
   const { showSideBar, dispatch } = useApp();
   return (

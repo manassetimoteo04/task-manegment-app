@@ -9,9 +9,11 @@ function ProjectDetails() {
   return (
     <div className="project-details">
       <ProjectDetailsHeader />
-      <ProjectMenuFilter />
-      {showProjectTask === "task" && <ProjectTasksList />}
-      {showProjectTask === "detail" && <ProjectDetail />}
+      <div className="project-scroller">
+        <ProjectMenuFilter />
+        {showProjectTask === "task" && <ProjectTasksList />}
+        {showProjectTask === "detail" && <ProjectDetail />}
+      </div>
     </div>
   );
 }

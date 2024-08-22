@@ -2,8 +2,10 @@ import { useApp } from "../../contexts/AppProvider";
 import Overlay from "../../ui/Overlay";
 import ProjectForm from "../../ui/ProjectForm";
 import DashBoardCalendar from "./DashBoardCalendar";
+import DashBoardGrid from "./DashBoardGrid";
 import DashBoardHeader from "./DashBoardHeader";
 import DashBoardProjectsList from "./DashBoardProjectsList";
+import DashBoardSummary from "./DashBoardSummary";
 
 function DashboardLayout() {
   const { showProjectForm } = useApp();
@@ -11,9 +13,10 @@ function DashboardLayout() {
     <section className="dashboard-section">
       <div>
         <DashBoardHeader />
-        <DashBoardProjectsList />
+        {/* <DashBoardProjectsList /> */}
+        <DashBoardSummary />
       </div>
-      <DashBoardCalendar />
+      <DashBoardGrid />
       {showProjectForm && (
         <Overlay>
           <ProjectForm />

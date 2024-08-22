@@ -1,0 +1,95 @@
+/* STYLING DASHBOARD CALENDAR */
+
+.calendar-container {
+    /* background-color: var(--main-light-color); */
+    height: calc(100vh - 7rem);
+    border-top: 1px solid var(--main-gray-scale-2);
+    margin-top: 3rem;
+}
+
+.calendar-container header {
+    background-color: var(--main-light-color);
+    border-bottom: 1px solid var(--main-gray-scale-2);
+    padding: 2rem;
+    color: var(--main-primary-text);
+    font-weight: 500;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    width: 100%;
+    justify-content: space-between;
+    padding: 2rem;
+    gap: 3rem;
+    align-items: center;
+}
+
+.calendar-days .day {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.calendar-days .day-num {
+    font-weight: 500;
+    color: var(--main-primary-text);
+}
+
+.calendar-days .week-day {
+    font-size: 1.4rem;
+}
+
+.calendar-days .current {
+    color: var(--main-color) !important;
+}
+
+.current .day-num {
+    color: var(--main-color) !important;
+    font-weight: 600;
+}
+
+.calendar-tasks {
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: repeat(15, 1fr);
+    grid-template-rows: repeat(12, 5rem);
+    gap: 1rem;
+    padding: 2rem;
+    background-image:
+        linear-gradient(to right, var(--main-gray-scale-2) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--main-gray-scale-2) 1px, transparent 1px);
+    background-size: 70px 65px;
+    background-size: calc(100% / 15) calc(100% / 12);
+    /* Tamanho dos quadrados */
+
+    background-position: center;
+    overflow-x: hidden;
+    /* Tamanho dos quadrados */
+}
+
+
+.calendar-tasks div {
+    border: 1px solid var(--main-gray-scale-2);
+    width: 100%;
+    height: auto;
+
+}
+
+.calendar-task {
+    grid-column: 2 /span 7;
+    grid-row: 3;
+    background-color: #abc;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 1rem 2rem 0rem rgba(0, 0, 0, 0.123);
+    width: 30rem !important;
+
+}

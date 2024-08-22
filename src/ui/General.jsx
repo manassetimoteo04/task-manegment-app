@@ -1,6 +1,6 @@
 import { Settings } from "react-feather";
 import { Link } from "react-router-dom";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 
 function General() {
   const { showSideBar } = useApp();

@@ -9,9 +9,9 @@ function ProjectsLayout() {
   const { showProjectForm, showTaskForm } = useApp();
   return (
     <section className="project-section">
-      <div>
+      {/* <div>
         <ProjectsHeader />
-      </div>
+      </div> */}
       {showProjectForm && (
         <Overlay>
           <ProjectForm />

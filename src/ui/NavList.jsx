@@ -7,7 +7,7 @@ import {
   Clipboard,
 } from "react-feather";
 import { NavLink } from "react-router-dom";
-import { useApp } from "../../contexts/AppProvider";
+import { useApp } from "../contexts/AppProvider";
 
 function NavList() {
   const { showSideBar } = useApp();
@@ -27,7 +27,7 @@ function NavList() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="todaytasks">
+          <NavLink to="tasks">
             <Clipboard /> {showSideBar && `Tasks`}
           </NavLink>
         </li>

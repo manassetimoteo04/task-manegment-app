@@ -6,6 +6,7 @@ const initalState = {
   showProjectForm: false,
   showSideBar: false,
   showProjectTask: "task",
+  showTaskDetail: false,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -15,6 +16,8 @@ function reducer(state, action) {
       return { ...state, showProjectTask: action.payload };
     case "task/toggleForm":
       return { ...state, showTaskForm: !state.showTaskForm };
+    case "task/toggleDetail":
+      return { ...state, showTaskDetail: !state.showTaskDetail };
     case "app/showSideBar":
       return { ...state, showSideBar: !state.showSideBar };
     default:
@@ -23,7 +26,13 @@ function reducer(state, action) {
 }
 function AppProvider({ children }) {
   const [
-    { showTaskForm, showProjectForm, showSideBar, showProjectTask },
+    {
+      showTaskForm,
+      showProjectForm,
+      showSideBar,
+      showProjectTask,
+      showTaskDetail,
+    },
     dispatch,
   ] = useReducer(reducer, initalState);
   return (
@@ -33,6 +42,7 @@ function AppProvider({ children }) {
         showTaskForm,
         showSideBar,
         showProjectTask,
+        showTaskDetail,
         dispatch,
       }}
     >

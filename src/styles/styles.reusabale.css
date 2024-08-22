@@ -1,0 +1,50 @@
+/* STYLING REUSABLE COMPONENTS */
+.btn {
+    padding: 1rem 2rem;
+    /* background-color: var(--main-gray-faded-color); */
+    font-size: inherit;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.primary-btn {
+    font-weight: 600;
+    color: var(--main-color);
+    background-color: var(--main-gray-scale-3);
+}
+
+.primary-btn:hover {
+    background-color: var(--main-color);
+    color: var(--main-light-color);
+}
+
+.secondary-btn {
+    background-color: var(--main-color);
+    color: var(--main-light-color);
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 999999999999999999;
+}
+
+.status {
+    padding: 0.5rem 1rem;
+    border-radius: 5rem;
+    font-size: 1.4rem;
+    color: var(--main-color);
+    gap: 1rem;
+}
+
+.statu-progress {
+    background-color: #c2eaff;
+}

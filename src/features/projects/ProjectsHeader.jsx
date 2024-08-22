@@ -5,10 +5,9 @@ import Button from "../../ui/Button";
 function ProjectsHeader() {
   const { dispatch } = useApp();
   return (
-    <header className="section-header">
+    <header className="project-header">
       <div>
         <h2>Projects</h2>
-        <span className="main-tag">Tou have 4 Projects</span>
       </div>
       <Button
         onClick={() => {
@@ -16,7 +15,7 @@ function ProjectsHeader() {
         }}
         type="primary"
       >
-        <Plus /> Add
+        <Plus />
       </Button>
     </header>
   );
