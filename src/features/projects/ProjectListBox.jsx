@@ -1,20 +1,18 @@
+import { useSelector } from "react-redux";
+import ProjectListItem from "./ProjectListItem";
+import ListEmpty from "../../ui/ListEmpty";
+import Spinner from "../../ui/Spinner";
 function ProjectListBox() {
+  const { data: projectList, status } = useSelector((store) => store.projects);
   return (
     <ul className="project-list-box">
-      <li className="active">
-        <img src="me.jpg" alt="" />
-        <div className="project-content">
-          <h4>Tiamu Project</h4>
-          <span>Deadline: 12 Ago 2024 </span>
-        </div>
-      </li>{" "}
-      <li>
-        <img src="me.jpg" alt="" />
-        <div className="project-content">
-          <h4>Tiamu Project</h4>
-          <span>Deadline: 12 Ago 2024 </span>
-        </div>
-      </li>{" "}
+      {status !== "loading" && status !== "failed" && projectList.length > 0
+        ? projectList.map((project) => (
+            <ProjectListItem project={project} key={project.id} />
+          ))
+        : status !== "loading" &&
+          status !== "failed" && <ListEmpty>Sem nenhum projecto</ListEmpty>}
+      {status === "loading" && <Spinner />}
     </ul>
   );
 }

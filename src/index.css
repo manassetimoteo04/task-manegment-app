@@ -8,6 +8,25 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 
+/* :root {
+  --main-color: #4361ee;
+  --main-secondary-color: #99aaf5;
+  --main-tertiay-color: #00b4d8;
+  --main-gray-color: #292b33;
+  --main-gray-faded-color: #242630;
+  --main-gray-scale-1: #1b1d1f;
+  --main-gray-scale-2: #3d3e5a;
+  --main-gray-scale-3: #3d3e5a;
+  --main-light-color: #2c2f41;
+  --main-warning-color: #d00000;
+  --main-success-color: #fcca46;
+  --main-primary-text: #ffffff;
+  --main-secondary-text: #e5ebff;
+  --main-text-color: #b3b6c4;
+  --main-text-faded: #dddddd;
+} */
+
+
 :root {
   --main-color: #4a4dfc;
   --main-secondary-color: #0077b6;
@@ -50,4 +69,63 @@ body {
   color: var(--main-text-color);
   background-color: var(--main-gray-faded-color);
   position: relative;
+}
+
+/* BUTTON SPINNER */
+.button-spinner {
+  position: relative;
+  background-color: #0077b6;
+}
+
+.button-spinner .spinner {
+  content: '';
+  border: 0.3rem solid var(--main-light-color);
+  border-left-color: transparent;
+  transition: all 1s;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  animation: rotate linear infinite 1s;
+  z-index: 999;
+}
+
+.main-spinner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.main-spinner::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: '';
+  border: 0.3rem solid var(--main-text-color);
+  border-left-color: transparent;
+  transition: all 1s;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  animation: rotate linear infinite 1s;
+  z-index: 999;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.list-empty {
+  justify-content: center;
+  display: flex;
+  gap: 1rem;
+  padding: 3rem;
+  align-items: center;
+  margin-bottom: 3rem;
 }

@@ -25,6 +25,9 @@
 .secondary-btn {
     background-color: var(--main-color);
     color: var(--main-light-color);
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
 
 .overlay {

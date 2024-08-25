@@ -6,10 +6,7 @@ import Header from "../ui/Header";
 function AppLayout() {
   const { showSideBar } = useApp();
   return (
-    <div
-      className="app"
-      style={{ gridTemplateColumns: `${showSideBar ? "30rem" : "7rem"} 1fr` }}
-    >
+    <div className={`app ${showSideBar ? "show" : "hide"}`}>
       <Header></Header>
       <Menu></Menu>
       {/* <Main></Main> */}

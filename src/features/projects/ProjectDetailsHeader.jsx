@@ -2,13 +2,16 @@ import { Plus } from "react-feather";
 import Status from "../../ui/Status";
 import Button from "../../ui/Button";
 import { useApp } from "../../contexts/AppProvider";
+import { useSelector } from "react-redux";
 function ProjectDetailsHeader() {
   const { dispatch } = useApp();
+  const { currentProject } = useSelector((state) => state.projects);
+  console.log(currentProject);
   return (
     <div className="project-details-header">
       <div className="project-name-detail">
-        <img src="me.jpg" alt="" />
-        <h3>Project Name</h3>
+        <img src={currentProject.image} alt={currentProject.image} />
+        <h3>{currentProject.name} </h3>
         <Status type={"progress"}>on progress</Status>
       </div>
       <div className="project-team-box">

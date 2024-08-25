@@ -14,7 +14,7 @@ function NavList() {
 
   return (
     <nav className="main-nav">
-      <span className="menu-tag">{showSideBar && "Menu"}</span>
+      <span className="menu-tag">Menu</span>
       <ul className="nav-list">
         <li>
           <NavLink to="dashboard">

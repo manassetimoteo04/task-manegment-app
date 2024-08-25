@@ -8,7 +8,6 @@ import Calender from "./pages/Calender";
 import AppProvider from "./contexts/AppProvider";
 import Setting from "./pages/Setting";
 import TaskDetails from "./features/tasks/TaskDetails";
-
 function App() {
   return (
     <AppProvider>
