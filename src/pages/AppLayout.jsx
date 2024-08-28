@@ -4,9 +4,10 @@ import { useApp } from "../contexts/AppProvider";
 import Header from "../ui/Header";
 import NotificationContainer from "../ui/NotificationContainer";
 import { useEffect, useRef } from "react";
-
+import TeamForm from "../features/teams/TeamForm";
+import Overlay from "../ui/Overlay";
 function AppLayout() {
-  const { dispatch, showSideBar, showNotification } = useApp();
+  const { dispatch, showSideBar, showNotification, showTeamForm } = useApp();
   const refEl = useRef();
   useEffect(() => {
     const event = (e) => {
@@ -22,7 +23,11 @@ function AppLayout() {
       <Header></Header>
       {showNotification && <NotificationContainer />}
       <Menu></Menu>
-
+      {showTeamForm && (
+        <Overlay>
+          <TeamForm />
+        </Overlay>
+      )}
       <Outlet />
     </div>
   );

@@ -7,22 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProject } from "../features/projects/projectSlice";
 import ButtonSpinner from "./ButtonSpinner";
 
-// .dark-mode {
-//   --primary-color-blue: #4361ee;
-//   --secondary-color-blue: #99aaf5;
-//   --primary-color-red: #ff6868;
-//   --dark-grey-heading-01: #f0f1f5 --less-dark-grey-heading-02: #d7d9e3;
-//   --primary-text-color: #fafafa;
-//   --secondary-text-color: #b3b6c4;
-//   --bg-divider-color: #2c2f41;
-//   --background-color: #242630;
-//   --btn-border-radius: 1rem;
-//   --box-border-radius: 1.2rem;
-//   --border-color: #d3d3d31e;
-//   --sucess-color: #43b943;
-//   --main-gradient: linear-gradient(to top left, #9aaaf5, #4361ee)
-// }
-
 function ProjectForm() {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -31,22 +15,14 @@ function ProjectForm() {
   const [description, setDescription] = useState();
   const [image, setImage] = useState("");
   const { status } = useSelector((state) => state.projects);
-  const options = [
-    {
-      value: "chocolate",
-      label: "Chocolate",
-      icon: "me.jpg",
-    },
-    {
-      value: "strawberry",
-      label: "Strawberry",
-      icon: "file.png",
-    },
-    { value: "vanilla", label: "Vanilla", icon: "file.png" },
-  ];
-
   const { dispatch } = useApp();
   const DISPATCH = useDispatch();
+  const { teams } = useSelector((state) => state.teams);
+
+  const options = teams.map((team) => {
+    return { value: team.id, label: team.name, icon: team.image };
+  });
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -54,7 +30,7 @@ function ProjectForm() {
       name,
       startDate: new Date(startDate).toISOString(),
       dueDate: new Date(dueDate).toISOString(),
-      teamName: teamName.value,
+      teamId: teamName.value,
       description,
       image,
     };
@@ -117,6 +93,7 @@ function ProjectForm() {
         <label htmlFor="selectTeam">Select Team</label>
         <Select
           className="select"
+          classNamePrefix="select"
           options={options}
           components={{ Option: CustomOption }}
           value={teamName}

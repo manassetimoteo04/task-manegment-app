@@ -1,0 +1,82 @@
+.dark-mode {
+    --main-color: #4361ee;
+    --main-secondary-color: #99aaf5;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #1c110a;
+    --main-gray-faded-color: #080914;
+    --main-gray-scale-1: #0f192e;
+    --main-gray-scale-2: #35012c;
+    --main-gray-scale-3: #002137;
+    --main-light-color: #150620;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #ffffff;
+    --main-secondary-text: #e5ebff;
+    --main-text-color: #b3b6c4;
+    --main-text-faded: #dddddd;
+}
+
+/* STYLING THE TEAM FORM */
+.team-form {
+    max-width: 40rem;
+    background-color: var(--main-light-color);
+    margin: 10rem auto;
+    border-radius: 0.5rem;
+    border: 1px solid var(--main-gray-scale-2);
+}
+
+.team-form header {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--main-gray-scale-3);
+
+}
+
+.team-form h3 {
+    font-weight: 500;
+    color: var(--main-primary-text);
+}
+
+.team-form header button {
+    background: none;
+    color: inherit;
+}
+
+.team-form .btn {
+    width: 100%;
+}
+
+.team-form .group {
+    padding: 2rem;
+}
+
+.team-form input:not(input[type="file"]) {
+    background: none;
+    padding: 1.2rem;
+    /* border: 1px solid var(--main-gray-scale-3); */
+    color: inherit;
+    font-size: inherit;
+    background-color: var(--main-gray-scale-2);
+    border-radius: 0.5rem;
+}
+
+.team-form input:focus {
+    outline: none;
+}
+
+.team-form input[type="file"]::file-selector-button {
+    font: inherit;
+    font-weight: 500;
+    margin-right: 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: var(--main-primary-text);
+    background-color: var(--main-color);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+    border-color: transparent !important;
+    padding: 1rem;
+    font-size: 1.6rem;
+}

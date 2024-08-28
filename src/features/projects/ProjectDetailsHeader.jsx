@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 function ProjectDetailsHeader() {
   const { dispatch } = useApp();
   const { currentProject } = useSelector((state) => state.projects);
-  console.log(currentProject);
   return (
     <div className="project-details-header">
       <div className="project-name-detail">

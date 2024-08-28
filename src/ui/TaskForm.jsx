@@ -123,6 +123,7 @@ function TaskFrom() {
 
         <Select
           className="select"
+          classNamePrefix="select"
           options={options}
           components={{ Option: CustomOption }}
           value={enganged}
@@ -134,6 +135,7 @@ function TaskFrom() {
 
         <Select
           className="select"
+          classNamePrefix="select"
           options={optionsPrio}
           value={priority}
           onChange={(e) => setPriority(e)}

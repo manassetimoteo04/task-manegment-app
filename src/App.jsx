@@ -1,5 +1,11 @@
 import { Suspense, lazy } from "react";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  HashRouter,
+  Navigate,
+  Route,
+  Routes,
+} from "react-router-dom";
 
 // import AppLayout from "./pages/AppLayout";
 // import Dashboard from "./pages/Dashboard";
@@ -10,6 +16,7 @@ import AppProvider from "./contexts/AppProvider";
 import Spinner from "./ui/Spinner";
 import FulllpageSpinner from "./ui/FulllpageSpinner";
 import PageNotFound from "./pages/PageNotFound";
+import NotificationContainer from "./ui/NotificationContainer";
 // import Setting from "./pages/Setting";
 // import Login from "./pages/Login";
 // import Signup from "./pages/Signup";

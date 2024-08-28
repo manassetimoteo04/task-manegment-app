@@ -84,7 +84,7 @@ label {
 }
 
 .project-form input,
-.project-form select,
+
 textarea {
     width: 100%;
     padding: 1.2rem 1rem;
@@ -95,6 +95,27 @@ textarea {
     color: inherit;
     font-family: inherit;
     background-color: var(--main-gray-scale-2);
+}
+
+.project-form .select__control {
+    width: 100%;
+    font-size: inherit;
+    background: none;
+    border: none;
+    border-radius: 0.5rem;
+    color: var(--main-primary-text);
+    font-family: inherit;
+    background-color: var(--main-gray-scale-2);
+}
+
+.project-form .select__menu {
+    color: inherit;
+    background-color: var(--main-gray-scale-2);
+}
+
+.project-form .select__option--is-selected {
+    background-color: blue;
+    color: #fff
 }
 
 .customOption:hover {
@@ -198,7 +219,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     overflow: scroll;
-    height: calc(100vh - 27.299rem);
+    height: calc(100vh - 19.4rem);
 }
 
 .project-list-box::-webkit-scrollbar {

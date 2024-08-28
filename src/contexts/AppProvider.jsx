@@ -11,17 +11,18 @@ const AppContext = createContext();
 const initalState = {
   showNotification: false,
   showTaskForm: false,
-  showProjectForm: true,
+  showProjectForm: false,
   showSideBar: true,
   showProjectTask: "task",
   showTaskDetail: false,
+  showTeamForm: false,
 };
 function reducer(state, action) {
   switch (action.type) {
     case "project/showProjectForm":
       return { ...state, showProjectForm: !state.showProjectForm };
     case "project/closeProjectForm":
-      return { ...state, showProjectForm: false };
+      return { ...state, showProjectForm: !state.showProjectForm };
     case "project/showTasks":
       return { ...state, showProjectTask: action.payload };
     case "task/toggleForm":
@@ -34,6 +35,10 @@ function reducer(state, action) {
       return { ...state, showNotification: true };
     case "app/closeNotification":
       return { ...state, showNotification: false };
+    case "team/showForm":
+      return { ...state, showTeamForm: !state.showTeamForm };
+    case "team/closeForm":
+      return { ...state, showTeamForm: false };
     default:
       throw new Error("Unkown action");
   }
@@ -47,6 +52,7 @@ function AppProvider({ children }) {
       showSideBar,
       showProjectTask,
       showTaskDetail,
+      showTeamForm,
     },
     dispatch,
   ] = useReducer(reducer, initalState);
@@ -54,7 +60,7 @@ function AppProvider({ children }) {
     "dark-mode",
     "isDarkMode"
   );
-  const [showMessageUserDetail, setShowMessageUserDetail] = useState(true);
+  const [showMessageUserDetail, setShowMessageUserDetail] = useState(false);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
@@ -79,6 +85,7 @@ function AppProvider({ children }) {
         setIsDarkMode,
         showMessageUserDetail,
         setShowMessageUserDetail,
+        showTeamForm,
       }}
     >
       {children}

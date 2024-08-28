@@ -6,6 +6,7 @@
 @import url('./styles/styles.calendar.css');
 @import url('./styles/styles.settings.css');
 @import url('./styles/styles.messages.css');
+@import url('./styles/styles.team.css');
 @import url('./styles/styles.notification.css');
 @import url('./styles/styles.login.css');
 
@@ -84,7 +85,7 @@ body {
 
 .button-spinner .spinner {
   content: '';
-  border: 0.3rem solid var(--main-light-color);
+  border: 0.3rem solid var(--main-primary-text);
   border-left-color: transparent;
   transition: all 1s;
   width: 1.5rem;

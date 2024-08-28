@@ -11,22 +11,27 @@ import TaskDetails from "../tasks/TaskDetails";
 
 function ProjectsLayout() {
   const { showTaskDetail, showProjectForm, showTaskForm } = useApp();
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const refEl = useRef();
+  let ref = useRef(0);
   useEffect(() => {
-    dispatch(getProjectsData());
+    DISPATCH(getProjectsData());
   }, []);
 
   useEffect(() => {
-    console.log(refEl);
+    console.log("showProjectForm useEffect called", showProjectForm);
+    ref.current++;
     if (!refEl.current) return;
+
     const event = (e) => {
       const target = e.target.closest(".project-form");
+      console.log(target);
       if (target) return;
-      // showProjectForm && dispatch({ type: "project/closeProjectForm" });
+      showProjectForm && DISPATCH({ type: "project/closeProjectForm" });
     };
 
-    refEl.current.addEventListener("click", event);
+    document.addEventListener("click", event);
+    return () => document.removeEventListener("click", event);
   }, []);
   return (
     <section className="project-section">
