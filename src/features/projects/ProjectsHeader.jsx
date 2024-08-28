@@ -11,7 +11,7 @@ function ProjectsHeader() {
       </div>
       <Button
         onClick={() => {
-          dispatch({ type: "project/toggleForm" });
+          dispatch({ type: "project/showProjectForm" });
         }}
         type="primary"
       >

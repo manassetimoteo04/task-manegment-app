@@ -1,11 +1,11 @@
+import SearchInput from "../../ui/SearchInput";
 import ProjectFilterBox from "./ProjectFilterBox";
 import ProjectSearchBar from "./ProjectSearchBar";
 
 function ProjectFilter() {
   return (
     <div className="project-filter">
-      <ProjectSearchBar />
-      <ProjectFilterBox />
+      <SearchInput setValue={() => {}} placeholder="Find your project" />
     </div>
   );
 }

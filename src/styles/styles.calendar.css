@@ -51,15 +51,15 @@
 }
 
 .calendar-tasks {
-    background-color: #ffffff;
+    background-color: var(--main-light-color);
     display: grid;
     grid-template-columns: repeat(15, 1fr);
     grid-template-rows: repeat(12, 5rem);
     gap: 1rem;
     padding: 2rem;
     background-image:
-        linear-gradient(to right, var(--main-gray-scale-2) 1px, transparent 1px),
-        linear-gradient(to bottom, var(--main-gray-scale-2) 1px, transparent 1px);
+        linear-gradient(to right, var(--main-gray-scale-3) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--main-gray-scale-3) 1px, transparent 1px);
     background-size: 70px 65px;
     background-size: calc(100% / 15) calc(100% / 12);
     /* Tamanho dos quadrados */

@@ -20,7 +20,8 @@
     border-radius: 0.5rem;
     padding: 2rem;
     overflow: hidden;
-    background-color: #fff;
+    background-color: var(--main-light-color);
+
     margin: 2rem;
     border: 1px solid var(--main-gray-scale-3);
 }
@@ -34,7 +35,7 @@
 
 .tasks-table-header {
     display: grid;
-    grid-template-columns: 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
     color: var(--main-primary-text);
     grid-template-rows: 1;
     background-color: var(--main-gray-scale-1);
@@ -59,7 +60,7 @@
 /* STYLING THE TASK ITEM */
 .task-item {
     display: grid;
-    grid-template-columns: 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
 }
 
 .task-item:not(:last-child) {
@@ -68,7 +69,7 @@
 }
 
 .task-item span {
-    padding: 2rem;
+    padding: 1rem 2rem;
 }
 
 .task-item span:not(:last-child) {

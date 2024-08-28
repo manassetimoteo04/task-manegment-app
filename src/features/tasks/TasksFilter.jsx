@@ -1,10 +1,10 @@
 import { Filter } from "react-feather";
-import TaskSearchBar from "./TaskSeacrhBar";
+import SearchInput from "../../ui/SearchInput";
 
 function TasksFilter() {
   return (
     <div className="tasks-filter">
-      <TaskSearchBar />
+      <SearchInput setValue={() => {}} placeholder="Find your project" />
       <button className="btn-sort">
         <Filter />
       </button>

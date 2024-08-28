@@ -90,10 +90,11 @@ textarea {
     padding: 1.2rem 1rem;
     font-size: inherit;
     background: none;
-    border: 1px solid var(--main-gray-scale-3);
+
     border-radius: 0.5rem;
     color: inherit;
     font-family: inherit;
+    background-color: var(--main-gray-scale-2);
 }
 
 .customOption:hover {
@@ -106,13 +107,31 @@ textarea {
 }
 
 .project-form input:focus,
-.project-form select:focus,
+.project-form .select:focus,
 textarea:focus {
     outline: none;
     background-color: var(--main-gray-scale-2);
 }
 
-/* PROJECT GRID */
+.project-form input[type="file"] {
+    background: none;
+}
+
+.project-form input[type="file"]::file-selector-button {
+    font: inherit;
+    font-weight: 500;
+    margin-right: 1.2rem;
+    border-radius: 0.5rem;
+    border: none;
+    color: var(--main-primary-text);
+    background-color: var(--main-color);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+    border-color: transparent !important;
+    padding: 1rem;
+    font-size: inherit;
+}
+
 .project-grid {
     display: grid;
     grid-template-columns: 30rem 1fr;
@@ -137,28 +156,7 @@ textarea:focus {
     border-radius: 50%;
 }
 
-/* STYLING THE PROJECT SEARCH BAR */
-.project-search-bar {
-    background-color: var(--main-light-color);
-    padding: 0 1rem;
-    height: 4rem;
-    border: 1px solid var(--main-gray-scale-2);
-    display: flex;
-    align-items: center;
-    border-radius: 0.5rem;
-}
 
-.project-search-bar input {
-    background: none;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
-    font-size: inherit;
-}
-
-.project-search-bar input:focus {
-    outline: none;
-}
 
 /* STYLING THE PROJECT LIST FILTER BAR */
 .project-filter-box {

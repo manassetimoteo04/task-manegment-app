@@ -61,7 +61,7 @@ function ProjectForm() {
     DISPATCH(createProject(newProject));
   }
   useEffect(() => {
-    if (status === "succeeded") dispatch({ type: "project/toggleForm" });
+    if (status === "succeeded") dispatch({ type: "project/closeProjectForm" });
   }, [status]);
   return (
     <form className="project-form" onSubmit={handleSubmit}>
@@ -70,7 +70,7 @@ function ProjectForm() {
           className="btn-close-form"
           onClick={(e) => {
             e.preventDefault();
-            dispatch({ type: "project/toggleForm" });
+            dispatch({ type: "project/closeProjectForm" });
           }}
         >
           <X />
@@ -78,9 +78,6 @@ function ProjectForm() {
       </div>
       <header>
         <h3>New Project</h3>
-        <Button type="tertiary">
-          <Plus /> Add Task
-        </Button>
       </header>
 
       <div className="form-group">
@@ -119,10 +116,12 @@ function ProjectForm() {
       <div className="form-group">
         <label htmlFor="selectTeam">Select Team</label>
         <Select
+          className="select"
           options={options}
           components={{ Option: CustomOption }}
           value={teamName}
           onChange={(e) => setTeamName(e)}
+          role="select"
         />
       </div>
       <div className="form-group">

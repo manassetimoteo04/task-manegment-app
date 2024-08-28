@@ -1,14 +1,25 @@
-import { MoreVertical } from "react-feather";
+import { MoreVertical, Square } from "react-feather";
 import TaskItem from "./TaskItem";
 import TasksFilter from "./TasksFilter";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTasks } from "./taskSlice";
 
 function TasksTable() {
+  const DISPATCH = useDispatch();
+  const { allTasks } = useSelector((state) => state.tasks);
+  useEffect(() => {
+    DISPATCH(getAllTasks());
+  }, []);
   return (
     <div className="tasks-table">
       <TasksFilter />
 
       <div className="table">
         <header className="tasks-table-header">
+          <span>
+            <Square />
+          </span>
           <span>Project</span>
           <span>Task</span>
           <span>Status</span>
@@ -20,10 +31,9 @@ function TasksTable() {
           </span>
         </header>
         <div className="tasks-list">
-          <TaskItem />
-          <TaskItem />
-          <TaskItem />
-          <TaskItem />
+          {allTasks.map((task) => (
+            <TaskItem task={task} key={task.id} />
+          ))}
         </div>
       </div>
     </div>

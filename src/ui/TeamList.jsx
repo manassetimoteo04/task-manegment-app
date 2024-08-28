@@ -3,7 +3,7 @@ import { useApp } from "../contexts/AppProvider";
 
 function TeamList() {
   const { showSideBar } = useApp();
-
+  if (!showSideBar) return <div></div>;
   return (
     <div className="menu-team">
       <span className="menu-tag">

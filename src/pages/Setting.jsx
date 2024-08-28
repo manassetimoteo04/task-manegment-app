@@ -1,5 +1,11 @@
+import SettingsLayout from "../features/settings/SettingsLayout";
+
 function Setting() {
-  return <main>Settings</main>;
+  return (
+    <main>
+      <SettingsLayout />
+    </main>
+  );
 }
 
 export default Setting;

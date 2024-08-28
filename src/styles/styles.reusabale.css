@@ -24,7 +24,7 @@
 
 .secondary-btn {
     background-color: var(--main-color);
-    color: var(--main-light-color);
+    color: #fff;
     align-items: center;
     display: flex;
     justify-content: center;
@@ -36,7 +36,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(0, 0, 0, 0.3);
     z-index: 999999999999999999;
 }
 
@@ -49,5 +49,29 @@
 }
 
 .statu-progress {
-    background-color: #c2eaff;
+    background-color: var(--main-gray-scale-1);
+}
+
+/* STYLING THE SEARCH BAR */
+.search-bar {
+    background-color: var(--main-gray-scale-2);
+    padding: 0 1rem;
+    height: 4rem;
+    /* border: 1px solid var(--main-gray-scale-2); */
+    display: flex;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.search-bar input {
+    background: none;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    font-size: inherit;
+    color: inherit;
+}
+
+.search-bar input:focus {
+    outline: none;
 }

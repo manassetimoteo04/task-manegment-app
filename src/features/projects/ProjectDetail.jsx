@@ -1,27 +1,34 @@
+import { useSelector } from "react-redux";
 import ProjectBudgetInfo from "./ProjectBudgetInfo";
 import ProjectNotes from "./ProjectNotes";
 
 function ProjectDetail() {
+  const { currentProject } = useSelector((state) => state.projects);
+  const { projectTasks } = useSelector((state) => state.tasks);
+  const completed = projectTasks?.filter((task) => task.status === "finished");
   return (
     <div className="project-detail-container">
       <div className="detail-box">
         <span className="detail-tag">Details</span>
-        <ProjectBudgetInfo />
+        <ProjectBudgetInfo currentProject={currentProject} />
       </div>
       <div className="detail-box">
         <span className="detail-tag">Description</span>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta
-          dolorum cumque mollitia qui id maxime? Optio, quisquam quia eligendi
-          nam asperiores porro distinctio harum ex ullam cum neque quam sunt!
-        </p>
+        <p>{currentProject.description}</p>
       </div>
       <div className="detail-box">
         <span className="detail-tag">Progress</span>
         <div className="progress-box">
-          <span>Tasks (8/24)</span>
+          <span>
+            Tasks ({completed.length}/{projectTasks.length})
+          </span>
           <div className="progress-bar">
-            <div className="progress"></div>
+            <div
+              className="progress"
+              style={{
+                width: `${(completed.length / projectTasks.length) * 100}%`,
+              }}
+            ></div>
           </div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { Calendar, DollarSign } from "react-feather";
 
-function ProjectBudgetInfo() {
+function ProjectBudgetInfo({ currentProject }) {
   return (
     <div className="detail-grid">
       <div className="detail">
@@ -9,7 +9,7 @@ function ProjectBudgetInfo() {
         </span>
         <div className="detail-content">
           <span>Budget</span>
-          <span className="content-inf">2,000,000</span>
+          <span className="content-inf">{currentProject.budget}</span>
         </div>
       </div>
       <div className="detail">
@@ -18,16 +18,17 @@ function ProjectBudgetInfo() {
         </span>
         <div className="detail-content">
           <span>Start Date</span>
-          <span className="content-inf">12 Ago, 2024</span>
+          <span className="content-inf">{currentProject.start_date}</span>
         </div>
       </div>
       <div className="detail">
         <span className="icon">
           <Calendar />
         </span>
+
         <div className="detail-content">
           <span>End Date</span>
-          <span className="content-inf">20 Out, 2024</span>
+          <span className="content-inf">{currentProject.due_date}</span>
         </div>
       </div>
     </div>

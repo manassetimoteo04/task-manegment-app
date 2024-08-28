@@ -1,6 +1,10 @@
 import { supabase, supabaseUrl } from "./supabase";
 export const getProjects = async function () {
-  const { data: projects, error } = await supabase.from("projects").select("*");
+  const { data: projects, error } = await supabase
+    .from("projects")
+    .select("*")
+    .order("created_at", { ascending: false });
+
   if (error) throw new Error(error.message);
   return projects;
 };
@@ -17,7 +21,6 @@ export const createNewProject = async function (newProject) {
     image: image,
     name: newProject.name,
     start_date: newProject.startDate,
-    tasks: ["1", "2", "3", "4"],
     team_id: "23423",
   };
 

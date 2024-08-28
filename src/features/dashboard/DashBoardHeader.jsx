@@ -12,7 +12,7 @@ function DashBoardHeader() {
       </div>
       <Button
         onClick={() => {
-          dispatch({ type: "project/toggleForm" });
+          dispatch({ type: "project/showProjectForm" });
         }}
         type="primary"
       >

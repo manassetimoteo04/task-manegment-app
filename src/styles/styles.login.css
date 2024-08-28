@@ -1,0 +1,99 @@
+.dark-mode {
+    --main-color: #4361ee;
+    --main-secondary-color: #99aaf5;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #1c110a;
+    --main-gray-faded-color: #080914;
+    --main-gray-scale-1: #0f192e;
+    --main-gray-scale-2: #35012c;
+    --main-gray-scale-3: #002137;
+    --main-light-color: #150620;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #ffffff;
+    --main-secondary-text: #e5ebff;
+    --main-text-color: #b3b6c4;
+    --main-text-faded: #dddddd;
+}
+
+
+.light-mode {
+    --main-color: #4a4dfc;
+    --main-secondary-color: #0077b6;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #e0e1dd;
+    --main-gray-faded-color: #dff8fd;
+    --main-gray-scale-1: #f8f9fa;
+    --main-gray-scale-2: #ebebeb;
+    --main-gray-scale-3: #dee2e6;
+    --main-light-color: #ffffff;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #0d1b2a;
+    --main-secondary-text: #1b263b;
+    --main-text-color: #616161;
+    --main-text-faded: #dddddd;
+}
+
+.section-login {
+    max-width: 45rem;
+    background-color: var(--main-light-color);
+    margin: 10rem auto;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--main-gray-scale-3);
+}
+
+.section-login h1 {
+    color: var(--main-primary-text);
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.login-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.input-box {
+    display: flex;
+    border: 1px solid var(--main-gray-scale-3);
+    padding: 0 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+}
+
+.input-box input {
+    padding: 1rem;
+    width: 100%;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+.input-box input:focus {
+    outline: none;
+}
+
+.form-options {
+    display: flex;
+    gap: 1rem;
+}
+
+.form-options button {
+    background: none;
+    color: var(--main-secondary-color);
+    font-size: inherit;
+    cursor: pointer;
+}
+
+.form-options button:hover {
+    color: var(--main-color);
+}

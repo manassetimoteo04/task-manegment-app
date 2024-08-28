@@ -1,6 +1,7 @@
 import { Filter, Plus, Search } from "react-feather";
 import { useApp } from "../../contexts/AppProvider";
 import Button from "../../ui/Button";
+import SearchInput from "../../ui/SearchInput";
 
 function ProjectMenuFilter() {
   const { showProjectTask, dispatch } = useApp();
@@ -27,11 +28,7 @@ function ProjectMenuFilter() {
         </ul>
       </nav>
       <div className="filter-box">
-        <form className="project-search-bar">
-          <Search />
-          <input type="text" placeholder="Find your Task" />
-        </form>
-
+        <SearchInput setValue={() => {}} placeholder="Find your Task" />
         <button>
           <Filter />
         </button>

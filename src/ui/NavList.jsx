@@ -5,6 +5,8 @@ import {
   FolderPlus,
   Grid,
   Clipboard,
+  Settings,
+  MessageSquare,
 } from "react-feather";
 import { NavLink } from "react-router-dom";
 import { useApp } from "../contexts/AppProvider";
@@ -39,6 +41,11 @@ function NavList() {
         <li>
           <NavLink to="calender">
             <Calendar /> {showSideBar && `Calender`}
+          </NavLink>
+        </li>{" "}
+        <li>
+          <NavLink to="messages">
+            <MessageSquare /> {showSideBar && `Messages`}
           </NavLink>
         </li>
       </ul>

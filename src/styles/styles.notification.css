@@ -1,0 +1,116 @@
+.dark-mode {
+    --main-color: #4361ee;
+    --main-secondary-color: #99aaf5;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #1c110a;
+    --main-gray-faded-color: #080914;
+    --main-gray-scale-1: #0f192e;
+    --main-gray-scale-2: #35012c;
+    --main-gray-scale-3: #002137;
+    --main-light-color: #150620;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #ffffff;
+    --main-secondary-text: #e5ebff;
+    --main-text-color: #b3b6c4;
+    --main-text-faded: #dddddd;
+}
+
+.light-mode {
+    --main-color: #4a4dfc;
+    --main-secondary-color: #0077b6;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #e0e1dd;
+    --main-gray-faded-color: #dff8fd;
+    --main-gray-scale-1: #f8f9fa;
+    --main-gray-scale-2: #ebebeb;
+    --main-gray-scale-3: #dee2e6;
+    --main-light-color: #ffffff;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #0d1b2a;
+    --main-secondary-text: #1b263b;
+    --main-text-color: #616161;
+    --main-text-faded: #dddddd;
+}
+
+/* STYLING THE NOTIFICATION CONTAINER */
+.notification-container {
+    position: absolute;
+    width: 40rem;
+    top: 10rem;
+    right: 2rem;
+    background-color: var(--main-light-color);
+    height: 30rem;
+    border: 1px solid var(--main-gray-scale-2);
+    border-radius: 0.5rem;
+    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.09);
+    padding-bottom: 1rem;
+}
+
+.notification-container header {
+    padding: 1rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--main-gray-scale-2);
+}
+
+.notification-container header h3 {
+    color: var(--main-primary-text);
+}
+
+.notification-container header button {
+    background: none;
+    color: inherit;
+}
+
+.notitications-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 1rem 2rem;
+    height: 100%;
+    overflow: auto;
+}
+
+.notification-item-box {
+    display: grid;
+    grid-template-columns: 5rem 1fr;
+    gap: 1rem;
+    padding: 1rem 0;
+    align-items: center;
+}
+
+.notification-item-box:not(:last-child) {
+    border-bottom: 1px solid var(--main-gray-scale-2);
+}
+
+.bell-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5rem;
+    height: 5rem;
+    background-color: var(--main-gray-faded-color);
+    border-radius: 50%;
+    color: var(--main-primary-text);
+}
+
+.notification-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.notification-content h4 {
+    color: var(--main-primary-text);
+    font-weight: 500;
+}
+
+.notification-footer {
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -2,19 +2,28 @@ import { Moon, Sun } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
 
 function DarkModeToggle() {
-  const { showSideBar } = useApp();
+  const { showSideBar, isDarkMode, setIsDarkMode } = useApp();
   return (
     <>
-      {showSideBar && (
-        <div className="container-dark-mode">
-          <button>
-            <Sun size={20} /> Light
-          </button>
-          <button className="active">
-            <Moon size={20} /> Dark
-          </button>
-        </div>
-      )}
+      <div
+        className={`container-dark-mode ${
+          showSideBar ? "" : "hide-toggle-dark"
+        }`}
+      >
+        <button
+          className={!isDarkMode ? "active" : ""}
+          onClick={() => setIsDarkMode(false)}
+        >
+          <Sun size={20} /> {showSideBar && "Light"}
+        </button>
+        <button
+          className={isDarkMode ? "active" : ""}
+          onClick={() => setIsDarkMode(true)}
+        >
+          <Moon size={20} />
+          {showSideBar && "Dark"}
+        </button>
+      </div>
     </>
   );
 }

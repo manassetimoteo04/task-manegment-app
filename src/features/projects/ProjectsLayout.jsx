@@ -5,15 +5,28 @@ import ProjectForm from "../../ui/ProjectForm";
 import TaskForm from "../../ui/TaskForm";
 import ProjectGrid from "./ProjectGrid";
 import ProjectsHeader from "./ProjectsHeader";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { getProjectsData } from "./projectSlice";
+import TaskDetails from "../tasks/TaskDetails";
 
 function ProjectsLayout() {
-  const { showProjectForm, showTaskForm } = useApp();
+  const { showTaskDetail, showProjectForm, showTaskForm } = useApp();
   const dispatch = useDispatch();
-
+  const refEl = useRef();
   useEffect(() => {
     dispatch(getProjectsData());
+  }, []);
+
+  useEffect(() => {
+    console.log(refEl);
+    if (!refEl.current) return;
+    const event = (e) => {
+      const target = e.target.closest(".project-form");
+      if (target) return;
+      // showProjectForm && dispatch({ type: "project/closeProjectForm" });
+    };
+
+    refEl.current.addEventListener("click", event);
   }, []);
   return (
     <section className="project-section">
@@ -31,6 +44,8 @@ function ProjectsLayout() {
           <TaskForm />
         </Overlay>
       )}
+      {showTaskDetail && <TaskDetails />}
+
       <ProjectGrid />
     </section>
   );

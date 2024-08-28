@@ -1,16 +1,13 @@
-function TaskCommentItem() {
+function TaskCommentItem({ comment }) {
   return (
     <li className="comment-task">
-      <p className="comment-text">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod voluptatem
-        quia beatae doloribus sequi voluptate dolores ratione minus reiciendis
-      </p>
+      <p className="comment-text">{comment.text}</p>
       <div>
         <div>
           <img src="me.jpg" alt="" className="comment-user-img" />
           <span className="username">Manasse</span>
         </div>
-        <span>8 min</span>
+        <span>{new Date(comment.created_at).toDateString()}</span>
       </div>
     </li>
   );

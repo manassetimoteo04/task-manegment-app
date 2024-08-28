@@ -3,8 +3,9 @@ import UserBox from "./UserBox";
 import TeamList from "./TeamList";
 import General from "./General";
 import DarkModeToggle from "./DarkModeToggle";
-import { ChevronsLeft, ChevronsRight } from "react-feather";
+import { ChevronsLeft, ChevronsRight, X } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
+import Logo from "./Logo";
 function Menu() {
   const { showSideBar, dispatch } = useApp();
   return (
@@ -13,14 +14,14 @@ function Menu() {
         className="show-side"
         onClick={() => dispatch({ type: "app/showSideBar" })}
       >
-        {!showSideBar && <ChevronsLeft size={20} />}
-        {showSideBar && <ChevronsRight size={20} />}
+        {!showSideBar && <ChevronsRight size={20} />}
+        {showSideBar && <X size={18} />}
       </button>
-      <UserBox />
+      <Logo />
       <div className="scroller-menu">
         <NavList />
-        <TeamList />
         <General />
+        <TeamList />
         <DarkModeToggle />
       </div>
     </menu>

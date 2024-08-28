@@ -3,15 +3,14 @@ import { useApp } from "../../contexts/AppProvider";
 import ProjectDetailsHeader from "./ProjectDetailsHeader";
 import ProjectMenuFilter from "./ProjectMenuFilter";
 import ProjectTasksList from "./ProjectTasksList";
-import ProjectDetail from "./ProjextDetail";
+import ProjectDetail from "./ProjectDetail";
 import Spinner from "../../ui/Spinner";
 
 function ProjectDetails() {
   const { showProjectTask } = useApp();
-  const { getStatus } = useSelector((store) => store.projects);
-  console.log(getStatus);
+  const { getStatus, currentProject } = useSelector((store) => store.projects);
   return (
-    <div className="project-details">
+    <div className="project-details" id={currentProject.id}>
       {getStatus === "loading" ? (
         <Spinner />
       ) : (
