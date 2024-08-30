@@ -7,7 +7,7 @@ function UserBox() {
   return (
     <div className="user-box">
       <img
-        src={currentUser?.image ? currentUser?.image : "default-user.jpg"}
+        src={currentUser?.avatar ? currentUser?.avatar : "default-user.jpg"}
         alt=""
       />
       <div className="content-user-box">

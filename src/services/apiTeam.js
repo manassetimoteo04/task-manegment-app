@@ -40,29 +40,44 @@ export const addTeamTags = async function ({ id, arr }) {
     .update({ tags: arr })
     .eq("id", id)
     .select("tags");
-  console.log(data);
   if (error) throw new Error(error.message);
   return data.at(0).tags;
 };
-export const addTeamMember = async function ({ email, id }) {
+export const addTeamMember = async function ({ email, id, arr }) {
   const { data: userId, error: err } = await supabase
     .from("users")
+    .select("id")
     .eq("email", email)
-    .select("id");
-  if (err) throw new Error("User not found: ", err.message);
+    .single();
 
-  const { data, error } = await supabase
+  if (err) {
+    throw new Error(`User not found: ${err.message}`);
+  }
+  const newArr = [...arr, userId.id];
+  const isExist = arr.some((a) => a === userId.id);
+  if (isExist) throw new Error("This user already exists");
+  const { data: members, error } = await supabase
     .from("teams")
     .update({
-      members: supabase.raw("array_append(members, ?)", userId),
+      members: newArr,
     })
     .eq("id", id)
-    .select("members");
-  console.log(data, userId);
+    .select("members")
+    .single();
 
   if (error) {
     console.error("Erro ao atualizar array:", error);
-  } else {
-    console.log("Array atualizado com sucesso");
+    throw new Error(error.message);
   }
+  return members.members;
+};
+
+export const getMembers = async function ({ id }) {
+  const { data: members, error } = await supabase
+    .from("teams")
+    .select("members")
+    .eq("id", id)
+    .single();
+  if (error) throw new Error(error.message);
+  return members;
 };

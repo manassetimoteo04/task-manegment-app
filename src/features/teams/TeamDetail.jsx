@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../ui/Spinner";
 import SmallBtn from "../../ui/SmallBtn";
 import AddForm from "./AddForm";
-import { useState } from "react";
-import { addTeamTagsNew } from "./teamSlice";
+import { useEffect, useState } from "react";
+import { addNewMember, addTeamTagsNew } from "./teamSlice";
+import { getUserImageName } from "../../services/apiHelpers";
 
 function TeamDetail() {
   const { setShowTeamDetail } = useApp();
@@ -18,7 +19,12 @@ function TeamDetail() {
     setShowAddTagForm(false);
     DISPATCH(addTeamTagsNew({ id: currentTeam.id, arr }));
   }
-  function handleAddMember() {}
+  function handleAddMember(email) {
+    setShowAddMemberForm(false);
+    DISPATCH(
+      addNewMember({ email, id: currentTeam.id, arr: currentTeam.members })
+    );
+  }
   return (
     <div className="team-detail">
       {status.type === "get" && status.statu === "loading" ? (
@@ -93,9 +99,7 @@ function TeamDetail() {
 
               <ul className="members-list">
                 {currentTeam.members.length > 0 ? (
-                  currentTeam.members.map((tag) => (
-                    <p className="team-tag">designers</p>
-                  ))
+                  currentTeam.members.map((mem) => <TeamMemberItem id={mem} />)
                 ) : (
                   <DetailEmptyList>no tag found</DetailEmptyList>
                 )}
@@ -107,11 +111,23 @@ function TeamDetail() {
     </div>
   );
 }
-function TeamMemberItem() {
+function TeamMemberItem({ id }) {
+  const [data, setData] = useState({});
+  useEffect(() => {
+    async function getData() {
+      const res = await getUserImageName(id);
+      setData(res);
+    }
+    getData();
+  }, []);
+  console.log(id, "IDDD");
   return (
     <li className="member-item">
-      <img src="me.jpg" alt="" />
-      <span>Manasse Timóteo</span>
+      <img
+        src={data?.avatar ? data?.avatar : "default-user.jpg"}
+        alt={data?.name}
+      />
+      <span>{data?.name}</span>
     </li>
   );
 }

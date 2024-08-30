@@ -10,7 +10,6 @@ import NoSelectedItem from "../../ui/NoSelectedItem";
 function ProjectDetails() {
   const { showProjectTask, showProjectMobile } = useApp();
   const { getStatus, currentProject } = useSelector((store) => store.projects);
-  console.log(getStatus);
   return (
     <div
       className={`project-details ${!showProjectMobile ? "hide-mobile" : ""}`}

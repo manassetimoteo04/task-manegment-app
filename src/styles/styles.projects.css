@@ -328,6 +328,7 @@ textarea:focus {
 
 .project-scroller {
     overflow: auto;
+    width: 100%;
     height: calc(100vh - 18rem)
 }
 
@@ -399,17 +400,29 @@ textarea:focus {
 /* STYLING THE PROJECT TASKS LIST */
 
 .project-tasks-list {
+    margin: 0;
+    width: 100%;
+    padding: 2rem;
+
+}
+
+.project-tasks-list .container {
     border: 1px solid var(--main-gray-scale-3);
-    margin: 0 2rem;
-    border-radius: 1rem;
+    margin-bottom: 2rem;
 }
 
 .task-list-header {
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr 2fr 3fr 1fr;
+    grid-template-columns: 5rem 3fr 2fr 1fr 1fr 5rem;
     background-color: var(--main-gray-scale-1);
     border-bottom: 1px solid var(--main-gray-scale-3);
 
+}
+
+.img-task {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
 }
 
 .task-list-header span {
@@ -430,18 +443,23 @@ textarea:focus {
     width: 0;
 }
 
-.task-grid-list .task-item {
+.task-grid-list .project-task-item {
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr 2fr 3fr 1fr;
+    grid-template-columns: 5rem 3fr 2fr 1fr 1fr 5rem;
+}
+
+.task-grid-list .project-task-item:not(:last-child) {
     border-bottom: 1px solid var(--main-gray-scale-3);
+
 }
 
-.task-grid-list .task-item span {
-    display: inline-block;
-    padding: 2rem 1rem;
+.task-grid-list .project-task-item span {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
 }
 
-.task-grid-list .task-item span:not(:last-child) {
+.task-grid-list .project-task-item span:not(:last-child) {
     border-right: 1px solid var(--main-gray-scale-3);
 
 }

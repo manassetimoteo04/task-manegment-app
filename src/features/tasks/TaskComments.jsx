@@ -7,13 +7,14 @@ import ButtonSpinner from "../../ui/ButtonSpinner";
 function TaskComments() {
   const [text, setText] = useState("");
   const { currentTask, commentStatus } = useSelector((state) => state.tasks);
+  const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
   function handleSubmit(e) {
     e.preventDefault();
     // if (!text || currentTask.id) return;
     const comment = {
       text,
-      createdBy: "",
+      createdBy: currentUser.id,
       createdFrom: currentTask.id,
     };
     DISPATCH(createTaskComment(comment));

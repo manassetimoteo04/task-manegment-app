@@ -7,6 +7,7 @@ import { useApp } from "../../contexts/AppProvider";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../ui/Spinner";
 import { useEffect } from "react";
+import { useGetUserImg } from "../../hooks/useGetUserImg";
 function TaskDetails() {
   const { dispatch } = useApp();
   const { currentTask, getStatus } = useSelector((state) => state.tasks);
@@ -20,11 +21,10 @@ function TaskDetails() {
     priority,
     duration,
   } = currentTask;
-
-  useEffect(() => {}, []);
+  const [enganged] = useGetUserImg(engangedId);
   return (
     <Overlay>
-      <div className="task-details">
+      <div className="task-details" id={currentTask.id}>
         {getStatus === "loading" ? (
           <Spinner />
         ) : (
@@ -51,8 +51,12 @@ function TaskDetails() {
               <div>
                 <span>Assigned to</span>
                 <div>
-                  <img src="me.jpg" alt="" className="assigned-img" /> Manasse
-                  Timóteo
+                  <img
+                    src={enganged.avatar ? enganged.avatar : "default-user.jpg"}
+                    alt=""
+                    className="assigned-img"
+                  />
+                  {enganged.name}
                 </div>
               </div>
               <div>

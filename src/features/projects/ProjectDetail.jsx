@@ -1,11 +1,25 @@
 import { useSelector } from "react-redux";
 import ProjectBudgetInfo from "./ProjectBudgetInfo";
 import ProjectNotes from "./ProjectNotes";
+import { useEffect, useState } from "react";
+import {
+  getProjectImageName,
+  getTeamImageName,
+} from "../../services/apiHelpers";
 
 function ProjectDetail() {
   const { currentProject } = useSelector((state) => state.projects);
   const { projectTasks } = useSelector((state) => state.tasks);
   const completed = projectTasks?.filter((task) => task.status === "finished");
+  const [team, setTeam] = useState({});
+  useEffect(() => {
+    async function getTeam() {
+      const res = await getTeamImageName(currentProject.team_id);
+      setTeam(res);
+    }
+    getTeam();
+  }, []);
+  console.log(team);
   return (
     <div className="project-detail-container">
       <div className="detail-box">
@@ -35,10 +49,9 @@ function ProjectDetail() {
       <div className="detail-box">
         <span className="detail-tag">Team</span>
         <div className="detail-team-box">
-          <span>Duxica</span>
+          <span>{team.name}</span>
           <div>
-            <img src="me.jpg" alt="" />
-            <img src="file.png" alt="" />
+            <img src={team.image} alt={team.name} />
           </div>
         </div>
       </div>

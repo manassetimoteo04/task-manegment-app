@@ -1,10 +1,12 @@
 import { Plus, X } from "react-feather";
 import Button from "./Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useApp } from "../contexts/AppProvider";
 import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewTask } from "../features/tasks/taskSlice";
+import { getTeamMembers } from "../features/teams/teamSlice";
+import { getUserImageName } from "../services/apiHelpers";
 
 const optionsPrio = [
   {
@@ -17,6 +19,10 @@ const optionsPrio = [
   },
   { value: "Low", label: "Low" },
 ];
+const getOptUser = async (id) => {
+  const data = await getUserImageName(id);
+  return data;
+};
 function TaskFrom() {
   const [name, setName] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -25,22 +31,30 @@ function TaskFrom() {
   const [enganged, setEnganged] = useState("");
   const [description, setDescription] = useState();
   const [priority, setPriority] = useState("");
+  const [options, setOptions] = useState([]);
   const { currentProject } = useSelector((state) => state.projects);
-  const options = [
-    {
-      value: "chocolate",
-      label: "Chocolate",
-      icon: "me.jpg",
-    },
-    {
-      value: "strawberry",
-      label: "Strawberry",
-      icon: "file.png",
-    },
-    { value: "vanilla", label: "Vanilla", icon: "file.png" },
-  ];
-
+  const { teams } = useSelector((state) => state.teams);
   const DISPATCH = useDispatch();
+  const team = teams.find((team) => team.id === currentProject.team_id);
+  useEffect(() => {
+    async function getT() {
+      const opts = await Promise.all(
+        team.members.map(async (mem) => {
+          const user = await getOptUser(mem);
+          return {
+            value: user.id,
+            label: user.name,
+            icon: user.avatar,
+          };
+        })
+      );
+      setOptions(opts);
+    }
+    getT();
+  }, []);
+  // useEffect(() => {
+  //   DISPATCH(getTeamMembers({ id: currentProject.team_id }));
+  // }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -171,7 +185,7 @@ const CustomOption = (props) => {
       className="customOption"
     >
       <img
-        src={data.icon}
+        src={data.icon ? data.icon : "default-user.jpg"}
         alt={data.label}
         style={{ width: 20, height: 20, marginRight: 10 }}
       />
