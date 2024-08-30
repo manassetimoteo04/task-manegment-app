@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import SignupLayout from "../features/authentication/SignupLayout";
 
 function Signup() {

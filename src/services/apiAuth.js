@@ -53,7 +53,6 @@ export const getLogged = async function () {
 };
 export const getSession = async function () {
   const { data: session } = await supabase.auth.getSession();
-  console.log(session.session.user);
   if (!session.session) return null;
   return session.session?.user;
 };

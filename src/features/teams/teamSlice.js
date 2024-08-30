@@ -1,5 +1,11 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { createTeam, getTeams } from "../../services/apiTeam";
+import {
+  addTeamMember,
+  addTeamTags,
+  createTeam,
+  getSingleTeam,
+  getTeams,
+} from "../../services/apiTeam";
 
 export const createNewTeam = createAsyncThunk(
   "teams/createTeam",
@@ -11,9 +17,28 @@ export const createNewTeam = createAsyncThunk(
 );
 export const getAllTeams = createAsyncThunk("teams/getTeams", async () => {
   const data = await getTeams();
-  console.log(data);
   return data;
 });
+export const getCurrTeam = createAsyncThunk("teams/getCurrTeam", async (id) => {
+  const data = await getSingleTeam(id);
+  return data;
+});
+export const addTeamTagsNew = createAsyncThunk(
+  "teams/addTeamTagsNew",
+  async (obj) => {
+    const data = await addTeamTags(obj);
+    console.log(data);
+    return data;
+  }
+);
+export const addNewMember = createAsyncThunk(
+  "teams/addNewMember",
+  async (obj) => {
+    const data = await addTeamMember(obj);
+    console.log(data);
+    return data;
+  }
+);
 const initialState = {
   teams: [],
   status: { type: "", statu: "" },
@@ -27,6 +52,9 @@ const teamReducer = createSlice({
   extraReducers(builder) {
     createTeamBuilder(builder);
     loadTeamsBuilder(builder);
+    getCurrTeamBuilder(builder);
+    addTeamTagsNewBuilder(builder);
+    addNewMemberBuilder(builder);
   },
 });
 export default teamReducer.reducer;
@@ -63,5 +91,56 @@ function createTeamBuilder(builder) {
       state.error.type = "create";
       state.status.statu = "failed";
       state.error.error = "Error creating new team";
+    });
+}
+function getCurrTeamBuilder(builder) {
+  builder
+    .addCase(getCurrTeam.pending, (state) => {
+      state.status.type = "get";
+      state.status.statu = "loading";
+    })
+    .addCase(getCurrTeam.fulfilled, (state, action) => {
+      state.status.type = "get";
+      state.status.statu = "succeeded";
+      state.currentTeam = action.payload;
+    })
+    .addCase(getCurrTeam.rejected, (state) => {
+      state.error.type = "get";
+      state.status.statu = "failed";
+      state.error.error = "Error getting team info.";
+    });
+}
+function addTeamTagsNewBuilder(builder) {
+  builder
+    .addCase(addTeamTagsNew.pending, (state) => {
+      state.status.type = "addTeamTag";
+      state.status.statu = "loading";
+    })
+    .addCase(addTeamTagsNew.fulfilled, (state, action) => {
+      state.status.type = "addTeamTag";
+      state.status.statu = "succeeded";
+      state.currentTeam.tags = action.payload;
+    })
+    .addCase(addTeamTagsNew.rejected, (state) => {
+      state.error.type = "addTeamTag";
+      state.status.statu = "failed";
+      state.error.error = "Error getting team info.";
+    });
+}
+function addNewMemberBuilder(builder) {
+  builder
+    .addCase(addNewMember.pending, (state) => {
+      state.status.type = "addMember";
+      state.status.statu = "loading";
+    })
+    .addCase(addNewMember.fulfilled, (state, action) => {
+      state.status.type = "addMember";
+      state.status.statu = "succeeded";
+      state.currentTeam.members = action.payload;
+    })
+    .addCase(addNewMember.rejected, (state) => {
+      state.error.type = "addMember";
+      state.status.statu = "failed";
+      state.error.error = "Error getting team info.";
     });
 }

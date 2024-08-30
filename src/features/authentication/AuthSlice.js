@@ -31,7 +31,6 @@ export const logout = createAsyncThunk("auth/logout", async () => {
 });
 export const getUserSession = createAsyncThunk("auth/session", async () => {
   const data = await getSession();
-  console.log(data, "Session");
   return data;
 });
 

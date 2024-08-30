@@ -5,7 +5,6 @@ import { useApp } from "../../contexts/AppProvider";
 import Status from "../../ui/Status";
 import { getCurrentTask } from "./taskSlice";
 function TaskItem({ task }) {
-  console.log(task);
   const {
     title,
     status,

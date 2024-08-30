@@ -173,3 +173,37 @@
 .member-item:not(:last-child) {
     border-bottom: 1px solid var(--main-gray-scale-3);
 }
+
+.detail-empty-list {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+.add-form {
+    width: 100%;
+    background-color: var(--main-gray-scale-3);
+    display: flex;
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.add-form input {
+    width: 100%;
+    padding: 1rem;
+    background: none;
+    color: inherit;
+    font-size: inherit;
+}
+
+.add-form input:focus {
+    outline: none;
+}
+
+.add-form button {
+    width: 4rem;
+    background-color: var(--main-color);
+}

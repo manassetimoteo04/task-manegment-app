@@ -16,7 +16,6 @@ function ProtectedRoute({ children }) {
     },
     [isAuthenticaded, isLoading, navigate]
   );
-  console.log(isAuthenticaded);
   // 3. While loading, show a spinner
   if (isLoading && !isAuthenticaded) return <FulllpageSpinner />;
   if (isAuthenticaded) return children;

@@ -32,13 +32,6 @@ function TasksTable() {
           </span>
         </header>
         <div className="tasks-list">
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
-          <TaskItem task={{}} key={{}} />
           {allTasks.map((task) => (
             <TaskItem task={task} key={task.id} />
           ))}

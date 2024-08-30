@@ -30,13 +30,17 @@ const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Messages = lazy(() => import("./pages/Messages"));
 
-import { getUserSession } from "./features/authentication/AuthSlice";
+import {
+  getUserSession,
+  userLogged,
+} from "./features/authentication/AuthSlice";
 import { useDispatch } from "react-redux";
 function App() {
   const DISPATCH = useDispatch();
 
   useEffect(() => {
     DISPATCH(getUserSession());
+    DISPATCH(userLogged());
   }, [getUserSession]);
   return (
     <AppProvider>

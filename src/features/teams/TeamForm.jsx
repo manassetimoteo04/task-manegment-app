@@ -13,6 +13,7 @@ function TeamForm() {
 
   const { dispatch } = useApp();
   const { status } = useSelector((state) => state.teams);
+  const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
   function handleSubmit(e) {
     e.preventDefault();
@@ -21,7 +22,7 @@ function TeamForm() {
       bio,
       description,
       image,
-      createdBy: "123",
+      createdBy: currentUser.id,
     };
     DISPATCH(createNewTeam(newTeam));
   }
