@@ -12,10 +12,11 @@ const initalState = {
   showNotification: false,
   showTaskForm: false,
   showProjectForm: false,
-  showSideBar: true,
+  showSideBar: false,
   showProjectTask: "task",
   showTaskDetail: false,
   showTeamForm: false,
+  showPopup: null,
 };
 function reducer(state, action) {
   switch (action.type) {
@@ -30,11 +31,17 @@ function reducer(state, action) {
     case "task/toggleDetail":
       return { ...state, showTaskDetail: !state.showTaskDetail };
     case "app/showSideBar":
-      return { ...state, showSideBar: !state.showSideBar };
+      return { ...state, showSideBar: true };
+    case "app/closeSideBar":
+      return { ...state, showSideBar: false };
     case "app/showNotification":
       return { ...state, showNotification: true };
     case "app/closeNotification":
       return { ...state, showNotification: false };
+    case "app/showPopup":
+      return { ...state, showPopup: action.payload };
+    case "app/closePopup":
+      return { ...state, showPopup: null };
     case "team/showForm":
       return { ...state, showTeamForm: !state.showTeamForm };
     case "team/closeForm":
@@ -53,6 +60,7 @@ function AppProvider({ children }) {
       showProjectTask,
       showTaskDetail,
       showTeamForm,
+      showPopup,
     },
     dispatch,
   ] = useReducer(reducer, initalState);
@@ -61,6 +69,8 @@ function AppProvider({ children }) {
     "isDarkMode"
   );
   const [showMessageUserDetail, setShowMessageUserDetail] = useState(false);
+  const [showProjectMobile, setShowProjectMobile] = useState(false);
+  const [showTeamDetail, setShowTeamDetail] = useState(false);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
@@ -86,6 +96,11 @@ function AppProvider({ children }) {
         showMessageUserDetail,
         setShowMessageUserDetail,
         showTeamForm,
+        showPopup,
+        showProjectMobile,
+        setShowProjectMobile,
+        showTeamDetail,
+        setShowTeamDetail,
       }}
     >
       {children}

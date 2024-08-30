@@ -21,7 +21,6 @@
 .summary-box {
     background-color: var(--main-light-color);
     padding: 2rem;
-    border-radius: 0.5rem;
     display: flex;
     gap: 2rem;
     align-items: center;
@@ -31,7 +30,7 @@
 .summary-box .icon {
     background-color: var(--main-gray-scale-2);
     padding: 1rem;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
 }
 
 .summary-box .blue {
@@ -77,10 +76,8 @@
 /* STYLING TODAY'S TASKS BOX */
 .today-tasks-box {
     background-color: var(--main-light-color);
-    border-radius: 0.5rem;
     min-height: 40rem;
     border: 1px solid var(--main-gray-scale-2);
-
 }
 
 .today-tasks-box header {
@@ -103,7 +100,7 @@
 
 .today-tasks-box .task-list .list-header {
     display: grid;
-    grid-template-columns: 0.5fr 2fr 1fr 1.2fr 1fr 1fr;
+    grid-template-columns: 0.5fr 3fr 1fr 1fr;
     background-color: var(--main-gray-scale-1);
     border-bottom: 1px solid var(--main-gray-scale-3);
 
@@ -163,7 +160,6 @@
 /* DASHBOARD TEAMS BOXS */
 .dashboard-teams {
     background-color: var(--main-light-color);
-    border-radius: 0.5rem;
     min-height: 40rem;
     padding: 2rem;
     border: 1px solid var(--main-gray-scale-2);
@@ -216,4 +212,39 @@
 .team-imgs img {
     border: 2px solid var(--main-light-color);
 
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 54.625em) {
+    .dashboard-summary {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 49.125em) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 42.9375em) {
+    .dashboard-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 34.625em) {
+    .task-list .task-box {
+        grid-template-columns: 0.5fr 2fr 1fr 1fr
+    }
+
+    .no-mobile {
+        display: none;
+    }
+}
+
+@media (max-width: 27.75em) {
+    .dashboard-summary {
+        grid-template-columns: repeat(1, 1fr);
+    }
 }

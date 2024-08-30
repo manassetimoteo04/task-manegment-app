@@ -4,6 +4,7 @@ import ListEmpty from "../../ui/ListEmpty";
 import Spinner from "../../ui/Spinner";
 function ProjectListBox() {
   const { data: projectList, status } = useSelector((store) => store.projects);
+
   return (
     <ul className="project-list-box">
       {status !== "loading" && status !== "failed" && projectList.length > 0

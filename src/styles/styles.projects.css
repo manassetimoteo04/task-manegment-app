@@ -76,7 +76,7 @@
 .form-grid-group {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3rem;
+    gap: 2rem;
 }
 
 label {
@@ -84,14 +84,11 @@ label {
 }
 
 .project-form input,
-
 textarea {
     width: 100%;
     padding: 1.2rem 1rem;
     font-size: inherit;
     background: none;
-
-    border-radius: 0.5rem;
     color: inherit;
     font-family: inherit;
     background-color: var(--main-gray-scale-2);
@@ -102,7 +99,6 @@ textarea {
     font-size: inherit;
     background: none;
     border: none;
-    border-radius: 0.5rem;
     color: var(--main-primary-text);
     font-family: inherit;
     background-color: var(--main-gray-scale-2);
@@ -142,7 +138,6 @@ textarea:focus {
     font: inherit;
     font-weight: 500;
     margin-right: 1.2rem;
-    border-radius: 0.5rem;
     border: none;
     color: var(--main-primary-text);
     background-color: var(--main-color);
@@ -297,7 +292,6 @@ textarea:focus {
 .project-details {
     background-color: var(--main-light-color);
     border: 1px solid var(--main-gray-scale-3);
-    border-radius: 0.5rem;
 }
 
 .project-details-header {
@@ -365,7 +359,6 @@ textarea:focus {
 
 .project-filter-nav ul {
     background-color: var(--main-gray-scale-2);
-    border-radius: 0.5rem;
 }
 
 .project-filter-nav ul {
@@ -375,8 +368,7 @@ textarea:focus {
 }
 
 .project-filter-nav li {
-    padding: 1.4rem 2rem;
-    border-radius: 0.5rem;
+    padding: 1rem 2rem;
 }
 
 .project-filter-nav .active {
@@ -395,7 +387,6 @@ textarea:focus {
     color: inherit;
     width: 4rem;
     height: 4rem;
-    border-radius: 0.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -467,6 +458,9 @@ textarea:focus {
 
 }
 
+.project-detail-back-btn {
+    display: none;
+}
 
 
 .detail-tag {
@@ -615,10 +609,45 @@ textarea:focus {
     color: inherit;
     width: 4rem;
     height: 4rem;
-    border-radius: 0.5rem;
 }
 
 .note-item button:hover {
     background: var(--main-gray-scale-2);
     color: inherit;
+}
+
+/* QUERIES */
+@media (max-width: 42.9375em) {
+    .project-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hide-mobile {
+        display: none;
+    }
+
+    .project-detail-back-btn {
+        display: block;
+        background: none;
+        color: inherit;
+        margin-right: 1rem;
+    }
+
+    .project-menu-filter {
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .filter-box input {
+        width: 100% !important;
+        align-self: flex-end;
+    }
+}
+
+@media (max-width: 34.625em) {
+    .project-menu-filter {
+        flex-direction: column;
+        gap: 2rem;
+
+    }
 }

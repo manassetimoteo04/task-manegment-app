@@ -8,12 +8,12 @@ function DashBoardTaskBox() {
         <ChevronDown />
       </span>
       <span className="task-name">Task</span>
-      <span>Today</span>
+      <span className="no-mobile">Today</span>
       <Status type="progress">progress</Status>
       <span className="img-enganged">
         <img src="me.jpg" alt="" />{" "}
       </span>
-      <span>Priority</span>
+      <span className="no-mobile">Priority</span>
     </div>
   );
 }

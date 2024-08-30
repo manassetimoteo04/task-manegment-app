@@ -37,7 +37,7 @@
   --main-secondary-color: #0077b6;
   --main-tertiay-color: #00b4d8;
   --main-gray-color: #e0e1dd;
-  --main-gray-faded-color: #dff8fd6c;
+  --main-gray-faded-color: #dff8fde3;
   --main-gray-scale-1: #f8f9fa;
   --main-gray-scale-2: #ebebeb;
   --main-gray-scale-3: #dee2e6;
@@ -72,6 +72,10 @@ body {
   color: var(--main-text-color);
   background-color: var(--main-gray-faded-color);
   position: relative;
+}
+
+*::-webkit-scrollbar {
+  width: 0;
 }
 
 /* BUTTON SPINNER */
@@ -179,4 +183,61 @@ body {
 
 .page-not-found button:hover {
   background-color: var(--main-gray-scale-1);
+}
+
+/* STYLING POPUP */
+.popup {
+  position: absolute;
+  width: 35rem;
+  background-color: var(--main-gray-faded-color);
+  padding: 1rem 1.5rem;
+  display: grid;
+  grid-template-columns: 3rem 1fr 3rem;
+  align-items: center;
+  gap: 2rem;
+  top: 1rem;
+  border: 1px solid var(--main-gray-scale-3);
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 0.5rem;
+  backdrop-filter: blur(1rem);
+  box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.08);
+}
+
+.popup .popup-icon {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  border-radius: 50%;
+}
+
+.popup button {
+  background: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+}
+
+.popup span {
+  color: var(--main-primary-text);
+}
+
+.popup button:hover {
+  background-color: var(--main-gray-scale-2);
+  color: var(--main-primary-text);
+}
+
+.popup-success {
+  background-color: var(--main-success-color);
+}
+
+.popup-error {
+  background-color: var(--main-warning-color);
 }

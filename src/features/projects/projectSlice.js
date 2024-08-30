@@ -49,9 +49,9 @@ const initialState = {
   getStatus: "",
   getNotesStatus: "",
   createStatus: "",
-  currentProject: {},
+  currentProject: null,
   projectNotes: [],
-  error: "",
+  error: { type: "", error: "" },
 };
 
 const projectReducer = createSlice({
@@ -81,7 +81,8 @@ function gettingProjectsBuilder(builder) {
     })
     .addCase(getProjectsData.rejected, (state, action) => {
       state.status = "failed";
-      state.error = action.error.message;
+      state.error.type = "getProjects";
+      state.error.error = action.error.message;
     });
 }
 function createProjectBuilder(builder) {
@@ -96,7 +97,8 @@ function createProjectBuilder(builder) {
     })
     .addCase(createProject.rejected, (state, action) => {
       state.createStatus = "failed";
-      state.error = action.error.message;
+      state.error.type = "createProject";
+      state.error.error = action.error.message;
     });
 }
 function getProjectBuilder(builder) {
@@ -111,7 +113,8 @@ function getProjectBuilder(builder) {
     })
     .addCase(getCurrProject.rejected, (state, action) => {
       state.getStatus = "failed";
-      state.error = action.error.message;
+      state.error.type = "getProject";
+      state.error.error = action.error.message;
     });
 }
 function getProjectNotesBuilder(builder) {
@@ -125,7 +128,8 @@ function getProjectNotesBuilder(builder) {
     })
     .addCase(getProjectNotes.rejected, (state, action) => {
       state.getNotesStatus = "failed";
-      state.error = action.error.message;
+      state.error.type = "getProjectNotes";
+      state.error.error = action.error.message;
     });
 }
 function createProjectNoteBuilder(builder) {
@@ -139,7 +143,8 @@ function createProjectNoteBuilder(builder) {
     })
     .addCase(createProjectNote.rejected, (state, action) => {
       state.getNotesStatus = "failed";
-      state.error = action.error.message;
+      state.error.type = "createProjectNote";
+      state.error.error = action.error.message;
     });
 }
 export default projectReducer.reducer;

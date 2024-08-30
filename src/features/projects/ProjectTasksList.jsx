@@ -8,11 +8,11 @@ function ProjectTasksList() {
   const { currentProject } = useSelector((state) => state.projects);
   const { projectTasks } = useSelector((state) => state.tasks);
   useEffect(() => {
-    dispatch(gettingProjectTasks(currentProject.id));
-  }, [currentProject.id]);
+    dispatch(gettingProjectTasks(currentProject?.id));
+  }, [currentProject?.id]);
   return (
     <>
-      {projectTasks.length > 0 ? (
+      {projectTasks?.length > 0 ? (
         <div className="project-tasks-list">
           <header className="task-list-header">
             <span></span>

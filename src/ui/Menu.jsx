@@ -9,15 +9,19 @@ import Logo from "./Logo";
 function Menu() {
   const { showSideBar, dispatch } = useApp();
   return (
-    <menu>
-      <button
+    <menu
+      onMouseEnter={() => dispatch({ type: "app/showSideBar" })}
+      onMouseLeave={() => dispatch({ type: "app/closeSideBar" })}
+    >
+      {/* <button
         className="show-side"
         onClick={() => dispatch({ type: "app/showSideBar" })}
       >
         {!showSideBar && <ChevronsRight size={20} />}
         {showSideBar && <X size={18} />}
-      </button>
-      <Logo />
+      </button> */}
+      {/* <Logo /> */}
+      <UserBox />
       <div className="scroller-menu">
         <NavList />
         <General />

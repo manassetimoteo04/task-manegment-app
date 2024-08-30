@@ -4,6 +4,7 @@ import TasksFilter from "./TasksFilter";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks } from "./taskSlice";
+import PaginationBox from "../../ui/PaginationBox";
 
 function TasksTable() {
   const DISPATCH = useDispatch();
@@ -31,11 +32,19 @@ function TasksTable() {
           </span>
         </header>
         <div className="tasks-list">
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
+          <TaskItem task={{}} key={{}} />
           {allTasks.map((task) => (
             <TaskItem task={task} key={task.id} />
           ))}
         </div>
       </div>
+      <PaginationBox />
     </div>
   );
 }

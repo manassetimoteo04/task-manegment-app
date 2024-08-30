@@ -114,3 +114,17 @@
     align-items: center;
     gap: 0.5rem;
 }
+
+/* QUERIES */
+@media (max-width: 27.75em) {
+    .notification-container {
+        top: 8rem;
+        width: 100%;
+        right: 0;
+        height: 100vh;
+    }
+
+    .notification-container header {
+        padding: 2rem;
+    }
+}

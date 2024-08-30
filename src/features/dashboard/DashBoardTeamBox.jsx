@@ -4,9 +4,6 @@ function DashBoardTeamBox() {
       <span className="team-name">Team Name</span>
       <div className="team-imgs">
         <img src="file.png" alt="" />
-        <img src="me.jpg" alt="" />
-        <img src="file.png" alt="" />
-        <img src="me.jpg" alt="" />
       </div>
     </div>
   );

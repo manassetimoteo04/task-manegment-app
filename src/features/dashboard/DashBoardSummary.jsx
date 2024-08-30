@@ -5,7 +5,7 @@ function DashBoardSummary() {
     <div className="dashboard-summary">
       <div className="summary-box">
         <span className="icon blue">
-          <Users size={50} />
+          <Users size={35} />
         </span>
         <div>
           <span className="summ-tag">Teams</span>
@@ -14,7 +14,7 @@ function DashBoardSummary() {
       </div>
       <div className="summary-box">
         <span className="icon yellow">
-          <FolderMinus size={50} />
+          <FolderMinus size={35} />
         </span>
         <div>
           <span className="summ-tag">Projects</span>
@@ -23,7 +23,7 @@ function DashBoardSummary() {
       </div>
       <div className="summary-box">
         <span className="icon orange">
-          <Clipboard size={50} />
+          <Clipboard size={35} />
         </span>
         <div>
           <span className="summ-tag">Tasks</span>
@@ -32,10 +32,10 @@ function DashBoardSummary() {
       </div>
       <div className="summary-box">
         <span className="icon pink">
-          <Calendar size={50} />
+          <Calendar size={35} />
         </span>
         <div>
-          <span className="summ-tag">Today's Tasks</span>
+          <span className="summ-tag">Today's</span>
           <span className="total-summ">234</span>
         </div>
       </div>

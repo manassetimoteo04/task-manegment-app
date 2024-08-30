@@ -1,3 +1,4 @@
+import { fetchTimeOut } from "./fetchTimeOut";
 import { supabase } from "./supabase";
 import { uploadImage } from "./uploadImage";
 export const getProjects = async function () {
@@ -24,12 +25,13 @@ export const createNewProject = async function (newProject) {
     start_date: newProject.startDate,
   };
 
-  const { data, error } = await supabase
-    .from("projects")
-    .insert([project])
-    .select();
-  if (error) console.error(error.message);
-  return data[0];
+  const data = await Promise.race([
+    supabase.from("projects").insert([project]).select(),
+    fetchTimeOut(2),
+  ]);
+  console.log(data);
+  if (data) console.error(error.message);
+  return data.data[0];
 };
 
 export const getProjectID = async function (id) {

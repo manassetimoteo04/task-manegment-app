@@ -1,17 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrProject } from "./projectSlice";
+import { useApp } from "../../contexts/AppProvider";
 
 function ProjectListItem({ project }) {
   const { name, image, due_date: dueDate } = project;
-  const dispatch = useDispatch();
+  const DISPATCH = useDispatch();
   const { currentProject } = useSelector((state) => state.projects);
+  const { setShowProjectMobile } = useApp();
   function handleClick() {
-    dispatch(getCurrProject(project.id));
+    DISPATCH(getCurrProject(project.id));
+    setShowProjectMobile(true);
   }
 
   return (
     <li
-      className={currentProject.id === project.id ? "active" : ""}
+      className={currentProject?.id === project?.id ? "active" : ""}
       onClick={handleClick}
     >
       <img src={image} alt={name} />

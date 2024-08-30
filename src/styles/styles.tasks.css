@@ -16,26 +16,26 @@
 /* STYLING THE TASK TABLE */
 
 .tasks-table {
-
-    border-radius: 0.5rem;
     padding: 2rem;
     overflow: hidden;
     background-color: var(--main-light-color);
-
     margin: 2rem;
     border: 1px solid var(--main-gray-scale-3);
 }
 
 .tasks-table .table {
-    border-radius: 1rem;
     border: 1px solid var(--main-gray-scale-3);
     background-color: var(--main-light-color);
-    overflow: hidden;
+    overflow-x: scroll;
+    margin-bottom: 2rem;
+
 }
 
 .tasks-table-header {
     display: grid;
+    align-items: center;
     grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    min-width: 102rem;
     color: var(--main-primary-text);
     grid-template-rows: 1;
     background-color: var(--main-gray-scale-1);
@@ -45,7 +45,7 @@
 
 .tasks-table-header span {
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 0.5rem 2rem;
 }
 
 .tasks-table-header span:not(:last-child) {
@@ -61,6 +61,8 @@
 .task-item {
     display: grid;
     grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    min-width: 102rem;
+
 }
 
 .task-item:not(:last-child) {
@@ -70,6 +72,8 @@
 
 .task-item span {
     padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
 }
 
 .task-item span:not(:last-child) {
@@ -216,3 +220,6 @@
     justify-content: space-between;
     gap: 1rem;
 }
+
+/* QUERIES */
+@media (max-width:74.125em) {}

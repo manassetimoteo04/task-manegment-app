@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import {
   BrowserRouter,
   HashRouter,
@@ -13,13 +13,12 @@ import {
 // import Tasks from "./pages/Tasks";
 // import Calender from "./pages/Calender";
 import AppProvider from "./contexts/AppProvider";
-import Spinner from "./ui/Spinner";
+
 import FulllpageSpinner from "./ui/FulllpageSpinner";
 import PageNotFound from "./pages/PageNotFound";
-import NotificationContainer from "./ui/NotificationContainer";
-// import Setting from "./pages/Setting";
-// import Login from "./pages/Login";
-// import Signup from "./pages/Signup";
+
+import ProtectedRoute from "./pages/ProtectedRoute";
+import ProtectedAuth from "./features/authentication/ProtectedAuth";
 
 const AppLayout = lazy(() => import("./pages/AppLayout"));
 const Projects = lazy(() => import("./pages/Projects"));
@@ -31,13 +30,27 @@ const Login = lazy(() => import("./pages/Login"));
 const Signup = lazy(() => import("./pages/Signup"));
 const Messages = lazy(() => import("./pages/Messages"));
 
+import { getUserSession } from "./features/authentication/AuthSlice";
+import { useDispatch } from "react-redux";
 function App() {
+  const DISPATCH = useDispatch();
+
+  useEffect(() => {
+    DISPATCH(getUserSession());
+  }, [getUserSession]);
   return (
     <AppProvider>
       <BrowserRouter>
         <Suspense fallback={<FulllpageSpinner />}>
           <Routes>
-            <Route path="/" element={<AppLayout />}>
+            <Route
+              path="/"
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
               <Route index element={<Navigate replace to="dashboard" />} />
               <Route path="dashboard" element={<Dashboard />}></Route>
               <Route path="projects" element={<Projects />}></Route>
@@ -47,8 +60,22 @@ function App() {
               <Route path="calender" element={<Calender />}></Route>
               <Route path="settings" element={<Setting />}></Route>
             </Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<Signup />}></Route>
+            <Route
+              path="/login"
+              element={
+                <ProtectedAuth>
+                  <Login />
+                </ProtectedAuth>
+              }
+            ></Route>
+            <Route
+              path="/signup"
+              element={
+                <ProtectedAuth>
+                  <Signup />
+                </ProtectedAuth>
+              }
+            ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
           </Routes>
         </Suspense>

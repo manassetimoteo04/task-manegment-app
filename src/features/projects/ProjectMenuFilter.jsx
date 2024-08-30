@@ -1,6 +1,5 @@
 import { Filter, Plus, Search } from "react-feather";
 import { useApp } from "../../contexts/AppProvider";
-import Button from "../../ui/Button";
 import SearchInput from "../../ui/SearchInput";
 
 function ProjectMenuFilter() {

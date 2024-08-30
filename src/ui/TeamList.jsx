@@ -12,21 +12,18 @@ function TeamList() {
     DISPATCH(getAllTeams());
   }, []);
 
-  if (!showSideBar) return <div></div>;
   return (
     <div className="menu-team">
-      <span className="menu-tag">
-        {showSideBar && (
-          <>
-            Team
-            <button
-              className="btn-create-team"
-              onClick={() => dispatch({ type: "team/showForm" })}
-            >
-              <Plus size={18} />
-            </button>
-          </>
-        )}
+      <span className="tag">
+        <>
+          {showSideBar && "Team"}
+          <button
+            className="btn-create-team"
+            onClick={() => dispatch({ type: "team/showForm" })}
+          >
+            <Plus size={20} />
+          </button>
+        </>
       </span>
 
       <ul className="team-list">
@@ -37,8 +34,9 @@ function TeamList() {
   );
 }
 function TeamListItem({ team }) {
+  const { setShowTeamDetail } = useApp();
   return (
-    <li>
+    <li onClick={() => setShowTeamDetail(true)}>
       <span className="team-name">{team.name}</span>
       <div className="users-team">
         <img src={team.image} alt={team.name} />

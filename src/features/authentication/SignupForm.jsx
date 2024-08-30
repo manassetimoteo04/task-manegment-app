@@ -3,6 +3,8 @@ import InputBox from "../../ui/InputBox";
 import { Lock, Mail, User } from "react-feather";
 import Button from "../../ui/Button";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUp } from "./AuthSlice";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -10,8 +12,16 @@ function SignupForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
+  const DISPATCH = useDispatch();
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (!name || !email || !password || !confirm) return;
+    if (password !== confirm) return alert("Confirm must be the same");
+    console.log(email, password);
+    DISPATCH(signUp({ email, password, name }));
+  }
   return (
-    <form className="login-form">
+    <form className="login-form" onSubmit={handleSubmit}>
       <div className="login-group">
         <label htmlFor="name">Full Name</label>
         <InputBox>

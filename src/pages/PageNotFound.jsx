@@ -1,8 +1,12 @@
+import { useEffect } from "react";
 import { ArrowLeft } from "react-feather";
 import { useNavigate } from "react-router";
 
 function PageNotFound() {
   const navigate = useNavigate();
+  useEffect(() => {
+    document.title = "404 - Page Not Found";
+  }, []);
   return (
     <div className="page-not-found">
       <div className="page404">404</div>
