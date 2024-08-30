@@ -5,16 +5,18 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewTeam } from "./teamSlice";
 import { useApp } from "../../contexts/AppProvider";
+import { useShowPopup } from "../../hooks/useShowPopup";
 function TeamForm() {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-
-  const { dispatch } = useApp();
   const { status } = useSelector((state) => state.teams);
   const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
+
+  const { dispatch } = useApp();
+  const [showPopup] = useShowPopup();
   function handleSubmit(e) {
     e.preventDefault();
     const newTeam = {
@@ -27,9 +29,18 @@ function TeamForm() {
     DISPATCH(createNewTeam(newTeam));
   }
   useEffect(() => {
-    if (status.type === "create" && status.statu === "succeeded")
+    if (status.type === "create" && status.statu === "succeeded") {
       dispatch({ type: "team/closeForm" });
+      showPopup({ type: "success", message: "Team created successfully" });
+    }
+    if (status.type === "create" && status.statu === "failed") {
+      showPopup({
+        type: "error",
+        message: "Something wen't wrong try again later",
+      });
+    }
   }, [status.statu]);
+
   return (
     <form className="team-form" onSubmit={handleSubmit}>
       <header>

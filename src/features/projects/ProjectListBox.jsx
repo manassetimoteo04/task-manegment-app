@@ -7,13 +7,17 @@ function ProjectListBox() {
 
   return (
     <ul className="project-list-box">
-      {status !== "loading" && status !== "failed" && projectList.length > 0
+      {status.statu !== "loading" &&
+      status.statu !== "failed" &&
+      projectList.length > 0
         ? projectList.map((project) => (
             <ProjectListItem project={project} key={project.id} />
           ))
-        : status !== "loading" &&
-          status !== "failed" && <ListEmpty>Sem nenhum projecto</ListEmpty>}
-      {status === "loading" && <Spinner />}
+        : status.statu !== "loading" &&
+          status.statu !== "failed" && (
+            <ListEmpty>Sem nenhum projecto</ListEmpty>
+          )}
+      {status.statu === "loading" && <Spinner />}
     </ul>
   );
 }

@@ -7,12 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUserSession, login, userLogged } from "./AuthSlice";
 import ButtonSpinner from "../../ui/ButtonSpinner";
 import { useAuth } from "./useAuth";
+import { useShowPopup } from "../../hooks/useShowPopup";
 
 function LoginForm() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("timoteoscript@gmail.com");
   const [password, setPassword] = useState("111111");
-
+  const [showPopup] = useShowPopup();
+  const { status, error } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
   const { isAuthenticated, isLoading } = useAuth();
 
@@ -27,9 +29,10 @@ function LoginForm() {
   useEffect(() => {
     DISPATCH(userLogged());
   }, []);
-  // useEffect(() => {
-  //   DISPATCH(getUserSession());
-  // }, [getUserSession]);
+  useEffect(() => {
+    if (status.statu === "failed" && status.type === "login")
+      showPopup({ type: "error", message: error });
+  }, [status.statu]);
   return (
     <form className="login-form" onSubmit={handleSubmit}>
       <div className="login-group">
@@ -56,7 +59,7 @@ function LoginForm() {
           />
         </InputBox>
       </div>
-      <Button type="secondary">
+      <Button type="secondary" disabled={isLoading}>
         {isLoading ? <ButtonSpinner /> : "Login"}
       </Button>
       <div className="form-options">

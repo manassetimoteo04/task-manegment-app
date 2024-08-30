@@ -6,7 +6,6 @@ export const getUserImageName = async function (id) {
     .select("name, avatar, id")
     .eq("id", id)
     .single();
-  console.log(data, id);
   if (error) throw new Error(`User with id ${id} not found`);
   return data;
 };

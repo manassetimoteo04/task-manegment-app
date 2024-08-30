@@ -20,12 +20,15 @@ export const getTasks = async function (projectId) {
   const { data: projects, error: err } = await supabase
     .from("projects")
     .select("id");
+  if (err) throw new Error(err.message);
+
+  if (!projects) return;
   const ids = projects.map((project) => project.id);
   const { data: task, error } = await supabase
     .from("task")
     .select("*")
     .in("project_id", ids);
-  if (error) throw new Error(Error.message);
+  if (error) throw new Error(error.message);
   return task;
 };
 

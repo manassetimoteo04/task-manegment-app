@@ -1,10 +1,13 @@
 import { supabase } from "./supabase";
 import { uploadImage } from "./uploadImage";
 
-export const getTeams = async function () {
-  const { data: team, error } = await supabase.from("teams").select("*");
+export const getTeams = async function ({ id }) {
+  const { data: team, error } = await supabase
+    .from("teams")
+    .select("*")
+    .contains("members", [id]);
+  console.log(team, id);
   if (error) {
-    console.error(team, error);
     throw new Error(error.message);
   }
   return team;
@@ -51,7 +54,7 @@ export const addTeamMember = async function ({ email, id, arr }) {
     .single();
 
   if (err) {
-    throw new Error(`User not found: ${err.message}`);
+    throw new Error(`No user with email: ${email} were found`);
   }
   const newArr = [...arr, userId.id];
   const isExist = arr.some((a) => a === userId.id);

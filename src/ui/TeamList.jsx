@@ -4,15 +4,29 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTeams, getCurrTeam } from "../features/teams/teamSlice";
 import SmallBtn from "./SmallBtn";
+import { useShowPopup } from "../hooks/useShowPopup";
 
 function TeamList() {
   const { showSideBar, dispatch } = useApp();
   const { teams, status } = useSelector((state) => state.teams);
+  const {
+    currentUser,
+    isLoading,
+    error,
+    status: authStatus,
+  } = useSelector((state) => state.auth);
+  const [showPopup] = useShowPopup();
   const DISPATCH = useDispatch();
   useEffect(() => {
-    DISPATCH(getAllTeams());
-  }, []);
-
+    DISPATCH(getAllTeams({ id: currentUser?.id }));
+  }, [authStatus.status]);
+  useEffect(() => {
+    if (error)
+      showPopup({
+        type: "error",
+        message: "Something went wrong, please check your internet conection",
+      });
+  }, [error]);
   return (
     <div className="menu-team">
       <span className="tag">

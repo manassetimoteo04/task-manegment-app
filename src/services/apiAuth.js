@@ -7,7 +7,14 @@ export const userLogin = async function ({ email, password }) {
     email: email,
     password: password,
   });
-  if (error) throw new Error(error.message);
+  if (error)
+    throw new Error(
+      error.message === "Failed to fetch"
+        ? "Something went wrong, check your internet conection and please try again"
+        : error.message === "Invalid login credentials"
+        ? "Wrong Email or Password, please check and try again"
+        : error.message
+    );
 
   const user = await getUser(data.user.id);
   return { ...user, role: data.user.role };

@@ -1,12 +1,13 @@
 import { fetchTimeOut } from "./fetchTimeOut";
 import { supabase } from "./supabase";
 import { uploadImage } from "./uploadImage";
-export const getProjects = async function () {
+export const getProjects = async function (teams) {
   const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
+    .in("team_id", teams)
     .order("created_at", { ascending: false });
-
+  console.log(projects, teams);
   if (error) throw new Error(error.message);
   return projects;
 };
@@ -25,13 +26,13 @@ export const createNewProject = async function (newProject) {
     start_date: newProject.startDate,
   };
 
-  const data = await Promise.race([
-    supabase.from("projects").insert([project]).select(),
-    fetchTimeOut(2),
-  ]);
-  console.log(data);
-  if (data) console.error(error.message);
-  return data.data[0];
+  const { data, error } = await supabase
+    .from("projects")
+    .insert([project])
+    .select();
+  if (error) throw new Error(error.message);
+
+  return data;
 };
 
 export const getProjectID = async function (id) {

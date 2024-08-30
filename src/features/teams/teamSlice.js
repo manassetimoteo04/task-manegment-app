@@ -11,13 +11,12 @@ import {
 export const createNewTeam = createAsyncThunk(
   "teams/createTeam",
   async (team) => {
-    console.log(team);
     const data = await createTeam(team);
     return data;
   }
 );
-export const getAllTeams = createAsyncThunk("teams/getTeams", async () => {
-  const data = await getTeams();
+export const getAllTeams = createAsyncThunk("teams/getTeams", async (obj) => {
+  const data = await getTeams(obj);
   return data;
 });
 export const getCurrTeam = createAsyncThunk("teams/getCurrTeam", async (id) => {

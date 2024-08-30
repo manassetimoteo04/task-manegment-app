@@ -5,6 +5,7 @@ import Button from "../../ui/Button";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { signUp } from "./AuthSlice";
+import { useShowPopup } from "../../hooks/useShowPopup";
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -13,11 +14,12 @@ function SignupForm() {
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
   const DISPATCH = useDispatch();
+  const [showPopup] = useShowPopup();
   function handleSubmit(e) {
     e.preventDefault();
     if (!name || !email || !password || !confirm) return;
-    if (password !== confirm) return alert("Confirm must be the same");
-    console.log(email, password);
+    if (password !== confirm)
+      return showPopup({ type: "error", message: "Confirm must be the same" });
     DISPATCH(signUp({ email, password, name }));
   }
   return (

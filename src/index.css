@@ -78,6 +78,7 @@ body {
   width: 0;
 }
 
+
 /* BUTTON SPINNER */
 .button-spinner {
   position: relative;
@@ -186,19 +187,29 @@ body {
 }
 
 /* STYLING POPUP */
+.popup-container {
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 999999999999999999999;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  transition: all 0.5s;
+}
+
 .popup {
-  position: absolute;
   width: 35rem;
   background-color: var(--main-gray-faded-color);
   padding: 1rem 1.5rem;
   display: grid;
   grid-template-columns: 3rem 1fr 3rem;
   align-items: center;
+  transition: all 0.5s;
+
   gap: 2rem;
-  top: 1rem;
   border: 1px solid var(--main-gray-scale-3);
-  left: 50%;
-  transform: translateX(-50%);
   border-radius: 0.5rem;
   backdrop-filter: blur(1rem);
   box-shadow: 1rem 1rem 1rem rgba(0, 0, 0, 0.08);
@@ -227,6 +238,7 @@ body {
 
 .popup span {
   color: var(--main-primary-text);
+  font-size: 1.4rem;
 }
 
 .popup button:hover {

@@ -8,8 +8,9 @@ import {
 } from "../../services/apiAuth";
 
 const initialState = {
-  currentUser: null,
+  currentUser: {},
   isLoading: true,
+  status: {},
   role: "",
   error: "",
 };
@@ -50,45 +51,63 @@ function loginBuilder(builder) {
   builder
     .addCase(login.pending, (state) => {
       state.isLoading = true;
+      state.status.type = "login";
+      state.status.statu = "loading";
     })
     .addCase(login.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.status.type = "login";
+      state.status.statu = "succeeded";
       state.currentUser = action.payload;
       state.role = action.payload.role;
     })
-    .addCase(login.rejected, (state) => {
+    .addCase(login.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = "Error logging user";
+      state.error = action.error.message;
+      state.status.type = "login";
+      state.status.statu = "failed";
     });
 }
 function signUpBuilder(builder) {
   builder
     .addCase(signUp.pending, (state) => {
       state.isLoading = true;
+      state.status.type = "signup";
+      state.status.statu = "loading";
     })
     .addCase(signUp.fulfilled, (state, action) => {
       state.isLoading = false;
+      state.status.type = "signup";
+      state.status.statu = "succeeded";
       state.currentUser = action.payload;
       state.role = action.payload.role;
     })
-    .addCase(signUp.rejected, (state) => {
+    .addCase(signUp.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = "Error singing up user";
+      state.error = action.error.message;
+      state.status.type = "signup";
+      state.status.statu = "failed";
     });
 }
 function getLoggedBuilder(builder) {
   builder
     .addCase(userLogged.pending, (state) => {
       state.isLoading = true;
+      state.status.type = "getLogged";
+      state.status.statu = "loading";
     })
     .addCase(userLogged.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = action.payload;
       state.role = action.payload.role;
+      state.status.type = "getLogged";
+      state.status.statu = "succeeded";
     })
     .addCase(userLogged.rejected, (state) => {
       state.isLoading = false;
       state.error = "Error getting user";
+      state.status.type = "getLogged";
+      state.status.statu = "failed";
     });
 }
 function logoutBuilder(builder) {
@@ -98,7 +117,7 @@ function logoutBuilder(builder) {
     })
     .addCase(logout.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.currentUser = null;
+      state.currentUser = {};
       state.role = "";
     })
     .addCase(logout.rejected, (state) => {
@@ -113,7 +132,8 @@ function getSessionBuilder(builder) {
     })
     .addCase(getUserSession.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.role = action.payload.role;
+      state.role = action.payload?.role;
+      state.currentUser.id = action.payload?.id;
     })
     .addCase(getUserSession.rejected, (state) => {
       state.isLoading = false;

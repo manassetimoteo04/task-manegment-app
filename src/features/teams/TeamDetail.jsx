@@ -7,6 +7,7 @@ import AddForm from "./AddForm";
 import { useEffect, useState } from "react";
 import { addNewMember, addTeamTagsNew } from "./teamSlice";
 import { getUserImageName } from "../../services/apiHelpers";
+import { useShowPopup } from "../../hooks/useShowPopup";
 
 function TeamDetail() {
   const { setShowTeamDetail } = useApp();
@@ -14,13 +15,23 @@ function TeamDetail() {
   const [showAddTagForm, setShowAddTagForm] = useState(false);
   const [showAddMemberForm, setShowAddMemberForm] = useState(false);
   const DISPATCH = useDispatch();
+
+  const [showPopup] = useShowPopup();
+  const { status: teamStatus, error } = useSelector((state) => state.teams);
+
+  useEffect(() => {
+    if (teamStatus.type === "addMember" && teamStatus.statu === "succeeded")
+      showPopup({ type: "success", message: "New member added successfully" });
+    if (teamStatus.type === "addMember" && teamStatus.statu === "failed")
+      showPopup({ type: "error", message: error.error });
+  }, [teamStatus.statu]);
   function handleAddTag(value) {
     const arr = [...currentTeam.tags, value];
     setShowAddTagForm(false);
     DISPATCH(addTeamTagsNew({ id: currentTeam.id, arr }));
   }
   function handleAddMember(email) {
-    setShowAddMemberForm(false);
+    if (!error.error) setShowAddMemberForm(false);
     DISPATCH(
       addNewMember({ email, id: currentTeam.id, arr: currentTeam.members })
     );
@@ -120,7 +131,7 @@ function TeamMemberItem({ id }) {
     }
     getData();
   }, []);
-  console.log(id, "IDDD");
+
   return (
     <li className="member-item">
       <img

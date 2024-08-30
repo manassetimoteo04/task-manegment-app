@@ -11,21 +11,22 @@ import TaskDetails from "../tasks/TaskDetails";
 
 function ProjectsLayout() {
   const { showTaskDetail, showProjectForm, showTaskForm } = useApp();
+  const { teams, status } = useSelector((state) => state.teams);
   const DISPATCH = useDispatch();
   const refEl = useRef();
   let ref = useRef(0);
   useEffect(() => {
-    DISPATCH(getProjectsData());
-  }, []);
+    if (status.statu === "succeeded" && status.type === "getAll") {
+      const ids = teams.map((team) => team.id);
+      DISPATCH(getProjectsData(ids));
+    }
+  }, [status.statu]);
 
   useEffect(() => {
-    console.log("showProjectForm useEffect called", showProjectForm);
     ref.current++;
     if (!refEl.current) return;
-
     const event = (e) => {
       const target = e.target.closest(".project-form");
-      console.log(target);
       if (target) return;
       showProjectForm && DISPATCH({ type: "project/closeProjectForm" });
     };

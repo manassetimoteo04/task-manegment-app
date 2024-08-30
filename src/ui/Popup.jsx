@@ -1,23 +1,40 @@
 import { Check, X } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
-import { useEffect } from "react";
-
-function Popup({ popupType }) {
+import { useEffect, useRef, useState } from "react";
+function Popup() {
   const { dispatch, showPopup } = useApp();
+  const [popupList, setPopupList] = useState([]);
+
   useEffect(() => {
-    showPopup?.type === "success" &&
-      setTimeout(() => dispatch({ type: "app/closePopup" }), 3000);
+    if (showPopup) {
+      setPopupList((prevList) => [...prevList, showPopup]);
+    }
   }, [showPopup]);
+
+  useEffect(() => {
+    // if (popupList.length === 0) {
+    //   dispatch({ type: "app/closePopup" });
+    // }
+  }, [popupList, dispatch]);
+  console.log(popupList);
+  const handleClose = (index) => {
+    setPopupList((prevList) => prevList.filter((_, i) => i !== index));
+  };
+
   return (
-    <div className="popup">
-      <span className={`popup-icon popup-${showPopup.type}`}>
-        {showPopup?.type === "success" && <Check />}{" "}
-        {showPopup?.type === "error" && <X />}
-      </span>
-      <span>{showPopup?.message}</span>
-      <button onClick={() => dispatch({ type: "app/closePopup" })}>
-        <X size={18} />
-      </button>
+    <div className="popup-container">
+      {popupList.map((curr, index) => (
+        <div key={index} className="popup">
+          <span className={`popup-icon popup-${curr.type}`}>
+            {curr?.type === "success" && <Check />}
+            {curr?.type === "error" && <X />}
+          </span>
+          <span>{curr?.message}</span>
+          <button onClick={() => handleClose(index)}>
+            <X size={18} />
+          </button>
+        </div>
+      ))}
     </div>
   );
 }

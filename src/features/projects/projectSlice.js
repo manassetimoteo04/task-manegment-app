@@ -8,8 +8,8 @@ import { createComment, getComments } from "../../services/apiComments";
 
 export const getProjectsData = createAsyncThunk(
   "projects/getProjectsData",
-  async () => {
-    const data = await getProjects();
+  async (teams) => {
+    const data = await getProjects(teams);
     return data;
   }
 );
@@ -39,13 +39,12 @@ export const createProjectNote = createAsyncThunk(
   "projects/createNote",
   async (note) => {
     const data = await createComment(note);
-    console.log(data);
     return data;
   }
 );
 const initialState = {
   data: [],
-  status: "",
+  status: {},
   getStatus: "",
   getNotesStatus: "",
   createStatus: "",
@@ -70,17 +69,19 @@ function gettingProjectsBuilder(builder) {
   //BUILDER FOR GETTING PROJECTS
   builder
     .addCase(getProjectsData.pending, (state) => {
-      state.status = "loading";
+      state.status.statu = "loading";
+      state.status.type = "getAll";
       state.createStatus = "loading";
     })
     .addCase(getProjectsData.fulfilled, (state, action) => {
-      state.status = "succeeded";
+      state.status.statu = "succeeded";
+      state.status.type = "getAll";
       state.data = action.payload;
-      state.createStatus = "succeeded";
       state.currentProject = state.data.at(0);
     })
     .addCase(getProjectsData.rejected, (state, action) => {
-      state.status = "failed";
+      state.status.statu = "failed";
+      state.status.type = "getAll";
       state.error.type = "getProjects";
       state.error.error = action.error.message;
     });
@@ -89,15 +90,18 @@ function createProjectBuilder(builder) {
   // BUILDER FOR CREATING NEW PROJECT
   builder
     .addCase(createProject.pending, (state) => {
-      state.createStatus = "loading";
+      state.status.statu = "loading";
+      state.status.type = "create";
     })
     .addCase(createProject.fulfilled, (state, action) => {
-      state.createStatus = "succeeded";
+      state.status.statu = "succeeded";
+      state.status.type = "create";
       state.data = [action.payload, ...state.data];
     })
     .addCase(createProject.rejected, (state, action) => {
-      state.createStatus = "failed";
-      state.error.type = "createProject";
+      state.status.statu = "failed";
+      state.status.type = "create";
+      state.error.type = "create";
       state.error.error = action.error.message;
     });
 }

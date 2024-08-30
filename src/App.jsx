@@ -34,14 +34,15 @@ import {
   getUserSession,
   userLogged,
 } from "./features/authentication/AuthSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 function App() {
   const DISPATCH = useDispatch();
+  const { role } = useSelector((state) => state.auth);
 
   useEffect(() => {
     DISPATCH(getUserSession());
-    DISPATCH(userLogged());
-  }, [getUserSession]);
+    if (role) DISPATCH(userLogged());
+  }, [getUserSession, role]);
   return (
     <AppProvider>
       <BrowserRouter>

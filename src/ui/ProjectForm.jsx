@@ -6,6 +6,7 @@ import Select from "react-select";
 import { useDispatch, useSelector } from "react-redux";
 import { createProject } from "../features/projects/projectSlice";
 import ButtonSpinner from "./ButtonSpinner";
+import { useShowPopup } from "../hooks/useShowPopup";
 
 function ProjectForm() {
   const [name, setName] = useState("");
@@ -18,7 +19,7 @@ function ProjectForm() {
   const { dispatch } = useApp();
   const DISPATCH = useDispatch();
   const { teams } = useSelector((state) => state.teams);
-
+  const [showPopup] = useShowPopup();
   const options = teams.map((team) => {
     return { value: team.id, label: team.name, icon: team.image };
   });
@@ -37,8 +38,14 @@ function ProjectForm() {
     DISPATCH(createProject(newProject));
   }
   useEffect(() => {
-    if (status === "succeeded") dispatch({ type: "project/closeProjectForm" });
-  }, [status]);
+    if (status.type === "create" && status.statu === "succeeded") {
+      dispatch({ type: "project/closeProjectForm" });
+      showPopup({
+        type: "success",
+        message: "Project created successfully",
+      });
+    }
+  }, [status.statu]);
   return (
     <form className="project-form" onSubmit={handleSubmit}>
       <div className="form-action">
