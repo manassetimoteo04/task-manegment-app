@@ -24,6 +24,8 @@ function TeamDetail() {
       showPopup({ type: "success", message: "New member added successfully" });
     if (teamStatus.type === "addMember" && teamStatus.statu === "failed")
       showPopup({ type: "error", message: error.error });
+    if (teamStatus.type === "addMember" && teamStatus.statu === "loading")
+      showPopup({ type: "loading", message: `Adding user...` });
   }, [teamStatus.statu]);
   function handleAddTag(value) {
     const arr = [...currentTeam.tags, value];

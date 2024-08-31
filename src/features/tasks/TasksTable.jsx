@@ -9,6 +9,7 @@ import PaginationBox from "../../ui/PaginationBox";
 function TasksTable() {
   const DISPATCH = useDispatch();
   const { allTasks } = useSelector((state) => state.tasks);
+  console.log(allTasks);
   useEffect(() => {
     DISPATCH(getAllTasks());
   }, []);

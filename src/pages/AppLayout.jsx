@@ -1,4 +1,4 @@
-import { Outlet } from "react-router";
+import { Outlet, useLocation } from "react-router";
 import Menu from "../ui/Menu";
 import { useApp } from "../contexts/AppProvider";
 import Header from "../ui/Header";
@@ -20,7 +20,8 @@ function AppLayout() {
     showTeamDetail,
   } = useApp();
   const refEl = useRef();
-
+  const location = useLocation();
+  console.log(location.hash);
   useEffect(() => {
     const event = (e) => {
       const target = e.target.closest(".notification-container");
@@ -36,7 +37,12 @@ function AppLayout() {
       <Header></Header>
       {showNotification && <NotificationContainer />}
       <Menu></Menu>
-      {showTeamForm && (
+      {/* {showTeamForm && (
+        <Overlay>
+          <TeamForm />
+        </Overlay>
+      )} */}
+      {location.hash === "#newteam" && (
         <Overlay>
           <TeamForm />
         </Overlay>

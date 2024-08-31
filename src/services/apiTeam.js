@@ -29,7 +29,7 @@ export const createTeam = async function (team) {
     description: team.description,
     bio: team.bio,
     image,
-    members: [],
+    members: [team.createdBy],
     tags: [],
   };
   const { data, error } = await supabase.from("teams").insert(newTeam).select();

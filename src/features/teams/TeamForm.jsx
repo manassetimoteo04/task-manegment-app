@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNewTeam } from "./teamSlice";
 import { useApp } from "../../contexts/AppProvider";
 import { useShowPopup } from "../../hooks/useShowPopup";
+import { useNavigate } from "react-router";
 function TeamForm() {
   const [name, setName] = useState("");
   const [bio, setBio] = useState("");
@@ -14,7 +15,7 @@ function TeamForm() {
   const { status } = useSelector((state) => state.teams);
   const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
-
+  const navigate = useNavigate();
   const { dispatch } = useApp();
   const [showPopup] = useShowPopup();
   function handleSubmit(e) {
@@ -30,7 +31,8 @@ function TeamForm() {
   }
   useEffect(() => {
     if (status.type === "create" && status.statu === "succeeded") {
-      dispatch({ type: "team/closeForm" });
+      // dispatch({ type: "team/closeForm" });
+      navigate(-1);
       showPopup({ type: "success", message: "Team created successfully" });
     }
     if (status.type === "create" && status.statu === "failed") {
@@ -39,13 +41,24 @@ function TeamForm() {
         message: "Something wen't wrong try again later",
       });
     }
+    if (status.type === "create" && status.statu === "loading") {
+      showPopup({
+        type: "loading",
+        message: "Creating new team...",
+      });
+    }
   }, [status.statu]);
 
   return (
     <form className="team-form" onSubmit={handleSubmit}>
       <header>
         <h3>Create New Team</h3>
-        <button onClick={() => dispatch({ type: "team/closeForm" })}>
+        <button
+          onClick={() => {
+            // dispatch({ type: "team/closeForm" });
+            navigate(-1);
+          }}
+        >
           <X size={18} />
         </button>
       </header>

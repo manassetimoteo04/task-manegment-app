@@ -1,5 +1,6 @@
 import { fetchTimeOut } from "./fetchTimeOut";
 import { supabase } from "./supabase";
+import { uploadImage } from "./uploadImage";
 
 //LOGIN USER
 export const userLogin = async function ({ email, password }) {
@@ -52,6 +53,50 @@ const createUser = async function (data) {
     .select();
   if (error) throw new Error(error.message);
   return user;
+};
+
+export const updateUser = async function ({ table, value, id }) {
+  if (table === "avatar") {
+    try {
+      const img = await uploadImage(value, "avatars");
+      const user = await updateInfor(table, img, id);
+      return user;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+  if (table === "email") {
+    const data = await updateEmail(value);
+    const user = await updateInfor(table, value, id);
+    return user;
+  }
+  const data = await updateInfor(table, value, id);
+  return data;
+};
+const updateInfor = async (table, value, id) => {
+  const { data: user, error } = await supabase
+    .from("users")
+    .update({ [table]: value })
+    .eq("id", id)
+    .select();
+  if (error) throw new Error(error.message);
+  return user.at(0);
+};
+const updateEmail = async function (value) {
+  const { data, error } = await supabase.auth.updateUser({
+    email: value,
+  });
+
+  // const { data: confir, error: err } = await supabase.auth.api.updateUserById(
+  //   token
+  // );
+
+  // if (error) {
+  //   console.error("Erro ao confirmar a mudança de email:", error);
+  //   return;
+  // }
+  if (error) throw new Error(error.message);
+  return data;
 };
 export const getLogged = async function () {
   const { data } = await supabase.auth.getUser();

@@ -1,6 +1,7 @@
 import { Check, X } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
 import { useEffect, useRef, useState } from "react";
+import ButtonSpinner from "./ButtonSpinner";
 function Popup() {
   const { dispatch, showPopup } = useApp();
   const [popupList, setPopupList] = useState([]);
@@ -10,31 +11,27 @@ function Popup() {
       setPopupList((prevList) => [...prevList, showPopup]);
     }
   }, [showPopup]);
-
   useEffect(() => {
-    // if (popupList.length === 0) {
-    //   dispatch({ type: "app/closePopup" });
-    // }
-  }, [popupList, dispatch]);
-  console.log(popupList);
-  const handleClose = (index) => {
-    setPopupList((prevList) => prevList.filter((_, i) => i !== index));
+    showPopup?.type === "success" &&
+      setTimeout(() => dispatch({ type: "app/closePopup" }), 3000);
+  }, [showPopup]);
+  const handleClose = () => {
+    dispatch({ type: "app/closePopup" });
   };
 
   return (
     <div className="popup-container">
-      {popupList.map((curr, index) => (
-        <div key={index} className="popup">
-          <span className={`popup-icon popup-${curr.type}`}>
-            {curr?.type === "success" && <Check />}
-            {curr?.type === "error" && <X />}
-          </span>
-          <span>{curr?.message}</span>
-          <button onClick={() => handleClose(index)}>
-            <X size={18} />
-          </button>
-        </div>
-      ))}
+      <div className="popup">
+        <span className={`popup-icon popup-${showPopup.type}`}>
+          {showPopup?.type === "success" && <Check />}
+          {showPopup?.type === "error" && <X />}
+          {showPopup?.type === "loading" && <ButtonSpinner />}
+        </span>
+        <span>{showPopup?.message}</span>
+        <button onClick={() => handleClose()}>
+          <X size={18} />
+        </button>
+      </div>
     </div>
   );
 }

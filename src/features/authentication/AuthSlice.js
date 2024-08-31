@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
   getLogged,
   getSession,
+  updateUser,
   userLogin,
   userLogout,
   userSignUp,
@@ -34,6 +35,15 @@ export const getUserSession = createAsyncThunk("auth/session", async () => {
   const data = await getSession();
   return data;
 });
+export const userUpdateInfor = createAsyncThunk(
+  "auth/updateUser",
+  async (update) => {
+    console.log("teste: ", update);
+    const data = await updateUser(update);
+    console.log(data);
+    return data;
+  }
+);
 
 const AuthReducer = createSlice({
   name: "auth",
@@ -45,6 +55,7 @@ const AuthReducer = createSlice({
     getLoggedBuilder(builder);
     logoutBuilder(builder);
     getSessionBuilder(builder);
+    updateUserBuilder(builder);
   },
 });
 function loginBuilder(builder) {
@@ -138,6 +149,25 @@ function getSessionBuilder(builder) {
     .addCase(getUserSession.rejected, (state) => {
       state.isLoading = false;
       state.error = "Error getting session";
+    });
+}
+function updateUserBuilder(builder) {
+  builder
+    .addCase(userUpdateInfor.pending, (state) => {
+      state.isLoading = true;
+      state.status.type = "updateUser";
+      state.status.statu = "loading";
+    })
+    .addCase(userUpdateInfor.fulfilled, (state, action) => {
+      state.currentUser = action.payload;
+      state.status.type = "updateUser";
+      state.status.statu = "succeeded";
+    })
+    .addCase(userUpdateInfor.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status.type = "updateUser";
+      state.status.statu = "failed";
+      state.error = action.error.message;
     });
 }
 export default AuthReducer.reducer;

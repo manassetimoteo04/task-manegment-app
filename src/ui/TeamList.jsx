@@ -5,10 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllTeams, getCurrTeam } from "../features/teams/teamSlice";
 import SmallBtn from "./SmallBtn";
 import { useShowPopup } from "../hooks/useShowPopup";
+import { useNavigate } from "react-router";
 
 function TeamList() {
   const { showSideBar, dispatch } = useApp();
   const { teams, status } = useSelector((state) => state.teams);
+  const navigate = useNavigate();
   const {
     currentUser,
     isLoading,
@@ -38,7 +40,12 @@ function TeamList() {
           >
             <Plus size={20} />
           </button> */}
-          <SmallBtn onClick={() => dispatch({ type: "team/showForm" })} />
+          <SmallBtn
+            onClick={() => {
+              // dispatch({ type: "team/showForm" });
+              navigate("#newteam");
+            }}
+          />
         </>
       </span>
 

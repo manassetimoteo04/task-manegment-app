@@ -1,3 +1,4 @@
+import CalendarComponent from "./CalendarComponent";
 import CalendarDays from "./CalendarDays";
 import CalendarTasks from "./CalendarTasks";
 
@@ -7,8 +8,7 @@ function CalenderPanel() {
       <header>
         <h4>Calendar</h4>
       </header>
-      <CalendarDays />
-      <CalendarTasks />
+      <CalendarComponent />
     </div>
   );
 }

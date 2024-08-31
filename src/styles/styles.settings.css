@@ -67,3 +67,197 @@
     justify-content: right;
     margin-top: 2rem;
 }
+
+/* STYLING THE USER PROFILE */
+.user-profile {
+    background-color: var(--main-light-color);
+    border: 1px solid var(--main-gray-scale-3);
+    display: grid;
+    grid-template-columns: 25rem 1fr;
+    grid-template-rows: 15rem 1fr;
+    min-height: 50rem;
+}
+
+.user-profile header img {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+}
+
+.user-profile .user-img-box {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    position: relative;
+}
+
+.user-img-box .btn-upload-avatar input {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 9999999;
+}
+
+.btn-upload-avatar {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    background-color: var(--main-light-color);
+    color: var(--main-primary-text);
+    border-radius: 0.5rem;
+}
+
+.user-profile .user-header {
+    grid-row: 1;
+    grid-column: 1/-1;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-bottom: 1px solid var(--main-gray-scale-3);
+    padding: 2rem;
+}
+
+.user-profile .user-header h3 {
+    font-size: 2.8rem;
+    color: var(--main-primary-text);
+    font-weight: 500;
+}
+
+.setting-menu {
+    border-right: 1px solid var(--main-gray-scale-3);
+
+    padding: 2rem;
+}
+
+.setting-menu ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.setting-menu a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    color: inherit;
+    text-decoration: none;
+    border-radius: 0.5rem;
+}
+
+.setting-menu a.active {
+    background-color: var(--main-gray-scale-1);
+    color: var(--main-primary-text);
+}
+
+.danger-btn {
+    background-color: var(--main-warning-color) !important;
+    color: var(--main-primary-text) !important;
+}
+
+.user-sett-header {
+    padding: 2rem;
+}
+
+.user-sett-header h4 {
+    color: var(--main-primary-text);
+    font-weight: 500;
+}
+
+.user-infor-box {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.user-infor-box .infor-box {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+}
+
+.user-infor-box .infor-tag {
+    font-weight: 500;
+    font-size: 1.4rem;
+    color: var(--main-primary-text);
+
+}
+
+/* STYLING THE USER EDIT INFOR */
+.user-edit-forms {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.user-edit-forms .edit-form {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.user-edit-forms .edit-form div {
+    height: 5rem;
+    background-color: var(--main-gray-scale-1);
+    position: relative;
+    overflow: hidden;
+    width: 30rem !important;
+}
+
+.form-div {
+    display: flex;
+    padding-left: 1rem;
+    align-items: center;
+    border: 2px solid var(--main-gray-scale-3);
+
+}
+
+.user-edit-forms .edit-form div.active-div input {
+    background: none;
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
+    color: inherit;
+    margin-top: 0.7rem;
+    font-size: inherit;
+    z-index: 99999;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.user-edit-forms .edit-form div input:focus {
+    outline: none;
+}
+
+.user-edit-forms .edit-form div label {
+    background: none;
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    transition: all 0.3s;
+}
+
+.user-edit-forms .edit-form div .active {
+    top: 1.5rem;
+    font-size: 1.2rem;
+    position: absolute;
+
+}
+
+.btn-save-edit {
+    height: 5rem;
+    width: 5rem;
+    background-color: var(--main-color);
+    font-size: inherit;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -17,14 +17,13 @@ function ProjectDetailsHeader() {
         </button>
         <img src={currentProject?.image} alt={currentProject?.image} />
         <h3>{currentProject?.name} </h3>
-        <Status type={"progress"}>on progress</Status>
       </div>
       <div className="project-team-box">
         <Button
           type="secondary"
           onClick={() => dispatch({ type: "task/toggleForm" })}
         >
-          <Plus /> Add Task
+          <Plus size={18} /> Task
         </Button>
       </div>
     </div>

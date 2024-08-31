@@ -3,11 +3,16 @@ import SettingsHeader from "./SettingsHeader";
 import SettsBox from "./SettsBox";
 import UpdateData from "./UpdateData";
 import UpdatePassword from "./UpdatePassword";
+import UserProfile from "./UserProfile";
 
 function SettingsLayout() {
   return (
     <section>
       <SettingsHeader />
+      <SettsBox>
+        <BoxHeader>My Profile</BoxHeader>
+        <UserProfile />
+      </SettsBox>
       <SettsBox>
         <BoxHeader>Update personal data</BoxHeader>
         <UpdateData />

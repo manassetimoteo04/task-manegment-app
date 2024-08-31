@@ -1,8 +1,24 @@
 /* STYLING DASHBOARD CALENDAR */
+.dark-mode {
+    --main-color: #4361ee;
+    --main-secondary-color: #99aaf5;
+    --main-tertiay-color: #00b4d8;
+    --main-gray-color: #1c110a;
+    --main-gray-faded-color: #080914;
+    --main-gray-scale-1: #0f192e;
+    --main-gray-scale-2: #35012c;
+    --main-gray-scale-3: #002137;
+    --main-light-color: #150620;
+    --main-warning-color: #d00000;
+    --main-success-color: #fcca46;
+    --main-primary-text: #ffffff;
+    --main-secondary-text: #e5ebff;
+    --main-text-color: #b3b6c4;
+    --main-text-faded: #dddddd;
+}
 
 .calendar-container {
-    /* background-color: var(--main-light-color); */
-    height: calc(100vh - 7rem);
+    background-color: var(--main-light-color);
     border-top: 1px solid var(--main-gray-scale-2);
     margin-top: 3rem;
 }
@@ -13,6 +29,7 @@
     padding: 2rem;
     color: var(--main-primary-text);
     font-weight: 500;
+    margin-bottom: 2rem;
 }
 
 .calendar-days {
@@ -92,4 +109,101 @@
     box-shadow: 0 1rem 2rem 0rem rgba(0, 0, 0, 0.123);
     width: 30rem !important;
 
+}
+
+/* STYLING ESTERNAL CALENDAR */
+.calendar-container button {
+    background-color: var(--main-gray-scale-3) !important;
+    border: 0 !important;
+    color: var(--main-primary-text) !important;
+}
+
+.calendar-container button.fc-button-active {
+    background-color: var(--main-color) !important;
+}
+
+
+.custom-event-class {
+    border-radius: 8px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.fc .fc-toolbar-title {
+    color: var(--main-primary-text);
+}
+
+.fc .fc-daygrid-day {
+    border: 1px solid var(--main-gray-scale-1);
+}
+
+.fc .fc-daygrid-event {
+    padding: 10px;
+    border-radius: 0;
+}
+
+/* Estilo geral dos botões */
+.fc-button {
+    background-color: var(--main-secondary-color);
+    color: var(--main-light-color);
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+
+}
+
+.fc-button:first-child {
+    margin-left: 2rem;
+
+}
+
+tr,
+th,
+table,
+thead,
+colgroup,
+td,
+tbody {
+    border: 1px solid var(--main-gray-scale-3) !important;
+}
+
+.fc-button:last-child {
+    margin-right: 2rem;
+}
+
+/* Estilo para os botões principais (Today, etc.) */
+.fc-button-primary {
+    background-color: var(--main-color);
+}
+
+Estilo quando o botão está ativo .fc-button-active {
+    background-color: var(--main-tertiary-color);
+}
+
+/* Estilo dos botões de navegação (anterior e próximo) */
+.fc-prev-button,
+.fc-next-button {
+    background-color: var(--main-secondary-color);
+}
+
+/* Estilo do botão "Today" */
+.fc-today-button {
+    background-color: var(--main-warning-color);
+    color: var(--main-primary-text);
+}
+
+/* Hover state */
+.fc-button:hover {
+    background-color: var(--main-color);
+}
+
+/* Estilo do grupo de botões (margens entre os botões) */
+.fc-button-group>.fc-button {
+    margin-right: 5px;
+}
+
+.fc-button-group>.fc-button:last-child {
+    margin-right: 0;
 }
