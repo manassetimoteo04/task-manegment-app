@@ -6,8 +6,10 @@ import DarkModeToggle from "./DarkModeToggle";
 import { ChevronsLeft, ChevronsRight, X } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
 import Logo from "./Logo";
+import { useRef, useState } from "react";
 function Menu() {
   const { showSideBar, dispatch } = useApp();
+
   return (
     <menu
       onMouseEnter={() => dispatch({ type: "app/showSideBar" })}
