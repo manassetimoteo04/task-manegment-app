@@ -8,65 +8,6 @@
     margin-bottom: 2rem;
 }
 
-.update-data-form {
-    background-color: var(--main-light-color);
-    padding: 2rem;
-    border-radius: 0.5rem;
-    border: 1px solid var(--main-gray-scale-3);
-}
-
-.form-row {
-    display: grid;
-    grid-template-columns: 20rem 1fr;
-    align-items: center;
-    margin-bottom: 2rem;
-}
-
-.form-row input:not(input[type="file"]) {
-    max-width: 30rem;
-    background: none;
-    border: 1px solid var(--main-gray-scale-3);
-    padding: 1rem;
-    color: inherit;
-    font-size: inherit;
-}
-
-.form-row input:focus {
-    outline: none;
-    background-color: var(--main-gray-scale-1);
-}
-
-.form-row label {
-    font-weight: 500;
-    color: inherit;
-}
-
-.form-row input[type="file"]::file-selector-button {
-    font: inherit;
-    font-weight: 500;
-    padding: 0.8rem 1.2rem;
-    margin-right: 1.2rem;
-    border-radius: 0.5rem;
-    border: none;
-    color: var(--main-primary-text);
-    background-color: var(--main-color);
-    cursor: pointer;
-    transition: color 0.2s, background-color 0.2s;
-    border-color: transparent !important;
-    padding: 1rem;
-    font-size: inherit;
-}
-
-.form-row input[type="file"]:focus {
-    background: none;
-}
-
-.update-data-form .form-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: right;
-    margin-top: 2rem;
-}
 
 /* STYLING THE USER PROFILE */
 .user-profile {
@@ -127,7 +68,6 @@
 
 .setting-menu {
     border-right: 1px solid var(--main-gray-scale-3);
-
     padding: 2rem;
 }
 
@@ -198,6 +138,8 @@
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    max-width: 30rem;
+
 }
 
 .user-edit-forms .edit-form div {
@@ -205,7 +147,7 @@
     background-color: var(--main-gray-scale-1);
     position: relative;
     overflow: hidden;
-    width: 30rem !important;
+    width: 100%;
 }
 
 .form-div {
@@ -328,4 +270,45 @@
     margin-top: 0.5rem;
     color: inherit;
     background: none;
+}
+
+@media (max-width: 42.9375em) {
+    .user-profile {
+        grid-template-columns: 8rem 1fr;
+    }
+
+    .user-edit-forms .edit-form,
+    .security-form {
+
+        max-width: 100%;
+    }
+
+    .setting-menu a span {
+        display: none;
+    }
+
+}
+
+@media (max-width: 27.75em) {
+    .user-profile {
+        grid-template-columns: 1fr;
+        padding-bottom: 2rem;
+    }
+
+
+    .setting-menu {
+        grid-column: 1/-1;
+        border: none;
+        border-bottom: 1px solid var(--main-gray-scale-3);
+    }
+
+    .setting-menu ul {
+        flex-direction: row !important;
+        justify-content: space-between;
+    }
+
+    .setting-menu a.active span {
+        display: inline-block;
+    }
+
 }

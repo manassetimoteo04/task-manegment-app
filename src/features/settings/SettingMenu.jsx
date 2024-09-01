@@ -8,7 +8,7 @@ function SettingMenu() {
         <li>
           <SubLink to="#geral">
             <Settings size={18} />
-            <span>Geral</span>
+            <span>General</span>
           </SubLink>
         </li>
         <li>
