@@ -87,14 +87,6 @@ const updateEmail = async function (value) {
     email: value,
   });
 
-  // const { data: confir, error: err } = await supabase.auth.api.updateUserById(
-  //   token
-  // );
-
-  // if (error) {
-  //   console.error("Erro ao confirmar a mudança de email:", error);
-  //   return;
-  // }
   if (error) throw new Error(error.message);
   return data;
 };
@@ -115,4 +107,16 @@ export const userLogout = async function () {
   if (error) {
     throw new Error(error.message);
   }
+};
+export const changePassword = async ({ actualPassword, newPassword }) => {
+  const { email } = await getSession();
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email,
+    password: actualPassword,
+  });
+  if (error) throw new Error("The actual password is wrong");
+  const { error: err } = await supabase.auth.updateUser({
+    password: newPassword,
+  });
+  if (err) throw new Error(err.message);
 };

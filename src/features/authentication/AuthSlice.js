@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import {
+  changePassword,
   getLogged,
   getSession,
   updateUser,
@@ -38,9 +39,14 @@ export const getUserSession = createAsyncThunk("auth/session", async () => {
 export const userUpdateInfor = createAsyncThunk(
   "auth/updateUser",
   async (update) => {
-    console.log("teste: ", update);
     const data = await updateUser(update);
-    console.log(data);
+    return data;
+  }
+);
+export const changeUserPassword = createAsyncThunk(
+  "auth/changePassword",
+  async (update) => {
+    const data = await changePassword(update);
     return data;
   }
 );
@@ -56,6 +62,7 @@ const AuthReducer = createSlice({
     logoutBuilder(builder);
     getSessionBuilder(builder);
     updateUserBuilder(builder);
+    changeUserPasswordBuilder(builder);
   },
 });
 function loginBuilder(builder) {
@@ -166,6 +173,24 @@ function updateUserBuilder(builder) {
     .addCase(userUpdateInfor.rejected, (state, action) => {
       state.isLoading = false;
       state.status.type = "updateUser";
+      state.status.statu = "failed";
+      state.error = action.error.message;
+    });
+}
+function changeUserPasswordBuilder(builder) {
+  builder
+    .addCase(changeUserPassword.pending, (state) => {
+      state.isLoading = true;
+      state.status.type = "changePassword";
+      state.status.statu = "loading";
+    })
+    .addCase(changeUserPassword.fulfilled, (state, action) => {
+      state.status.type = "changePassword";
+      state.status.statu = "succeeded";
+    })
+    .addCase(changeUserPassword.rejected, (state, action) => {
+      state.isLoading = false;
+      state.status.type = "changePassword";
       state.status.statu = "failed";
       state.error = action.error.message;
     });

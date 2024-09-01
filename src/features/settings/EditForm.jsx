@@ -31,8 +31,7 @@ function EditForm({ icon, defValue, label, onSubmit, table }) {
   }, [status.statu]);
   useEffect(() => {
     setValue(defValue);
-    value !== "" && setIsActive(true);
-  }, [defValue]);
+  }, []);
   return (
     <form className="edit-form" onSubmit={handleSubmit}>
       <div className="form-div">

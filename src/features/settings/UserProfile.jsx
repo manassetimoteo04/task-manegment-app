@@ -12,6 +12,7 @@ function UserProfile() {
       <UserProfileHeader></UserProfileHeader>
       <SettingMenu />
       {location.hash === "#geral" && <UserGeneral />}
+      {!location.hash && <UserGeneral />}
       {location.hash === "#edit" && <UserEdit />}
       {location.hash === "#security" && <UserSecurity />}
     </div>
