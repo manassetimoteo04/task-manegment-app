@@ -20,9 +20,10 @@ function AppLayout() {
     showTeamDetail,
   } = useApp();
   const refEl = useRef();
-  const [swipe, setSwipe] = useState(null);
+  // const [swipe, setSwipe] = useState(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
+  const minSwipeDistance = 100;
   const location = useLocation();
 
   useEffect(() => {
@@ -45,16 +46,13 @@ function AppLayout() {
   };
 
   const handleSwipe = () => {
-    if (touchEndX.current < touchStartX.current) {
-      setSwipe("left");
-      console.log("Swipe left detected: ", swipe);
-      dispatch({ type: "app/closeSideBar" });
-    }
-    if (touchEndX.current > touchStartX.current) {
-      setSwipe("right");
-      dispatch({ type: "app/showSideBar" });
-
-      console.log("Swipe left detected: ", swipe);
+    const distance = touchStartX.current - touchEndX.current;
+    if (Math.abs(distance) > minSwipeDistance) {
+      if (distance > 0) {
+        dispatch({ type: "app/closeSideBar" });
+      } else {
+        dispatch({ type: "app/showSideBar" });
+      }
     }
   };
   return (
