@@ -1,18 +1,30 @@
 import { PAGE_SIZE } from "../utils/constants";
 import { supabase } from "./supabase";
 
-export const getProjectsTasks = async function ({ projectId, page }) {
-  const from = (page - 1) * PAGE_SIZE;
-  const to = from + PAGE_SIZE - 1;
-  const {
-    data: task,
-    error,
-    count,
-  } = await supabase
+export const getProjectsTasks = async function ({
+  projectId,
+  page = 1,
+  filter,
+}) {
+  let query = supabase
     .from("task")
     .select("*", { count: "exact" })
-    .eq("project_id", projectId)
-    .range(from, to);
+    .eq("project_id", projectId);
+  if (filter && filter.value !== "") {
+    query = query.eq("status", filter.value);
+  }
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+  if (!page && !filter) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+
+  const { data: task, error, count } = await query;
   if (error) throw new Error(Error.message);
   return { task, count };
 };
@@ -42,7 +54,7 @@ export const getTasks = async function (page, filter) {
     const to = from + PAGE_SIZE - 1;
     query = query.range(from, to);
   }
-  if (filter) query === query.eq(filter.field, filter.value);
+  if (filter) query === query.eq("status", filter.value);
 
   const { data: task, error, count } = await query;
   if (error) throw new Error(error.message);

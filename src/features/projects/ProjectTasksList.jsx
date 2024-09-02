@@ -21,9 +21,26 @@ function ProjectTasksList() {
   } = useSelector((state) => state.tasks);
 
   const page = searchParams.get("page") ? +searchParams.get("page") : 1;
+  const filtervalue = searchParams.get("filter")
+    ? searchParams.get("filter")
+    : "";
+  const filter = filtervalue
+    ? {
+        value: filtervalue === "all" ? "" : filtervalue,
+        field: "status",
+      }
+    : "";
+
   useEffect(() => {
-    dispatch(gettingProjectTasks({ projectId: currentProject?.id, page }));
-  }, [currentProject?.id, page]);
+    console.log(filter, filtervalue);
+    dispatch(
+      gettingProjectTasks({
+        projectId: currentProject?.id,
+        page,
+        filter,
+      })
+    );
+  }, [currentProject?.id, page, filtervalue]);
 
   return (
     <>
