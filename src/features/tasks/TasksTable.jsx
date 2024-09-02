@@ -5,18 +5,23 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks } from "./taskSlice";
 import PaginationBox from "../../ui/PaginationBox";
+import { useSearchParams } from "react-router-dom";
+import TableSekeletonLoading from "../../ui/TableSekeletonLoading";
+import FilterBox from "../../ui/FilterBox";
 
 function TasksTable() {
   const DISPATCH = useDispatch();
-  const { allTasks } = useSelector((state) => state.tasks);
-  console.log(allTasks);
+  const { allTasks, count, status } = useSelector((state) => state.tasks);
+  const [searchParams] = useSearchParams();
+  const page = searchParams.get("page") ? +searchParams.get("page") : 1;
   useEffect(() => {
-    DISPATCH(getAllTasks());
-  }, []);
+    DISPATCH(getAllTasks(page));
+  }, [page]);
+
   return (
     <div className="tasks-table">
-      <TasksFilter />
-
+      {/* <TasksFilter /> */}
+      <FilterBox />
       <div className="table">
         <header className="tasks-table-header">
           <span>
@@ -33,12 +38,15 @@ function TasksTable() {
           </span>
         </header>
         <div className="tasks-list">
-          {allTasks.map((task) => (
-            <TaskItem task={task} key={task.id} />
-          ))}
+          {status.type === "getAll" &&
+            status.statu === "succeeded" &&
+            allTasks.map((task) => <TaskItem task={task} key={task.id} />)}
+          {status.type === "getAll" && status.statu === "loading" && (
+            <TableSekeletonLoading />
+          )}
         </div>
       </div>
-      <PaginationBox />
+      {count > allTasks.length && <PaginationBox count={count} />}
     </div>
   );
 }

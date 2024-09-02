@@ -6,13 +6,10 @@ import TasksTable from "./TasksTable";
 import { useApp } from "../../contexts/AppProvider";
 
 function TasksLayout() {
-  const { showTaskDetail } = useApp();
   return (
     <section className="tasks-section">
       <TasksHeader />
       <TasksTable />
-      {showTaskDetail && <TaskDetails />}
-      {/* <Outlet /> */}
     </section>
   );
 }

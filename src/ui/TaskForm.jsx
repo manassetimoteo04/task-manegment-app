@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createNewTask } from "../features/tasks/taskSlice";
 import { getTeamMembers } from "../features/teams/teamSlice";
 import { getUserImageName } from "../services/apiHelpers";
+import { useShowPopup } from "../hooks/useShowPopup";
 
 const optionsPrio = [
   {
@@ -33,9 +34,12 @@ function TaskFrom() {
   const [priority, setPriority] = useState("");
   const [options, setOptions] = useState([]);
   const { currentProject } = useSelector((state) => state.projects);
+  const { status } = useSelector((state) => state.tasks);
   const { teams } = useSelector((state) => state.teams);
   const DISPATCH = useDispatch();
+  const [showPopup] = useShowPopup();
   const team = teams.find((team) => team.id === currentProject.team_id);
+
   useEffect(() => {
     async function getT() {
       const opts = await Promise.all(
@@ -52,9 +56,14 @@ function TaskFrom() {
     }
     getT();
   }, []);
-  // useEffect(() => {
-  //   DISPATCH(getTeamMembers({ id: currentProject.team_id }));
-  // }, []);
+  useEffect(() => {
+    if (status.type === "create" && status.statu === "loading")
+      showPopup({ type: "loading", message: "creating new task" });
+    if (status.type === "create" && status.statu === "succeeded")
+      showPopup({ type: "success", message: "new task added" });
+    if (status.type === "create" && status.statu === "failed")
+      showPopup({ type: "error", message: "Failed creating new task" });
+  }, [status.statu]);
 
   function handleSubmit(e) {
     e.preventDefault();

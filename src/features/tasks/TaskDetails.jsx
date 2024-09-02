@@ -2,16 +2,24 @@ import { Link2, X } from "react-feather";
 import Overlay from "../../ui/Overlay";
 import Status from "../../ui/Status";
 import TaskComments from "./TaskComments";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate, useNavigation } from "react-router";
 import { useApp } from "../../contexts/AppProvider";
 import { useDispatch, useSelector } from "react-redux";
 import Spinner from "../../ui/Spinner";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useGetUserImg } from "../../hooks/useGetUserImg";
+import { useShowPopup } from "../../hooks/useShowPopup";
+import { getCurrentTask, updateTaskStatus } from "./taskSlice";
 function TaskDetails() {
   const { dispatch } = useApp();
-  const { currentTask, getStatus } = useSelector((state) => state.tasks);
+  const [statuValue, setStatuValue] = useState("");
   const DISPATCH = useDispatch();
+  const [showPopup] = useShowPopup();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { currentTask, getStatus, status } = useSelector(
+    (state) => state.tasks
+  );
   const {
     title,
     description,
@@ -19,21 +27,53 @@ function TaskDetails() {
     start_date: startDate,
     responsable_id: engangedId,
     priority,
+    status: taskStatus,
     duration,
   } = currentTask;
+  const id = location.hash.split("/").at(1);
+  useEffect(() => {
+    if (statuValue !== "")
+      DISPATCH(updateTaskStatus({ id: currentTask.id, value: statuValue }));
+  }, [statuValue]);
+
+  useEffect(() => {
+    if (status.type === "updateStatus" && status.statu === "loading")
+      showPopup({ type: "loading", message: "Updating status..." });
+    if (status.type === "updateStatus" && status.statu === "succeeded")
+      showPopup({
+        type: "success",
+        message: "Task status updated successfully",
+      });
+    if (status.type === "updateStatus" && status.statu === "failed")
+      showPopup({ type: "error", message: "Ups, failed to update status" });
+  }, [status.statu]);
+
+  useEffect(() => {
+    DISPATCH(getCurrentTask(id));
+  }, []);
+  function handleChange(e) {
+    setStatuValue(e.target.value);
+  }
   const [enganged] = useGetUserImg(engangedId);
   return (
     <Overlay>
       <div className="task-details" id={currentTask.id}>
-        {getStatus === "loading" ? (
+        {status.type === "get" && status.statu === "loading" ? (
           <Spinner />
         ) : (
           <>
             <div className="task-action">
-              <button className="btn-copy">
-                <Link2 />
-              </button>
-              <button onClick={() => dispatch({ type: "task/toggleDetail" })}>
+              <select
+                className="status-select"
+                value={statuValue}
+                onChange={handleChange}
+              >
+                <option value="pending">Pending</option>
+                <option value="doing">Doing</option>
+                <option value="done">Done</option>
+              </select>
+
+              <button onClick={() => navigate(-1)}>
                 <X />
               </button>
             </div>
@@ -45,7 +85,7 @@ function TaskDetails() {
               <div>
                 <span>Status</span>
                 <div>
-                  <Status type="progress">{priority}</Status>
+                  <Status type="progress">{taskStatus}</Status>
                 </div>
               </div>
               <div>

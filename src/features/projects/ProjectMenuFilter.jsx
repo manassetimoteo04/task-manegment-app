@@ -26,12 +26,6 @@ function ProjectMenuFilter() {
           </li>
         </ul>
       </nav>
-      <div className="filter-box">
-        <SearchInput setValue={() => {}} placeholder="Find your Task" />
-        <button>
-          <Filter />
-        </button>
-      </div>
     </div>
   );
 }

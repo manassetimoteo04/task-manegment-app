@@ -459,6 +459,10 @@ textarea:focus {
     padding: 1rem;
 }
 
+.project-task-item span a {
+    color: inherit;
+}
+
 .task-grid-list .project-task-item span:not(:last-child) {
     border-right: 1px solid var(--main-gray-scale-3);
 

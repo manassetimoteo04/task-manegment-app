@@ -9,13 +9,15 @@ import Overlay from "../ui/Overlay";
 import Popup from "../ui/Popup";
 import LogoutPopup from "../ui/LogoutPopup";
 import TeamDetail from "../features/teams/TeamDetail";
+import { MIN_SWIPE_DISTANCE } from "../utils/constants";
+import TaskDetails from "../features/tasks/TaskDetails";
 
 function AppLayout() {
   const {
     dispatch,
     showSideBar,
     showNotification,
-    showTeamForm,
+    showTaskDetails,
     showPopup,
     showTeamDetail,
   } = useApp();
@@ -23,7 +25,7 @@ function AppLayout() {
   // const [swipe, setSwipe] = useState(null);
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-  const minSwipeDistance = 100;
+  const minSwipeDistance = MIN_SWIPE_DISTANCE;
   const location = useLocation();
 
   useEffect(() => {
@@ -65,11 +67,7 @@ function AppLayout() {
       <Header></Header>
       {showNotification && <NotificationContainer />}
       <Menu></Menu>
-      {/* {showTeamForm && (
-        <Overlay>
-          <TeamForm />
-        </Overlay>
-      )} */}
+
       {location.hash === "#newteam" && (
         <Overlay>
           <TeamForm />
@@ -80,6 +78,8 @@ function AppLayout() {
           <TeamDetail />
         </Overlay>
       )}
+      {location.hash.startsWith("#task") && <TaskDetails />}
+
       {showPopup && <Popup />}
       {/* <Overlay>
         <LogoutPopup />

@@ -1,6 +1,21 @@
+import { useEffect } from "react";
 import { FolderMinus, Clipboard, Users, Calendar } from "react-feather";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllTasks } from "../tasks/taskSlice";
+import { getProjectsData } from "../projects/projectSlice";
 
 function DashBoardSummary() {
+  const { teams } = useSelector((state) => state.teams);
+  const { data: projects, status } = useSelector((state) => state.projects);
+  const { allTasks } = useSelector((state) => state.tasks);
+  const DISPATCH = useDispatch();
+  useEffect(() => {
+    DISPATCH(getAllTasks());
+    if (status.statu === "succeeded" && status.type === "getAll") {
+      const ids = teams.map((team) => team.id);
+      DISPATCH(getProjectsData(ids));
+    }
+  }, []);
   return (
     <div className="dashboard-summary">
       <div className="summary-box">
@@ -9,7 +24,7 @@ function DashBoardSummary() {
         </span>
         <div>
           <span className="summ-tag">Teams</span>
-          <span className="total-summ">545</span>
+          <span className="total-summ">{teams.length}</span>
         </div>
       </div>
       <div className="summary-box">
@@ -18,7 +33,7 @@ function DashBoardSummary() {
         </span>
         <div>
           <span className="summ-tag">Projects</span>
-          <span className="total-summ">234</span>
+          <span className="total-summ">{projects.length}</span>
         </div>
       </div>
       <div className="summary-box">
@@ -27,7 +42,7 @@ function DashBoardSummary() {
         </span>
         <div>
           <span className="summ-tag">Tasks</span>
-          <span className="total-summ">234</span>
+          <span className="total-summ">{allTasks.length}</span>
         </div>
       </div>
       <div className="summary-box">

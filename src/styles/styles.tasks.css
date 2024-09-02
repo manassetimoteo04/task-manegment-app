@@ -65,6 +65,12 @@
 
 }
 
+.task-item img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
 .task-item:not(:last-child) {
     border-bottom: 1px solid var(--main-gray-scale-3);
 
@@ -74,6 +80,11 @@
     padding: 1rem 2rem;
     display: flex;
     align-items: center;
+    gap: 1rem;
+}
+
+.task-item span a {
+    color: inherit;
 }
 
 .task-item span:not(:last-child) {
@@ -105,8 +116,27 @@
     color: inherit;
 }
 
-.btn-copy {
-    color: var(--main-color) !important;
+.status-select {
+    padding: 0.5rem 1rem;
+    font-size: inherit;
+    color: var(--main-primary-text);
+    background-color: var(--main-gray-scale-2);
+    border-radius: 0.5rem;
+    display: flex;
+    text-align: center;
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    border: 1px solid transparent
+}
+
+.status-select option {
+    text-align: center;
+
+}
+
+.status-select:focus {
+    outline: none;
+    border: 1px solid var(--main-gray-scale-3);
 }
 
 .task-details header {

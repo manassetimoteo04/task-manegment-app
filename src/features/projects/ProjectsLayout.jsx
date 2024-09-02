@@ -50,7 +50,6 @@ function ProjectsLayout() {
           <TaskForm />
         </Overlay>
       )}
-      {showTaskDetail && <TaskDetails />}
 
       <ProjectGrid />
     </section>

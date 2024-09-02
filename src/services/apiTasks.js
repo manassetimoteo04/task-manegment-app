@@ -1,12 +1,20 @@
+import { PAGE_SIZE } from "../utils/constants";
 import { supabase } from "./supabase";
 
-export const getProjectsTasks = async function (projectId) {
-  const { data: task, error } = await supabase
+export const getProjectsTasks = async function ({ projectId, page }) {
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+  const {
+    data: task,
+    error,
+    count,
+  } = await supabase
     .from("task")
-    .select("*")
-    .eq("project_id", projectId);
+    .select("*", { count: "exact" })
+    .eq("project_id", projectId)
+    .range(from, to);
   if (error) throw new Error(Error.message);
-  return task;
+  return { task, count };
 };
 export const getTask = async function (id) {
   const { data: task, error } = await supabase
@@ -16,7 +24,7 @@ export const getTask = async function (id) {
   if (error) throw new Error(Error.message);
   return task;
 };
-export const getTasks = async function (projectId) {
+export const getTasks = async function (page, filter) {
   const { data: projects, error: err } = await supabase
     .from("projects")
     .select("id");
@@ -24,12 +32,21 @@ export const getTasks = async function (projectId) {
 
   if (!projects) return;
   const ids = projects.map((project) => project.id);
-  const { data: task, error } = await supabase
+  let query = supabase
     .from("task")
-    .select("*")
+    .select("*", { count: "exact" })
     .in("project_id", ids);
+
+  if (page) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
+  if (filter) query === query.eq(filter.field, filter.value);
+
+  const { data: task, error, count } = await query;
   if (error) throw new Error(error.message);
-  return task;
+  return { task, count };
 };
 
 export const createTask = async function (newTask) {
@@ -43,8 +60,21 @@ export const createTask = async function (newTask) {
     responsable_id: newTask.enganged,
     priority: newTask.priority,
     duration: newTask.duration,
+    status: "pending",
   };
   const { data, error } = await supabase.from("task").insert(task).select();
   if (error) throw new Error(Error.message);
+  return data;
+};
+
+export const changeTaskStatu = async ({ id, value }) => {
+  const { data, error } = await supabase
+    .from("task")
+    .update({ status: value })
+    .eq("id", id)
+    .select()
+    .single();
+  if (error) throw new Error(Error.message);
+  console.log(data);
   return data;
 };
