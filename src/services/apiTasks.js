@@ -36,10 +36,12 @@ export const getTask = async function (id) {
   if (error) throw new Error(Error.message);
   return task;
 };
-export const getTasks = async function (page, filter) {
+export const getTasks = async function ({ page = 1, filter, teams }) {
   const { data: projects, error: err } = await supabase
     .from("projects")
-    .select("id");
+    .select("id")
+    .in("team_id", teams);
+
   if (err) throw new Error(err.message);
 
   if (!projects) return;
@@ -49,13 +51,19 @@ export const getTasks = async function (page, filter) {
     .select("*", { count: "exact" })
     .in("project_id", ids);
 
+  if (filter && filter.value !== "") {
+    query = query.eq("status", filter.value);
+  }
   if (page) {
     const from = (page - 1) * PAGE_SIZE;
     const to = from + PAGE_SIZE - 1;
     query = query.range(from, to);
   }
-  if (filter) query === query.eq("status", filter.value);
-
+  if (!page && !filter) {
+    const from = (page - 1) * PAGE_SIZE;
+    const to = from + PAGE_SIZE - 1;
+    query = query.range(from, to);
+  }
   const { data: task, error, count } = await query;
   if (error) throw new Error(error.message);
   return { task, count };
@@ -75,7 +83,11 @@ export const createTask = async function (newTask) {
     status: "pending",
   };
   const { data, error } = await supabase.from("task").insert(task).select();
-  if (error) throw new Error(Error.message);
+  if (error) {
+    console.log(error);
+
+    throw new Error(Error.message);
+  }
   return data;
 };
 

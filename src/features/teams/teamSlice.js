@@ -42,7 +42,6 @@ export const getTeamMembers = createAsyncThunk(
   "teams/getMembers",
   async (id) => {
     const data = await getMembers(id);
-    console.log(data);
     return data;
   }
 );

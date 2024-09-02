@@ -7,7 +7,6 @@ export const getProjects = async function (teams) {
     .select("*")
     .in("team_id", teams)
     .order("created_at", { ascending: false });
-  console.log(projects, teams);
   if (error) throw new Error(error.message);
   return projects;
 };

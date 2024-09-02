@@ -6,7 +6,6 @@ export const getTeams = async function ({ id }) {
     .from("teams")
     .select("*")
     .contains("members", [id]);
-  console.log(team, id);
   if (error) {
     throw new Error(error.message);
   }

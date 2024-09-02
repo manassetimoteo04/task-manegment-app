@@ -11,22 +11,18 @@ import { useGetUserImg } from "../../hooks/useGetUserImg";
 import { useShowPopup } from "../../hooks/useShowPopup";
 import { getCurrentTask, updateTaskStatus } from "./taskSlice";
 function TaskDetails() {
-  const { dispatch } = useApp();
   const [statuValue, setStatuValue] = useState("");
   const DISPATCH = useDispatch();
+  const navigate = useNavigate();
   const [showPopup] = useShowPopup();
   const location = useLocation();
-  const navigate = useNavigate();
-  const { currentTask, getStatus, status } = useSelector(
-    (state) => state.tasks
-  );
+  const { currentTask, status } = useSelector((state) => state.tasks);
   const {
     title,
     description,
     start_time: startTime,
     start_date: startDate,
     responsable_id: engangedId,
-    priority,
     status: taskStatus,
     duration,
   } = currentTask;
@@ -54,6 +50,9 @@ function TaskDetails() {
   function handleChange(e) {
     setStatuValue(e.target.value);
   }
+  // useEffect(() => {
+  //   setStatuValue(taskStatus);
+  // }, [taskStatus]);
   const [enganged] = useGetUserImg(engangedId);
   return (
     <Overlay>
@@ -105,7 +104,7 @@ function TaskDetails() {
               </div>
               <div>
                 <span>Duration</span>
-                <div>{duration}</div>
+                <div>{duration} days</div>
               </div>
             </div>
             <TaskComments />

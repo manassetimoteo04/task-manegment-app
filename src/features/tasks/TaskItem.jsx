@@ -9,6 +9,7 @@ import {
   getProjectImageName,
   getUserImageName,
 } from "../../services/apiHelpers";
+import { Link } from "react-router-dom";
 function TaskItem({ task }) {
   const {
     title,
@@ -35,25 +36,26 @@ function TaskItem({ task }) {
     }
     getAsync();
   }, []);
-  function handleClick() {
-    DISPATCH(getCurrentTask(id));
-    dispatch({ type: "task/toggleDetail" });
-  }
+
   return (
     <div className="task-item">
       <span>
         <Square />
       </span>
+      <span>{title}</span>
       <span>
         <img src={project.image} alt={project.name} /> {project.name}
       </span>
-      <span>{title}</span>
-      <Status type="progress">{status}</Status>
+      <span>{status}</span>
       <span>{priority}</span>
-      <span></span>
+      <span>
+        <img src={responsable.avatar} alt={responsable.name} />
+      </span>
       <span>{duration} days</span>
-      <span onClick={handleClick}>
-        <MoreVertical size={20} />
+      <span>
+        <Link to={`${location.search}#task/${id}`}>
+          <MoreVertical size={20} />
+        </Link>
       </span>
     </div>
   );

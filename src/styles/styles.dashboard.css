@@ -78,6 +78,7 @@
     background-color: var(--main-light-color);
     min-height: 40rem;
     border: 1px solid var(--main-gray-scale-2);
+
 }
 
 .today-tasks-box header {
@@ -122,6 +123,8 @@
     align-items: center;
     padding: 1rem 0;
     gap: 2rem;
+    color: inherit;
+    text-decoration: none;
 }
 
 .task-list .task-box:not(:last-child) {

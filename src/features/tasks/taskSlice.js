@@ -182,19 +182,22 @@ function createCommentBuilder(builder) {
 function getAllTasksBuilder(builder) {
   builder
     .addCase(getAllTasks.pending, (state, action) => {
-      state.status.type = "getAll";
+      state.status.type = "getAllTask";
       state.status.statu = "loading";
+      state.isLoading = true;
     })
     .addCase(getAllTasks.fulfilled, (state, action) => {
       state.allTasks = action.payload.task;
       state.count = action.payload.count;
-      state.status.type = "getAll";
+      state.status.type = "getAllTask";
       state.status.statu = "succeeded";
+      state.isLoading = false;
     })
     .addCase(getAllTasks.rejected, (state, action) => {
-      state.status.type = "getAll";
+      state.status.type = "getAllTask";
       state.status.statu = "failed";
       state.error = action.error.message;
+      state.isLoading = false;
     });
 }
 function updateTaskStatusBuilder(builder) {

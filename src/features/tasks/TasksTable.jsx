@@ -11,13 +11,27 @@ import FilterBox from "../../ui/FilterBox";
 
 function TasksTable() {
   const DISPATCH = useDispatch();
-  const { allTasks, count, status } = useSelector((state) => state.tasks);
+  const { allTasks, count, status, isLoading } = useSelector(
+    (state) => state.tasks
+  );
+  const { teams } = useSelector((state) => state.teams);
   const [searchParams] = useSearchParams();
   const page = searchParams.get("page") ? +searchParams.get("page") : 1;
-  useEffect(() => {
-    DISPATCH(getAllTasks(page));
-  }, [page]);
+  const filtervalue = searchParams.get("filter")
+    ? searchParams.get("filter")
+    : "";
+  const filter = filtervalue
+    ? {
+        value: filtervalue === "all" ? "" : filtervalue,
+        field: "status",
+      }
+    : "";
 
+  const ids = teams.map((team) => team.id);
+  useEffect(() => {
+    DISPATCH(getAllTasks({ page, filter, teams: ids }));
+  }, [page, filtervalue, teams]);
+  console.log("all tasks: ", allTasks);
   return (
     <div className="tasks-table">
       {/* <TasksFilter /> */}
@@ -27,22 +41,21 @@ function TasksTable() {
           <span>
             <Square />
           </span>
-          <span>Project</span>
           <span>Task</span>
+          <span>Project</span>
           <span>Status</span>
           <span>Priority</span>
           <span>Enganged</span>
-          <span>Due Date</span>
+          <span>Duration</span>
           <span style={{ opacity: 0 }}>
             <MoreVertical size={20} />
           </span>
         </header>
         <div className="tasks-list">
-          {status.type === "getAll" &&
-            status.statu === "succeeded" &&
-            allTasks.map((task) => <TaskItem task={task} key={task.id} />)}
-          {status.type === "getAll" && status.statu === "loading" && (
+          {isLoading ? (
             <TableSekeletonLoading />
+          ) : (
+            allTasks.map((task) => <TaskItem task={task} key={task.id} />)
           )}
         </div>
       </div>

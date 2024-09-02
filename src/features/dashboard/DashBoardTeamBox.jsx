@@ -1,11 +1,13 @@
+import { Link } from "react-router-dom";
+
 function DashBoardTeamBox() {
   return (
-    <div className="dashboard-team-box">
+    <Link className="dashboard-team-box">
       <span className="team-name">Team Name</span>
       <div className="team-imgs">
         <img src="file.png" alt="" />
       </div>
-    </div>
+    </Link>
   );
 }
 

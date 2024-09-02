@@ -34,7 +34,7 @@
 .tasks-table-header {
     display: grid;
     align-items: center;
-    grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 0.5fr 29rem 2.5fr 1fr 1fr 12rem 1.5fr 0.5fr;
     min-width: 102rem;
     color: var(--main-primary-text);
     grid-template-rows: 1;
@@ -60,14 +60,14 @@
 /* STYLING THE TASK ITEM */
 .task-item {
     display: grid;
-    grid-template-columns: 0.5fr 2.5fr 2.5fr 1fr 1fr 1fr 1.5fr 0.5fr;
+    grid-template-columns: 0.5fr 29rem 2.5fr 1fr 1fr 12rem 1.5fr 0.5fr;
     min-width: 102rem;
 
 }
 
 .task-item img {
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 50%;
 }
 
