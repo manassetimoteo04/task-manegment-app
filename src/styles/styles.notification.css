@@ -46,6 +46,7 @@
     border-radius: 0.5rem;
     box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.09);
     padding-bottom: 1rem;
+    z-index: 999;
 }
 
 .notification-container header {

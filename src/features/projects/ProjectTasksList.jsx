@@ -7,7 +7,8 @@ import { gettingProjectTasks } from "../tasks/taskSlice";
 import ListEmpty from "../../ui/ListEmpty";
 import PaginationBox from "../../ui/PaginationBox";
 import FilterBox from "../../ui/FilterBox";
-import TableSekeletonLoading from "../../ui/TableSekeletonLoading";
+
+import TableSkeletonLoading from "../../ui/TableSkeletonLoading";
 function ProjectTasksList() {
   const dispatch = useDispatch();
 
@@ -62,7 +63,7 @@ function ProjectTasksList() {
                   projectTasks.map((task) => (
                     <ProjectTaskItem task={task} key={task.id} />
                   ))}
-                {isLoading && <TableSekeletonLoading />}
+                {isLoading && <TableSkeletonLoading />}
               </>
             ) : (
               <ListEmpty>Adicione uma tarefa</ListEmpty>

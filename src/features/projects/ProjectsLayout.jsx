@@ -36,21 +36,6 @@ function ProjectsLayout() {
   }, []);
   return (
     <section className="project-section">
-      {/* <div>
-        <ProjectsHeader />
-      </div> */}
-      {showProjectForm && (
-        <Overlay>
-          <ProjectForm />
-        </Overlay>
-      )}
-
-      {showTaskForm && (
-        <Overlay>
-          <TaskForm />
-        </Overlay>
-      )}
-
       <ProjectGrid />
     </section>
   );

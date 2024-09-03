@@ -112,10 +112,10 @@ function getCurrTeamBuilder(builder) {
       state.status.statu = "succeeded";
       state.currentTeam = action.payload;
     })
-    .addCase(getCurrTeam.rejected, (state) => {
+    .addCase(getCurrTeam.rejected, (state, action) => {
       state.error.type = "get";
       state.status.statu = "failed";
-      state.error.error = "Error getting team info.";
+      state.error.error = action.error.message;
     });
 }
 function addTeamTagsNewBuilder(builder) {

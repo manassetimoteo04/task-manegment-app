@@ -5,20 +5,27 @@ import Spinner from "../../ui/Spinner";
 import SmallBtn from "../../ui/SmallBtn";
 import AddForm from "./AddForm";
 import { useEffect, useState } from "react";
-import { addNewMember, addTeamTagsNew } from "./teamSlice";
+import { addNewMember, addTeamTagsNew, getCurrTeam } from "./teamSlice";
 import { getUserImageName } from "../../services/apiHelpers";
 import { useShowPopup } from "../../hooks/useShowPopup";
+import { useLocation, useNavigate } from "react-router";
 
 function TeamDetail() {
   const { setShowTeamDetail } = useApp();
   const { currentTeam, status } = useSelector((state) => state.teams);
   const [showAddTagForm, setShowAddTagForm] = useState(false);
   const [showAddMemberForm, setShowAddMemberForm] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const id = location.hash.split("/").at(1);
+
   const DISPATCH = useDispatch();
 
   const [showPopup] = useShowPopup();
   const { status: teamStatus, error } = useSelector((state) => state.teams);
-
+  useEffect(() => {
+    DISPATCH(getCurrTeam(id));
+  }, []);
   useEffect(() => {
     if (teamStatus.type === "addMember" && teamStatus.statu === "succeeded")
       showPopup({ type: "success", message: "New member added successfully" });
@@ -46,13 +53,18 @@ function TeamDetail() {
         <>
           <header>
             <div className="div">
-              <img src={currentTeam.image} alt={currentTeam.name} />
+              <img
+                src={
+                  currentTeam?.image ? currentTeam?.image : "default-user.jpg"
+                }
+                alt={currentTeam?.name}
+              />
               <div>
-                <h3>{currentTeam.name}</h3>
-                <span>{currentTeam.bio}</span>
+                <h3>{currentTeam?.name}</h3>
+                <span>{currentTeam?.bio}</span>
               </div>
             </div>
-            <button onClick={() => setShowTeamDetail(false)}>
+            <button onClick={() => navigate(-1)}>
               <X />
             </button>
           </header>
@@ -76,11 +88,11 @@ function TeamDetail() {
                 />
               )}
               <div className="tag-list">
-                {currentTeam.tags.map((tag) => (
+                {currentTeam?.tags.map((tag) => (
                   <p className="team-tag">{tag}</p>
                 ))}
 
-                {currentTeam.tags.length === 0 && (
+                {currentTeam?.tags.length === 0 && (
                   <DetailEmptyList>no tag found</DetailEmptyList>
                 )}
               </div>
@@ -88,8 +100,8 @@ function TeamDetail() {
             <div className="team-detail-content">
               <span className="team-detail-tag">DESCRIPTION</span>
               <p>
-                {currentTeam.description ? (
-                  currentTeam.description
+                {currentTeam?.description ? (
+                  currentTeam?.description
                 ) : (
                   <DetailEmptyList>No description found</DetailEmptyList>
                 )}
@@ -111,8 +123,8 @@ function TeamDetail() {
               )}
 
               <ul className="members-list">
-                {currentTeam.members.length > 0 ? (
-                  currentTeam.members.map((mem) => <TeamMemberItem id={mem} />)
+                {currentTeam?.members.length > 0 ? (
+                  currentTeam?.members.map((mem) => <TeamMemberItem id={mem} />)
                 ) : (
                   <DetailEmptyList>no tag found</DetailEmptyList>
                 )}

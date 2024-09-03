@@ -171,7 +171,7 @@
 
 .conversation-message .message-content .message-text {
     background-color: var(--main-gray-scale-3);
-    padding: 2rem;
+    padding: 1rem;
     border-radius: 1rem;
     color: var(--main-primary-text);
 }
@@ -193,10 +193,13 @@
 
 .received-message .message-text {
     border-top-left-radius: 0 !important;
+    font-size: 1.4rem;
 }
 
 .sent-message .message-text {
     border-top-right-radius: 0 !important;
+    font-size: 1.4rem;
+
 
 }
 
@@ -338,4 +341,82 @@
 
 .conversation-detail-team-box .btn {
     width: 100%;
+}
+
+.btn-message-back {
+    display: none;
+}
+
+/* QUERIES */
+@media (max-width: 64.755em) {
+    .show-detail {
+        grid-template-columns: 25rem 1fr 25rem;
+
+    }
+
+    .conversation-header h3 {
+        font-size: 1.6rem;
+    }
+
+}
+
+@media (max-width: 53.875em) {
+    .show-detail {
+        grid-template-columns: 30rem 1fr;
+
+    }
+
+    .show-detail .conversation-container {
+        display: none;
+    }
+}
+
+@media (max-width: 45.625em) {
+    .show-detail {
+        grid-template-columns: 1fr 1.1fr;
+    }
+
+    .section-messages {
+        grid-template-columns: 1fr 1.1fr;
+    }
+
+    .conversation-message img {
+        width: 2.5rem;
+        height: 2.55rem;
+    }
+}
+
+@media (max-width: 39.375em) {
+    .show-detail {
+        grid-template-columns: 1fr;
+    }
+
+    .section-messages {
+        grid-template-columns: 1fr;
+    }
+
+    .conversation-message img {
+        width: 2.5rem;
+        height: 2.55rem;
+    }
+
+    .show-messages .messages-container {
+        display: none;
+    }
+
+    .conversation-container {
+        display: none;
+    }
+
+    .show-messages .conversation-container {
+        display: block;
+    }
+
+    .btn-message-back {
+        display: block;
+    }
+
+    .show-detail .conversation-container {
+        display: none;
+    }
 }

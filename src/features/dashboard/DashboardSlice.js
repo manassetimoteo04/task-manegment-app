@@ -4,6 +4,8 @@ import {
   projectCount,
   tasksCount,
   teamsCount,
+  teamsDash,
+  todayTasksCount,
 } from "../../services/apiDashboard";
 
 export const getProjectCount = createAsyncThunk(
@@ -27,6 +29,13 @@ export const getTasksCount = createAsyncThunk(
     return data;
   }
 );
+export const getTodayTasksCount = createAsyncThunk(
+  "dashboard/getTodayTasksCount",
+  async (id) => {
+    const data = await todayTasksCount(id);
+    return data;
+  }
+);
 export const getRecentTasksDash = createAsyncThunk(
   "dashboard/getRecentTasks",
   async (id) => {
@@ -34,12 +43,20 @@ export const getRecentTasksDash = createAsyncThunk(
     return data;
   }
 );
+export const getTeamsDash = createAsyncThunk(
+  "dashboard/getTeamsDash",
+  async (id) => {
+    const data = await teamsDash(id);
+    return data;
+  }
+);
 const initialState = {
   projectCount: 0,
   teamsCount: 0,
   tasksCount: 0,
+  todayTasksCount: 0,
   todaysTasks: [],
-  recentTasks: [],
+  teams: [],
   isLoading: true,
   error: "",
 };
@@ -51,7 +68,9 @@ const dashboardReducer = createSlice({
     getProjectCountBuilder(builder);
     getTeamsCountBuilder(builder);
     getTasksCountBuilder(builder);
+    getTodayTasksCountBuilder(builder);
     getRecentTasksBuilder(builder);
+    getTeamsDashBuilder(builder);
   },
 });
 
@@ -97,6 +116,20 @@ function getTasksCountBuilder(builder) {
       state.error = action.error.message;
     });
 }
+function getTodayTasksCountBuilder(builder) {
+  builder
+    .addCase(getTodayTasksCount.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(getTodayTasksCount.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.todayTasksCount = action.payload;
+    })
+    .addCase(getTodayTasksCount.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+}
 function getRecentTasksBuilder(builder) {
   builder
     .addCase(getRecentTasksDash.pending, (state) => {
@@ -107,6 +140,20 @@ function getRecentTasksBuilder(builder) {
       state.recentTasks = action.payload;
     })
     .addCase(getRecentTasksDash.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+}
+function getTeamsDashBuilder(builder) {
+  builder
+    .addCase(getTeamsDash.pending, (state) => {
+      state.isLoading = true;
+    })
+    .addCase(getTeamsDash.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.teams = action.payload;
+    })
+    .addCase(getTeamsDash.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error.message;
     });

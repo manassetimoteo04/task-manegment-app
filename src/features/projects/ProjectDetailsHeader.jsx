@@ -3,9 +3,12 @@ import Status from "../../ui/Status";
 import Button from "../../ui/Button";
 import { useApp } from "../../contexts/AppProvider";
 import { useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router";
 function ProjectDetailsHeader() {
   const { dispatch, setShowProjectMobile } = useApp();
   const { currentProject } = useSelector((state) => state.projects);
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <div className="project-details-header">
       <div className="project-name-detail">
@@ -21,7 +24,9 @@ function ProjectDetailsHeader() {
       <div className="project-team-box">
         <Button
           type="secondary"
-          onClick={() => dispatch({ type: "task/toggleForm" })}
+          onClick={() => {
+            navigate(`${location.search}#newtask`);
+          }}
         >
           <Plus size={18} /> Task
         </Button>

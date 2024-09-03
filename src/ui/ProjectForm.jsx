@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createProject } from "../features/projects/projectSlice";
 import ButtonSpinner from "./ButtonSpinner";
 import { useShowPopup } from "../hooks/useShowPopup";
+import { useLocation, useNavigate } from "react-router";
 
 function ProjectForm() {
   const [name, setName] = useState("");
@@ -20,6 +21,7 @@ function ProjectForm() {
   const DISPATCH = useDispatch();
   const { teams } = useSelector((state) => state.teams);
   const [showPopup] = useShowPopup();
+  const navigate = useNavigate();
   const options = teams.map((team) => {
     return { value: team.id, label: team.name, icon: team.image };
   });
@@ -39,7 +41,7 @@ function ProjectForm() {
   }
   useEffect(() => {
     if (status.type === "create" && status.statu === "succeeded") {
-      dispatch({ type: "project/closeProjectForm" });
+      navigate(-1);
       showPopup({
         type: "success",
         message: "Project created successfully",
@@ -53,7 +55,7 @@ function ProjectForm() {
           className="btn-close-form"
           onClick={(e) => {
             e.preventDefault();
-            dispatch({ type: "project/closeProjectForm" });
+            navigate(-1);
           }}
         >
           <X />

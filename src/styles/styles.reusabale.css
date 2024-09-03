@@ -160,14 +160,14 @@
 
 .table-sekeleton-loading div {
     background: linear-gradient(90deg,
-            var(--main-gray-scale-1) 25%,
+            var(--main-gray-scale-2) 25%,
             var(--main-gray-scale-3) 50%,
-            var(--main-gray-scale-1) 75%);
+            var(--main-gray-scale-2) 75%);
     width: 100%;
     background-size: 200% 100%;
     height: 2rem;
     border-radius: 0.5rem;
-    animation: skeleton 3s linear infinite
+    animation: skeleton 5s linear infinite
 }
 
 .table-sekeleton-loading div:nth-child(1) {
@@ -237,9 +237,9 @@
     width: 8rem;
     border-radius: 0.5rem;
     background: linear-gradient(90deg,
-            var(--main-gray-scale-1) 25%,
+            var(--main-gray-scale-2) 25%,
             var(--main-gray-scale-3) 50%,
-            var(--main-gray-scale-1) 75%);
+            var(--main-gray-scale-2) 75%);
     background-size: 200% 100%;
     animation: skeleton 1.5s linear infinite
 }
@@ -257,9 +257,9 @@
     width: 100%;
     border-radius: 0.5rem;
     background: linear-gradient(90deg,
-            var(--main-gray-scale-1) 25%,
+            var(--main-gray-scale-2) 25%,
             var(--main-gray-scale-3) 50%,
-            var(--main-gray-scale-1) 75%);
+            var(--main-gray-scale-2) 75%);
     background-size: 200% 100%;
     animation: skeleton 2s linear infinite
 }
@@ -278,4 +278,35 @@
         background-position: -200% 0;
     }
 
+}
+
+/* FULL-IMAGE */
+.full-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.full-image button {
+    background-color: var(--main-gray-scale-2);
+    color: var(--main-primary-text);
+    position: absolute;
+    top: -0rem;
+    right: -5rem;
+}
+
+.full-image div {
+    position: relative;
+
+    width: 30rem;
+    height: 30rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--main-light-color);
+    border: 1px solid var(--main-gray-scale-3);
+}
+
+.full-image img {
+    width: 100%;
 }

@@ -1,16 +1,17 @@
-import { Plus } from "react-feather";
 import { useApp } from "../contexts/AppProvider";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllTeams, getCurrTeam } from "../features/teams/teamSlice";
+import { getAllTeams } from "../features/teams/teamSlice";
 import SmallBtn from "./SmallBtn";
 import { useShowPopup } from "../hooks/useShowPopup";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 
 function TeamList() {
   const { showSideBar, dispatch } = useApp();
   const { teams, status } = useSelector((state) => state.teams);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const {
     currentUser,
     isLoading,
@@ -34,16 +35,10 @@ function TeamList() {
       <span className="tag">
         <>
           {showSideBar && "Team"}
-          {/* <button
-            className="btn-create-team"
-            onClick={() => dispatch({ type: "team/showForm" })}
-          >
-            <Plus size={20} />
-          </button> */}
+
           <SmallBtn
             onClick={() => {
-              // dispatch({ type: "team/showForm" });
-              navigate("#newteam");
+              navigate(`${location.search}#newteam`);
             }}
           />
         </>
@@ -57,11 +52,11 @@ function TeamList() {
   );
 }
 function TeamListItem({ team }) {
-  const { setShowTeamDetail } = useApp();
-  const DISPATCH = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   function handleClick() {
-    setShowTeamDetail(true);
-    DISPATCH(getCurrTeam(team.id));
+    navigate(`${location.search}#team/${team.id}`);
   }
   return (
     <li onClick={handleClick}>

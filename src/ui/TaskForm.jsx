@@ -8,6 +8,7 @@ import { createNewTask } from "../features/tasks/taskSlice";
 import { getTeamMembers } from "../features/teams/teamSlice";
 import { getUserImageName } from "../services/apiHelpers";
 import { useShowPopup } from "../hooks/useShowPopup";
+import { useNavigate } from "react-router";
 
 const optionsPrio = [
   {
@@ -38,6 +39,7 @@ function TaskFrom() {
   const { teams } = useSelector((state) => state.teams);
   const DISPATCH = useDispatch();
   const [showPopup] = useShowPopup();
+  const navigate = useNavigate();
   const team = teams.find((team) => team.id === currentProject.team_id);
 
   useEffect(() => {
@@ -59,8 +61,10 @@ function TaskFrom() {
   useEffect(() => {
     if (status.type === "create" && status.statu === "loading")
       showPopup({ type: "loading", message: "creating new task" });
-    if (status.type === "create" && status.statu === "succeeded")
+    if (status.type === "create" && status.statu === "succeeded") {
       showPopup({ type: "success", message: "new task added" });
+      navigate(-1);
+    }
     if (status.type === "create" && status.statu === "failed")
       showPopup({ type: "error", message: "Failed creating new task" });
   }, [status.statu]);
@@ -87,7 +91,7 @@ function TaskFrom() {
           className="btn-close-form"
           onClick={(e) => {
             e.preventDefault();
-            dispatch({ type: "task/toggleForm" });
+            navigate(-1);
           }}
         >
           <X />

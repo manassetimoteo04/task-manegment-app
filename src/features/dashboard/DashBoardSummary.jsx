@@ -7,6 +7,7 @@ import {
   getProjectCount,
   getTasksCount,
   getTeamsCount,
+  getTodayTasksCount,
 } from "./DashboardSlice";
 import DashboardSumSkeleton from "../../ui/DashboardSumSkeleton";
 
@@ -14,9 +15,8 @@ function DashBoardSummary() {
   const { teams, status } = useSelector((state) => state.teams);
   const { allTasks } = useSelector((state) => state.tasks);
   const { currentUser } = useSelector((state) => state.auth);
-  const { projectCount, teamsCount, tasksCount, isLoading } = useSelector(
-    (state) => state.dashboard
-  );
+  const { projectCount, teamsCount, tasksCount, todayTasksCount, isLoading } =
+    useSelector((state) => state.dashboard);
   const DISPATCH = useDispatch();
   const ids = teams.map((team) => team.id);
 
@@ -29,6 +29,7 @@ function DashBoardSummary() {
       const ids = teams.map((team) => team.id);
       DISPATCH(getProjectCount({ teams: ids }));
       DISPATCH(getTasksCount({ teams: ids }));
+      DISPATCH(getTodayTasksCount({ teams: ids }));
     }
   }, [status.statu]);
 
@@ -89,8 +90,8 @@ function DashBoardSummary() {
               <Calendar size={35} />
             </span>
             <div>
-              <span className="summ-tag">Today's</span>
-              <span className="total-summ">234</span>
+              <span className="summ-tag">Today's Task</span>
+              <span className="total-summ">{todayTasksCount}</span>
             </div>
           </>
         )}

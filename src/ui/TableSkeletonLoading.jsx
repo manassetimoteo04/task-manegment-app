@@ -1,4 +1,4 @@
-function TableSekeletonLoading() {
+function TableSkeletonLoading() {
   return (
     <div className="table-sekeleton-loading">
       <div></div>
@@ -10,4 +10,4 @@ function TableSekeletonLoading() {
   );
 }
 
-export default TableSekeletonLoading;
+export default TableSkeletonLoading;

@@ -50,9 +50,7 @@ function TaskDetails() {
   function handleChange(e) {
     setStatuValue(e.target.value);
   }
-  // useEffect(() => {
-  //   setStatuValue(taskStatus);
-  // }, [taskStatus]);
+
   const [enganged] = useGetUserImg(engangedId);
   return (
     <Overlay>

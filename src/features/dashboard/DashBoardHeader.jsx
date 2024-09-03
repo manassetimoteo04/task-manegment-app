@@ -1,9 +1,11 @@
 import { Plus } from "react-feather";
 import Button from "../../ui/Button";
 import { useApp } from "../../contexts/AppProvider";
+import { useNavigate } from "react-router";
 
 function DashBoardHeader() {
   const { dispatch } = useApp();
+  const navigate = useNavigate();
   return (
     <header className="section-header">
       <div>
@@ -12,7 +14,7 @@ function DashBoardHeader() {
       </div>
       <Button
         onClick={() => {
-          dispatch({ type: "project/showProjectForm" });
+          navigate("#newproject");
         }}
         type="primary"
       >

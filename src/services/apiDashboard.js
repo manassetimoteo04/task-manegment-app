@@ -1,3 +1,4 @@
+import { getToday } from "../utils/helpers";
 import { supabase } from "./supabase";
 
 export const projectCount = async ({ teams }) => {
@@ -16,6 +17,7 @@ export const teamsCount = async ({ id }) => {
   if (error) {
     throw new Error(error.message);
   }
+  console.log("Teams count,:", count);
   return count;
 };
 export const tasksCount = async ({ teams }) => {
@@ -36,6 +38,25 @@ export const tasksCount = async ({ teams }) => {
 
   return count;
 };
+export const todayTasksCount = async ({ teams }) => {
+  const { data, error: err } = await supabase
+    .from("projects")
+    .select("id")
+    .in("team_id", teams);
+
+  const ids = data.map((id) => id.id);
+
+  if (err) throw new Error(err.message);
+
+  const { error, count } = await supabase
+    .from("task")
+    .select("*", { count: "exact" })
+    .or(`start_date.eq.${getToday()}`)
+    .in("project_id", ids);
+  if (error) throw new Error(error.message);
+  console.log(count);
+  return count;
+};
 
 export const getRecentTasks = async ({ teams }) => {
   const { data, error: err } = await supabase
@@ -50,8 +71,21 @@ export const getRecentTasks = async ({ teams }) => {
     .from("task")
     .select("id, title, priority, responsable_id, status")
     .in("project_id", ids)
+    .or("status.eq.pending,status.eq.doing")
     .order("created_at", { ascending: false })
     .range(0, 4);
+  console.log(tasks);
   if (error) throw new Error(error.message);
   return tasks;
+};
+export const teamsDash = async ({ id }) => {
+  const { data, error } = await supabase
+    .from("teams")
+    .select("*")
+    .contains("members", [id])
+    .range(0, 4);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };

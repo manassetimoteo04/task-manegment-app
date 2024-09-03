@@ -7,19 +7,23 @@ import { useEffect, useRef, useState } from "react";
 import TeamForm from "../features/teams/TeamForm";
 import Overlay from "../ui/Overlay";
 import Popup from "../ui/Popup";
-import LogoutPopup from "../ui/LogoutPopup";
+import TaskForm from "../ui/TaskForm";
+import ProjectForm from "../ui/ProjectForm";
 import TeamDetail from "../features/teams/TeamDetail";
 import { MIN_SWIPE_DISTANCE } from "../utils/constants";
 import TaskDetails from "../features/tasks/TaskDetails";
+import FullImage from "../ui/FullImage";
 
 function AppLayout() {
   const {
     dispatch,
     showSideBar,
     showNotification,
-    showTaskDetails,
     showPopup,
     showTeamDetail,
+    showFullImg,
+    showProjectForm,
+    showTaskForm,
   } = useApp();
   const refEl = useRef();
   // const [swipe, setSwipe] = useState(null);
@@ -67,13 +71,23 @@ function AppLayout() {
       <Header></Header>
       {showNotification && <NotificationContainer />}
       <Menu></Menu>
+      {location.hash === "#newproject" && (
+        <Overlay>
+          <ProjectForm />
+        </Overlay>
+      )}
 
+      {location.hash === "#newtask" && (
+        <Overlay>
+          <TaskForm />
+        </Overlay>
+      )}
       {location.hash === "#newteam" && (
         <Overlay>
           <TeamForm />
         </Overlay>
       )}
-      {showTeamDetail && (
+      {location.hash.startsWith("#team") && (
         <Overlay>
           <TeamDetail />
         </Overlay>
@@ -81,9 +95,11 @@ function AppLayout() {
       {location.hash.startsWith("#task") && <TaskDetails />}
 
       {showPopup && <Popup />}
-      {/* <Overlay>
-        <LogoutPopup />
-      </Overlay> */}
+      {showFullImg && (
+        <Overlay>
+          <FullImage />
+        </Overlay>
+      )}
       <Outlet />
     </div>
   );

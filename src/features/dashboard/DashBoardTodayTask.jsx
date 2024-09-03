@@ -1,12 +1,13 @@
 import { ChevronDown } from "react-feather";
-import Status from "../../ui/Status";
+
 import DashBoardTaskBox from "./DashBoardTaskBox";
 import { getRecentTasksDash } from "./DashboardSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import TableSkeletonLoading from "../../ui/TableSkeletonLoading";
 function DashBoardTodayTask() {
   const { teams, status } = useSelector((state) => state.teams);
-  const { recentTasks } = useSelector((state) => state.dashboard);
+  const { recentTasks, isLoading } = useSelector((state) => state.dashboard);
   const DISPATCH = useDispatch();
   useEffect(() => {
     if (status.statu === "succeeded" && status.type === "getAll") {
@@ -20,9 +21,13 @@ function DashBoardTodayTask() {
         <h3>Recent Tasks</h3>
       </header>
       <div className="task-list">
-        {recentTasks.map((task) => (
-          <DashBoardTaskBox key={task.id} task={task} />
-        ))}
+        {isLoading ? (
+          <TableSkeletonLoading />
+        ) : (
+          recentTasks?.map((task) => (
+            <DashBoardTaskBox key={task.id} task={task} />
+          ))
+        )}
       </div>
     </div>
   );

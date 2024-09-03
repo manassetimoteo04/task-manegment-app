@@ -1,9 +1,11 @@
 import { Plus } from "react-feather";
-import { useApp } from "../../contexts/AppProvider";
+
 import Button from "../../ui/Button";
+import { useLocation, useNavigate } from "react-router";
 
 function ProjectsHeader() {
-  const { dispatch } = useApp();
+  const navigate = useNavigate();
+  const location = useLocation();
   return (
     <header className="project-header">
       <div>
@@ -11,7 +13,7 @@ function ProjectsHeader() {
       </div>
       <Button
         onClick={() => {
-          dispatch({ type: "project/showProjectForm" });
+          navigate(`${location.search}#newproject`);
         }}
         type="primary"
       >

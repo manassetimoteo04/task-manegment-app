@@ -1,13 +1,14 @@
 import { MoreVertical, Square } from "react-feather";
 import TaskItem from "./TaskItem";
-import TasksFilter from "./TasksFilter";
+
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllTasks } from "./taskSlice";
 import PaginationBox from "../../ui/PaginationBox";
 import { useSearchParams } from "react-router-dom";
-import TableSekeletonLoading from "../../ui/TableSekeletonLoading";
+
 import FilterBox from "../../ui/FilterBox";
+import TableSkeletonLoading from "../../ui/TableSkeletonLoading";
 
 function TasksTable() {
   const DISPATCH = useDispatch();
@@ -53,7 +54,7 @@ function TasksTable() {
         </header>
         <div className="tasks-list">
           {isLoading ? (
-            <TableSekeletonLoading />
+            <TableSkeletonLoading />
           ) : (
             allTasks.map((task) => <TaskItem task={task} key={task.id} />)
           )}

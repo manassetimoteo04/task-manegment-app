@@ -1,6 +1,9 @@
+import { useApp } from "../../contexts/AppProvider";
+
 function MessagesBox() {
+  const { setMobileShowMessage } = useApp();
   return (
-    <div className="messages-box">
+    <div className="messages-box" onClick={() => setMobileShowMessage(true)}>
       <img src="me.jpg" alt="" />
       <div className="messages-content-box">
         <div>

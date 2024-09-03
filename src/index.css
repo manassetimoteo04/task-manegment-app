@@ -74,6 +74,7 @@ body {
   color: var(--main-text-color);
   background-color: var(--main-gray-faded-color);
   position: relative;
+
 }
 
 *::-webkit-scrollbar {
