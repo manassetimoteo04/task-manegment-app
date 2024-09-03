@@ -17,7 +17,6 @@ export const teamsCount = async ({ id }) => {
   if (error) {
     throw new Error(error.message);
   }
-  console.log("Teams count,:", count);
   return count;
 };
 export const tasksCount = async ({ teams }) => {
@@ -54,7 +53,6 @@ export const todayTasksCount = async ({ teams }) => {
     .or(`start_date.eq.${getToday()}`)
     .in("project_id", ids);
   if (error) throw new Error(error.message);
-  console.log(count);
   return count;
 };
 
@@ -74,7 +72,6 @@ export const getRecentTasks = async ({ teams }) => {
     .or("status.eq.pending,status.eq.doing")
     .order("created_at", { ascending: false })
     .range(0, 4);
-  console.log(tasks);
   if (error) throw new Error(error.message);
   return tasks;
 };

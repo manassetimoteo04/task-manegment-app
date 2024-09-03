@@ -312,8 +312,8 @@ textarea:focus {
 }
 
 .project-name-detail img {
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     border-radius: 50%;
 }
 
@@ -324,7 +324,6 @@ textarea:focus {
 
 .project-scroller {
     overflow: auto;
-    width: 100%;
     height: calc(100vh - 18rem)
 }
 
@@ -401,14 +400,18 @@ textarea:focus {
     margin: 0;
     width: 100%;
     padding: 2rem;
+    overflow: auto;
+    overflow-x: scroll;
+
 
 }
 
 .project-tasks-list .container {
     border: 1px solid var(--main-gray-scale-3);
     margin-bottom: 2rem;
-    width: calc(100% - 1px);
-    overflow-x: scroll;
+    width: calc(100vw - 47rem);
+    overflow: scroll;
+
 }
 
 .task-list-header {
@@ -416,6 +419,7 @@ textarea:focus {
     grid-template-columns: 5rem 3fr 2fr 1fr 1fr 5rem;
     background-color: var(--main-gray-scale-1);
     border-bottom: 1px solid var(--main-gray-scale-3);
+    min-width: 80rem;
 
 }
 
@@ -446,6 +450,8 @@ textarea:focus {
 .task-grid-list .project-task-item {
     display: grid;
     grid-template-columns: 5rem 3fr 2fr 1fr 1fr 5rem;
+    min-width: 80rem;
+
 }
 
 .task-grid-list .project-task-item:not(:last-child) {
@@ -652,7 +658,7 @@ textarea:focus {
         display: block;
         background: none;
         color: inherit;
-        margin-right: 1rem;
+        margin-right: 0rem;
     }
 
     .project-menu-filter {
@@ -663,6 +669,10 @@ textarea:focus {
     .filter-box input {
         width: 100% !important;
         align-self: flex-end;
+    }
+
+    .project-tasks-list .container {
+        width: calc(100vw - 16rem);
     }
 }
 
@@ -677,5 +687,9 @@ textarea:focus {
     .detail-box .detail-grid {
         grid-template-columns: 1fr 1fr;
 
+    }
+
+    .project-tasks-list .container {
+        width: calc(100vw - 8rem);
     }
 }

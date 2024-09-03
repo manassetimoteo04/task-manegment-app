@@ -69,8 +69,6 @@ const tasks = [
   },
 ];
 
-console.log(tasks);
-
 function CalendarTasks() {
   return (
     <div className="calendar-tasks">

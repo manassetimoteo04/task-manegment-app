@@ -17,5 +17,3 @@ const store = configureStore({
 
 export default store;
 getTasks();
-
-console.log(store.getState());

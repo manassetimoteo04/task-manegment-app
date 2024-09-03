@@ -32,7 +32,6 @@ function TasksTable() {
   useEffect(() => {
     DISPATCH(getAllTasks({ page, filter, teams: ids }));
   }, [page, filtervalue, teams]);
-  console.log("all tasks: ", allTasks);
   return (
     <div className="tasks-table">
       {/* <TasksFilter /> */}
