@@ -131,6 +131,7 @@
 
 .fc .fc-toolbar-title {
     color: var(--main-primary-text);
+    font-size: 1.6rem;
 }
 
 .fc .fc-daygrid-day {
@@ -206,4 +207,17 @@ Estilo quando o botão está ativo .fc-button-active {
 
 .fc-button-group>.fc-button:last-child {
     margin-right: 0;
+}
+
+.calendar-task-box img {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+.calendar-task-box {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
 }

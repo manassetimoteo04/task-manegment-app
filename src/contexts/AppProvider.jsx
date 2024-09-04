@@ -9,6 +9,7 @@ import { useLocalStorage } from "../hooks/useLocalStorage";
 
 const AppContext = createContext();
 const initalState = {
+  currentConversation: null,
   showNotification: false,
   showSideBar: false,
   showProjectTask: "task",
@@ -30,13 +31,23 @@ function reducer(state, action) {
       return { ...state, showPopup: action.payload };
     case "app/closePopup":
       return { ...state, showPopup: null };
+    case "messages/setCurrentConv":
+      return { ...state, currentConversation: action.payload };
+    case "messages/unSetCurrentConv":
+      return { ...state, currentConversation: null };
     default:
       throw new Error("Unkown action");
   }
 }
 function AppProvider({ children }) {
   const [
-    { showNotification, showSideBar, showProjectTask, showPopup },
+    {
+      showNotification,
+      showSideBar,
+      showProjectTask,
+      showPopup,
+      currentConversation,
+    },
     dispatch,
   ] = useReducer(reducer, initalState);
   const [isDarkMode, setIsDarkMode] = useLocalStorage(
@@ -48,6 +59,7 @@ function AppProvider({ children }) {
   const [showTeamDetail, setShowTeamDetail] = useState(false);
   const [mobileShowMessage, setMobileShowMessage] = useState(false);
   const [showFullImg, setShowFullImg] = useState(null);
+  const [showNewConList, setShowNewConvList] = useState(true);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
@@ -76,6 +88,9 @@ function AppProvider({ children }) {
     setMobileShowMessage,
     showFullImg,
     setShowFullImg,
+    showNewConList,
+    setShowNewConvList,
+    currentConversation,
   };
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 }

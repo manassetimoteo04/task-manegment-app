@@ -70,13 +70,7 @@ const tasks = [
 ];
 
 function CalendarTasks() {
-  return (
-    <div className="calendar-tasks">
-      {tasks.map((task) => (
-        <CalendarTask task={task} />
-      ))}
-    </div>
-  );
+  return <div className="calendar-tasks"></div>;
 }
 
 export default CalendarTasks;

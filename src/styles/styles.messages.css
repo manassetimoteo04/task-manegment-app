@@ -91,6 +91,35 @@
     font-weight: 600;
 }
 
+.conv-team-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+.conv-team-list li {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.2rem 1rem;
+}
+
+.conv-team-list li img {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+}
+
+.conv-team-list li h3 {
+    font-weight: 500;
+    color: var(--main-primary-text);
+    font-size: 1.6rem;
+}
+
+.conv-team-list li:hover {
+    background-color: var(--main-gray-scale-1);
+}
+
 /* STYLING THE CONVERSATION-BOX */
 .conversation-container {
     border-radius: 0.5rem;
