@@ -1,20 +1,29 @@
 import { useEffect, useState } from "react";
 import { useApp } from "../../contexts/AppProvider";
-import { getTeamImageName } from "../../services/apiHelpers";
-import { useDispatch } from "react-redux";
+import { getReadNumber, getTeamImageName } from "../../services/apiHelpers";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrConversation } from "./messagesSlice";
 
-function MessagesBox({ conv }) {
-  const { setMobileShowMessage, dispatch } = useApp();
+function MessagesBox({ conv, index }) {
   const [group, setGroup] = useState({});
+  const [unRead, setUnread] = useState(0);
+  const { currentUser } = useSelector((state) => state.auth);
+  const { setMobileShowMessage, dispatch } = useApp();
+
   const DISPATCH = useDispatch();
   useEffect(() => {
     async function getData() {
       const data = await getTeamImageName(conv.team_id);
       setGroup(data);
+      const unreads = await getReadNumber({
+        conId: conv.id,
+        userId: currentUser.id,
+      });
+      setUnread(unreads);
     }
     getData();
-  }, []);
+  }, [index, conv]);
+
   return (
     <div
       className="messages-box"
@@ -22,6 +31,7 @@ function MessagesBox({ conv }) {
         setMobileShowMessage(true);
         DISPATCH(setCurrConversation(conv.id));
         dispatch({ type: "messages/setCurrentConv", payload: conv.team_id });
+        setUnread(0);
       }}
     >
       <img
@@ -35,7 +45,7 @@ function MessagesBox({ conv }) {
         </div>
         <div>
           <p className="content">{conv?.last_message?.content}</p>
-          <span className="unread-messages">2</span>
+          {unRead > 0 && <span className="unread-messages">{unRead}</span>}
         </div>
       </div>
     </div>

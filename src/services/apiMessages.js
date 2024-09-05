@@ -82,3 +82,12 @@ export const getMessages = async ({ id }) => {
   }
   return data;
 };
+export const readMessages = async (obj) => {
+  const { data, error } = await supabase
+    .from("message_reads")
+    .upsert(obj, { onConflict: ["message_id", "user_id"] })
+    .select();
+  console.log(data);
+  if (error) throw new Error(error.message);
+  return data;
+};

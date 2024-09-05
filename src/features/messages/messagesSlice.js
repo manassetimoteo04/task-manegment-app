@@ -3,6 +3,7 @@ import {
   createConversation,
   getConversations,
   getMessages,
+  readMessages,
 } from "../../services/apiMessages";
 
 export const createNewConversation = createAsyncThunk(
@@ -25,6 +26,12 @@ export const getConversationMessages = createAsyncThunk(
   async (id) => {
     const data = await getMessages(id);
     return data;
+  }
+);
+export const setReadMessages = createAsyncThunk(
+  "messages/readMessages",
+  async (list) => {
+    await readMessages(list);
   }
 );
 const initialState = {
@@ -56,6 +63,7 @@ const messagesReducer = createSlice({
     createNewConversationBuilder(builder);
     getAllConversationBuilder(builder);
     getConversationMessagesBuilder(builder);
+    setReadMessagesBuilder(builder);
   },
 });
 
@@ -110,6 +118,21 @@ function getConversationMessagesBuilder(builder) {
     })
     .addCase(getConversationMessages.rejected, (state, action) => {
       state.status = { type: "getMessages", statu: "failed" };
+      state.isLoading = false;
+
+      state.error = action.error.message;
+    });
+}
+function setReadMessagesBuilder(builder) {
+  builder
+    .addCase(setReadMessages.pending, (state) => {
+      state.status = { type: "readMessages", statu: "loading" };
+    })
+    .addCase(setReadMessages.fulfilled, (state, action) => {
+      state.status = { type: "readMessages", statu: "succeeded" };
+    })
+    .addCase(setReadMessages.rejected, (state, action) => {
+      state.status = { type: "readMessages", statu: "failed" };
       state.isLoading = false;
 
       state.error = action.error.message;

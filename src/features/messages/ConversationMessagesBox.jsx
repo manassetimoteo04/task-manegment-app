@@ -2,13 +2,18 @@ import { useEffect, useRef } from "react";
 import ConversationMessage from "./ConversationMessage";
 import MessagesBox from "./MessagesBox";
 import { useSelector, useDispatch } from "react-redux";
-import { getConversationMessages } from "./messagesSlice";
+import { getConversationMessages, setReadMessages } from "./messagesSlice";
 import { useApp } from "../../contexts/AppProvider";
 import useMessageChanges from "../../hooks/useMessageChanges";
 
 function ConversationMessagesBox() {
-  const { messages, conversationId } = useSelector((state) => state.messages);
-
+  const { messages, conversationList, conversationId } = useSelector(
+    (state) => state.messages
+  );
+  const { currentUser } = useSelector((state) => state.auth);
+  const DISPATCH = useDispatch();
+  const refEl = useRef();
+  const dateRef = useRef(new Date());
   const { getMessageSubscription, removeMessageSubscription } =
     useMessageChanges();
 
@@ -18,9 +23,23 @@ function ConversationMessagesBox() {
       removeMessageSubscription(subscription);
     };
   }, [conversationId]);
-  const refEl = useRef();
-  const dateRef = useRef(new Date());
-  const DISPATCH = useDispatch();
+
+  useEffect(() => {
+    const list = messages
+      .filter((msg) => msg.send_by !== currentUser.id)
+      .map((item) => {
+        return {
+          read_at: new Date().toISOString(),
+          message_id: item.id,
+          user_id: currentUser.id,
+          conversation_id: item.conversation_id,
+        };
+      });
+    console.log(list);
+    DISPATCH(setReadMessages(list));
+  }, [messages]);
+
+  console.log(messages);
   useEffect(() => {
     refEl.current.scrollTop = refEl.current.scrollHeight;
   }, [conversationId, messages]);
