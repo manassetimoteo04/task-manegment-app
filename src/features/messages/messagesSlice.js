@@ -41,6 +41,15 @@ const messagesReducer = createSlice({
     setCurrConversation(state, action) {
       state.conversationId = action.payload;
     },
+    setNewMessage(state, action) {
+      state.messages = [...state.messages, action.payload];
+    },
+    setRecentConversation(state, action) {
+      state.conversationList = state.conversationList.filter(
+        (con) => con.id !== action.payload.id
+      );
+      state.conversationList = [action.payload, ...state.conversationList];
+    },
   },
   initialState,
   extraReducers(builder) {
@@ -106,5 +115,6 @@ function getConversationMessagesBuilder(builder) {
       state.error = action.error.message;
     });
 }
-export const { setCurrConversation } = messagesReducer.actions;
+export const { setCurrConversation, setNewMessage, setRecentConversation } =
+  messagesReducer.actions;
 export default messagesReducer.reducer;

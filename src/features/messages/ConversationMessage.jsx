@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserImageName } from "../../services/apiHelpers";
 
 function ConversationMessage({ message }) {
   const [sender, setSender] = useState({});
+
   const {
     currentUser: { id },
   } = useSelector((state) => state.auth);

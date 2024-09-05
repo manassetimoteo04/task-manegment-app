@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 function ConversationContainer() {
   const { currentConversation } = useApp();
   const { status, isLoading } = useSelector((state) => state.messages);
-  console.log(status, isLoading);
   return (
     <div className="conversation-container">
       {currentConversation ? (

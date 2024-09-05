@@ -6,8 +6,11 @@ import { useEffect, useState } from "react";
 import NewConversation from "./NewConversation";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllConversation } from "./messagesSlice";
+import useConversationChanges from "../../hooks/useConversationChanges";
 
 function MessagesLayout() {
+  const { getConversationSubscription, removeConversationSubscription } =
+    useConversationChanges();
   const {
     showMessageUserDetail,
     mobileShowMessage,
@@ -24,6 +27,14 @@ function MessagesLayout() {
       DISPATCH(getAllConversation({ teams: ids, id: currentUser.id }));
     }
   }, [teams]);
+
+  useEffect(() => {
+    const subscription = getConversationSubscription(teams);
+    return () => {
+      removeConversationSubscription(subscription);
+    };
+  }, [teams]);
+
   return (
     <section
       className={`section-messages ${
