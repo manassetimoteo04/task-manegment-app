@@ -1,17 +1,16 @@
-import { Plus } from "react-feather";
-import Button from "../../ui/Button";
-import ConvMemberList from "./ConvMemberList";
+import ConvMemberBox from "./ConvMemberBox";
 
-function ConversationDetailTeamBox() {
+function ConversationDetailTeamBox({ members }) {
   return (
     <div className="conversation-detail-team-box">
-      <span className="team-tag">
-        MEMBERS <strong>23</strong>
+      <span>
+        MEMBERS <strong>{members.length}</strong>
       </span>
-      <ConvMemberList />
-      <Button type="secondary">
-        <Plus /> Add member
-      </Button>
+      <div className="conv-member-list">
+        {members.map((mem) => (
+          <ConvMemberBox member={mem} index={2} />
+        ))}
+      </div>
     </div>
   );
 }

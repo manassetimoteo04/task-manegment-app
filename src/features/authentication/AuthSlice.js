@@ -136,7 +136,9 @@ function logoutBuilder(builder) {
     .addCase(logout.fulfilled, (state, action) => {
       state.isLoading = false;
       state.currentUser = {};
+      state.status = {};
       state.role = "";
+      state.error = "";
     })
     .addCase(logout.rejected, (state) => {
       state.isLoading = false;

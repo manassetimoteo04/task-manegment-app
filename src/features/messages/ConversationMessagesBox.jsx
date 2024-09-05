@@ -10,7 +10,7 @@ function ConversationMessagesBox() {
   const DISPATCH = useDispatch();
   useEffect(() => {
     refEl.current.scrollTop = refEl.current.scrollHeight;
-  }, []);
+  }, [conversationId, messages]);
   useEffect(() => {
     if (conversationId)
       DISPATCH(getConversationMessages({ id: conversationId }));
@@ -18,7 +18,7 @@ function ConversationMessagesBox() {
   return (
     <div className="conversation-messages-box" ref={refEl}>
       {messages.map((message) => (
-        <ConversationMessage message={message} />
+        <ConversationMessage message={message} key={message.id} />
       ))}
       {/* <ConversationMessage type="sent" />
       <ConversationMessage type="received" />

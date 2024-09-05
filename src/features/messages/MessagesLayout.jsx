@@ -23,7 +23,7 @@ function MessagesLayout() {
       const ids = teams.map((team) => team.id);
       DISPATCH(getAllConversation({ teams: ids, id: currentUser.id }));
     }
-  }, [status.status]);
+  }, [teams]);
   return (
     <section
       className={`section-messages ${

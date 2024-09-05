@@ -24,7 +24,10 @@ function MessagesBox({ conv }) {
         dispatch({ type: "messages/setCurrentConv", payload: conv.team_id });
       }}
     >
-      <img src={group.image} alt="" />
+      <img
+        src={group?.image ? group?.image : "default-user.jpg"}
+        alt={group.name}
+      />
       <div className="messages-content-box">
         <div>
           <h3>{group.name}</h3>

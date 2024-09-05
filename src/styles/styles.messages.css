@@ -124,10 +124,25 @@
 .conversation-container {
     border-radius: 0.5rem;
     border: 1px solid var(--main-gray-scale-3);
+    background-color: var(--main-light-color);
+    position: relative;
+}
+
+.spinner-container-msg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    background-color: var(--main-light-color);
+
+    left: 0;
+}
+
+.conversation-con-grid {
     display: grid;
     grid-template-rows: 7rem 1fr 6rem;
     height: calc(100vh - 11rem);
-    background-color: var(--main-gray-faded-color);
+
 }
 
 .conversation-header {
@@ -180,34 +195,34 @@
     width: 0;
 }
 
+.received-message {
+    align-self: start;
+
+}
+
 .sent-message {
     align-self: end;
-    flex-direction: row-reverse;
 }
 
-.conversation-message {
-    display: flex;
-    gap: 1rem;
-    max-width: 30rem;
 
-}
-
-.conversation-message img {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-}
-
-.conversation-message .message-content .message-text {
+.conversation-message .message-content {
     background-color: var(--main-gray-scale-3);
     padding: 1rem;
     border-radius: 1rem;
-    color: var(--main-primary-text);
+    max-width: 30rem;
+    display: flex;
+    flex-direction: column;
 }
 
-.message-content span {
-    font-size: 1.4rem;
+.message-content .sent-time {
+    font-size: 1rem;
+    align-self: end;
 }
+
+.message-content .sender-name {
+    font-size: 1.2rem;
+}
+
 
 .message-content div {
     display: flex;
@@ -216,19 +231,19 @@
 }
 
 .message-content .sender-name {
-    color: var(--main-primary-text);
     font-weight: 500;
+    color: inherit
 }
 
 .received-message .message-text {
     border-top-left-radius: 0 !important;
-    font-size: 1.4rem;
+    color: var(--main-primary-text);
+
 }
 
 .sent-message .message-text {
     border-top-right-radius: 0 !important;
-    font-size: 1.4rem;
-
+    color: var(--main-primary-text);
 
 }
 

@@ -12,7 +12,7 @@ export const getUserImageName = async function (id) {
 export const getTeamImageName = async function (id) {
   const { data, error } = await supabase
     .from("teams")
-    .select("name, image, id")
+    .select("name, image, id, members")
     .eq("id", id)
     .single();
   if (error) throw new Error(`Team with id ${id} not found`);

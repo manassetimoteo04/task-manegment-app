@@ -1,9 +1,20 @@
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { getUserImageName } from "../../services/apiHelpers";
 
 function ConversationMessage({ message }) {
+  const [sender, setSender] = useState({});
   const {
     currentUser: { id },
   } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    async function getData() {
+      const user = await getUserImageName(message.send_by);
+      setSender(user);
+    }
+    getData();
+  }, []);
   return (
     <div
       className={`conversation-message ${
@@ -11,11 +22,11 @@ function ConversationMessage({ message }) {
       }-message`}
     >
       <div className="message-content">
-        <div>
-          <span className="sender-name">Manasse Timóteo</span>
-          <span className="sent-time">10h</span>
-        </div>
-        <p className="message-text">{message.content}</p>
+        {message.send_by !== id && (
+          <span className="sender-name">{sender.name}</span>
+        )}
+        <span className="message-text">{message.content}</span>
+        <span className="sent-time">10h</span>
       </div>
     </div>
   );

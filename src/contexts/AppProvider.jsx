@@ -17,6 +17,8 @@ const initalState = {
 };
 function reducer(state, action) {
   switch (action.type) {
+    case "app/logout":
+      return initalState;
     case "project/showTasks":
       return { ...state, showProjectTask: action.payload };
     case "app/showSideBar":

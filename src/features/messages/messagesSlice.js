@@ -32,6 +32,7 @@ const initialState = {
   messages: [],
   conversationId: null,
   status: {},
+  isLoading: true,
   error: "",
 };
 const messagesReducer = createSlice({
@@ -90,13 +91,18 @@ function getConversationMessagesBuilder(builder) {
   builder
     .addCase(getConversationMessages.pending, (state) => {
       state.status = { type: "getMessages", statu: "loading" };
+      state.isLoading = true;
     })
     .addCase(getConversationMessages.fulfilled, (state, action) => {
       state.status = { type: "getMessages", statu: "succeeded" };
+      state.isLoading = false;
+
       state.messages = action.payload;
     })
     .addCase(getConversationMessages.rejected, (state, action) => {
       state.status = { type: "getMessages", statu: "failed" };
+      state.isLoading = false;
+
       state.error = action.error.message;
     });
 }

@@ -18,7 +18,6 @@ function ConversationHeader() {
     }
     getUser();
   }, [currentConversation]);
-  console.log("currrebt", currentConversation);
   return (
     <header className="conversation-header" id={user?.id}>
       <div className="user">

@@ -5,7 +5,7 @@ import { logout } from "../features/authentication/AuthSlice";
 import { useDispatch } from "react-redux";
 
 function General() {
-  const { showSideBar } = useApp();
+  const { showSideBar, dispatch } = useApp();
   const DISPATCH = useDispatch();
   return (
     <div className="general-menu">
@@ -15,7 +15,13 @@ function General() {
         <Settings />
         {showSideBar && "Settings"}
       </NavLink>
-      <Link onClick={() => DISPATCH(logout())} role="button">
+      <Link
+        onClick={() => {
+          DISPATCH(logout());
+          dispatch({ type: "app/logout" });
+        }}
+        role="button"
+      >
         <LogOut />
         {showSideBar && "Logout"}
       </Link>
