@@ -1,17 +1,37 @@
+import { useEffect, useState } from "react";
 import { useApp } from "../../contexts/AppProvider";
+import { getTeamImageName } from "../../services/apiHelpers";
+import { useDispatch } from "react-redux";
+import { setCurrConversation } from "./messagesSlice";
 
-function MessagesBox() {
-  const { setMobileShowMessage } = useApp();
+function MessagesBox({ conv }) {
+  const { setMobileShowMessage, dispatch } = useApp();
+  const [group, setGroup] = useState({});
+  const DISPATCH = useDispatch();
+  useEffect(() => {
+    async function getData() {
+      const data = await getTeamImageName(conv.team_id);
+      setGroup(data);
+    }
+    getData();
+  }, []);
   return (
-    <div className="messages-box" onClick={() => setMobileShowMessage(true)}>
-      <img src="me.jpg" alt="" />
+    <div
+      className="messages-box"
+      onClick={() => {
+        setMobileShowMessage(true);
+        DISPATCH(setCurrConversation(conv.id));
+        dispatch({ type: "messages/setCurrentConv", payload: conv.team_id });
+      }}
+    >
+      <img src={group.image} alt="" />
       <div className="messages-content-box">
         <div>
-          <h3>Manasse Timóteo</h3>
+          <h3>{group.name}</h3>
           <span className="message-date">10h30</span>
         </div>
         <div>
-          <p className="content">Hello Good Morning</p>
+          <p className="content">{conv?.last_message?.content}</p>
           <span className="unread-messages">2</span>
         </div>
       </div>

@@ -9,8 +9,11 @@ export const createConversation = async ({ teamId, message }) => {
       .single("");
     if (!error) {
       const msg = await createMessage(message, data.id);
-      console.log(data, message, msg);
-      return msg;
+      const toSend = {
+        conversation: { ...data, last_message: msg },
+        message: msg,
+      };
+      return toSend;
     }
     if (!data || data.length === 0) {
       const newConv = {
@@ -23,7 +26,12 @@ export const createConversation = async ({ teamId, message }) => {
         .select()
         .single();
       if (err) throw new Error(err.message);
-      return await createMessage(message, newConversation.id);
+      const msg = await createMessage(message, newConversation.id);
+      const toSend = {
+        conversation: { ...data, last_message: msg },
+        message: msg,
+      };
+      return toSend;
     }
   }
 };
@@ -34,13 +42,43 @@ const createMessage = async function (message, id) {
   };
   const { data: messages, error } = await supabase
     .from("messages")
-    .insert(newMessage)
-    .select("*")
+    .insert([newMessage])
+    .select()
     .single();
-  console.log(messages);
+
+  const { data, error: err } = await supabase
+    .from("conversation")
+    .update({ last_message: messages })
+    .eq("id", id)
+    .select()
+    .single();
+  if (err) throw new Error(err.message);
   if (error) {
-    console.log(error);
     throw new Error(error.message);
   }
   return messages;
+};
+
+export const getConversations = async ({ teams, id }) => {
+  const { data, error } = await supabase
+    .from("conversation")
+    .select("*")
+    .in("team_id", teams)
+    .order("last_message->>created_at", { ascending: false });
+
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+export const getMessages = async ({ id }) => {
+  const { data, error } = await supabase
+    .from("messages")
+    .select()
+    .eq("conversation_id", id)
+    .order("created_at", { ascending: true });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };

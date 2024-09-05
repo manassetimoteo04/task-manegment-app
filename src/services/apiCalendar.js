@@ -39,7 +39,6 @@ export const calendarTasks = async function ({ teams }) {
     };
     return data;
   });
-  console.log(tasks);
   if (error) {
     console.error(error);
     throw new Error(error.message);

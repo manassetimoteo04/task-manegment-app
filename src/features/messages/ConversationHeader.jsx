@@ -15,10 +15,10 @@ function ConversationHeader() {
     async function getUser() {
       const data = await getTeamImageName(currentConversation);
       setUser(data);
-      console.log(data);
     }
     getUser();
   }, [currentConversation]);
+  console.log("currrebt", currentConversation);
   return (
     <header className="conversation-header" id={user?.id}>
       <div className="user">

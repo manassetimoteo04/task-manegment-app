@@ -59,7 +59,7 @@ function AppProvider({ children }) {
   const [showTeamDetail, setShowTeamDetail] = useState(false);
   const [mobileShowMessage, setMobileShowMessage] = useState(false);
   const [showFullImg, setShowFullImg] = useState(null);
-  const [showNewConList, setShowNewConvList] = useState(true);
+  const [showNewConList, setShowNewConvList] = useState(false);
   useEffect(() => {
     if (isDarkMode) {
       document.documentElement.classList.add("dark-mode");
