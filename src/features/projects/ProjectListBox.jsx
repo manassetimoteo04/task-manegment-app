@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import ProjectListItem from "./ProjectListItem";
 import ListEmpty from "../../ui/ListEmpty";
 import Spinner from "../../ui/Spinner";
+import ListSkeletonLoading from "../../ui/ListSkeletonLoading";
 function ProjectListBox() {
   const { data: projectList, status } = useSelector((store) => store.projects);
 
@@ -17,7 +18,7 @@ function ProjectListBox() {
           status.statu !== "failed" && (
             <ListEmpty>Sem nenhum projecto</ListEmpty>
           )}
-      {status.statu === "loading" && <Spinner />}
+      {status.statu === "loading" && <ListSkeletonLoading times={8} />}
     </ul>
   );
 }

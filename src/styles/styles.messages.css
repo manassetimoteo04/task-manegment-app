@@ -191,6 +191,14 @@
 
 }
 
+.date-grouping {
+    align-self: center;
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--main-gray-scale-1);
+    border-radius: 5rem;
+}
+
 .conversation-messages-box::-webkit-scrollbar {
     width: 0;
 }

@@ -9,7 +9,7 @@ import ButtonSpinner from "../../ui/ButtonSpinner";
 import { useAuth } from "./useAuth";
 import { useShowPopup } from "../../hooks/useShowPopup";
 
-function LoginForm() {
+function LoginForm({ refNum }) {
   const navigate = useNavigate();
   const [email, setEmail] = useState("timoteoscript@gmail.com");
   const [password, setPassword] = useState("111111");
@@ -19,6 +19,8 @@ function LoginForm() {
   const { isAuthenticated, isLoading } = useAuth();
 
   function handleSubmit(e) {
+    refNum.current++;
+    console.log(refNum.current);
     e.preventDefault();
     if (!email || !password) return;
     DISPATCH(login({ email, password }));

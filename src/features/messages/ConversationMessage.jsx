@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getUserImageName } from "../../services/apiHelpers";
+import { formatHour } from "../../utils/helpers";
 
 function ConversationMessage({ message }) {
   const [sender, setSender] = useState({});
@@ -27,7 +28,9 @@ function ConversationMessage({ message }) {
           <span className="sender-name">{sender.name}</span>
         )}
         <span className="message-text">{message.content}</span>
-        <span className="sent-time">10h</span>
+        <span className="sent-time">
+          {formatHour(new Date(message.created_at)).slice(0, -3)}
+        </span>
       </div>
     </div>
   );

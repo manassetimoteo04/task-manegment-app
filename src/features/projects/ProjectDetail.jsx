@@ -10,7 +10,7 @@ import {
 function ProjectDetail() {
   const { currentProject } = useSelector((state) => state.projects);
   const { projectTasks } = useSelector((state) => state.tasks);
-  const completed = projectTasks?.filter((task) => task.status === "finished");
+  const completed = projectTasks?.filter((task) => task.status === "done");
   const [team, setTeam] = useState({});
   useEffect(() => {
     async function getTeam() {

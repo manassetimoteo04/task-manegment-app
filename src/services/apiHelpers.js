@@ -28,7 +28,7 @@ export const getProjectImageName = async function (id) {
   return data;
 };
 
-export const getReadNumber = async ({ conId, userId }) => {
+export const getReadNumber = async ({ conId, userId, name }) => {
   const { error: readError, count: readsCount } = await supabase
     .from("message_reads")
     .select("*", { count: "exact" })
@@ -44,6 +44,6 @@ export const getReadNumber = async ({ conId, userId }) => {
     .select("*", { count: "exact" })
     .eq("conversation_id", conId)
     .neq("send_by", userId);
-
+  console.log(msgsCount, readsCount, name);
   return (msgsCount || 0) - (readsCount || 0);
 };

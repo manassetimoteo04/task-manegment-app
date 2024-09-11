@@ -42,3 +42,41 @@ export const getToday = () => {
   const formattedDate = `${year}-${month}-${day}`;
   return formattedDate;
 };
+const calcDiference = (date1, date2, unit) => {
+  const unities = {
+    minute: 1000 * 60,
+    hour: 1000 * 60 * 60,
+    day: 1000 * 60 * 60 * 24,
+  };
+  return Math.round(Math.abs(date1 - date2) / unities[unit]);
+};
+export const formateMessageDate = (date) => {
+  const now = new Date(date);
+
+  const calcDays = calcDiference(new Date(), now, "day");
+  if (calcDays < 1) {
+    return formatHour(now).slice(0, -3);
+  }
+
+  if (calcDays >= 0 && calcDays < 2) {
+    return "ontem";
+  }
+  if (calcDays >= 2 && calcDays < 8) {
+    const options = {
+      weekday: "long",
+    };
+
+    return new Intl.DateTimeFormat("pt-PT", options).format(now).slice(0, -6);
+  }
+  return new Intl.DateTimeFormat("pt-PT").format(now);
+};
+export const formatMessageGrouping = (entry) => {
+  const calcDays = calcDiference(new Date(), new Date(entry), "day");
+  if (calcDays === 1) {
+    return "ontem";
+  }
+  if (calcDays === 0) {
+    return "hoje";
+  }
+  return new Intl.DateTimeFormat("pt-PT").format(new Date(entry));
+};

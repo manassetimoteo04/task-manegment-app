@@ -224,6 +224,7 @@ main:hover::-webkit-scrollbar-thumb {
 .nav-list a.active svg {
     color: var(--main-primary-text);
 
+
 }
 
 /* STYLING THE TEAM LIST MENU */

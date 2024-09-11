@@ -28,7 +28,7 @@ export const createConversation = async ({ teamId, message }) => {
       if (err) throw new Error(err.message);
       const msg = await createMessage(message, newConversation.id);
       const toSend = {
-        conversation: { ...data, last_message: msg },
+        conversation: { ...newConversation, last_message: msg },
         message: msg,
       };
       return toSend;

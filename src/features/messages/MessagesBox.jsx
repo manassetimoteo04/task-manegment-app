@@ -3,13 +3,14 @@ import { useApp } from "../../contexts/AppProvider";
 import { getReadNumber, getTeamImageName } from "../../services/apiHelpers";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrConversation } from "./messagesSlice";
+import { formateMessageDate } from "../../utils/helpers";
 
 function MessagesBox({ conv, index }) {
   const [group, setGroup] = useState({});
   const [unRead, setUnread] = useState(0);
   const { currentUser } = useSelector((state) => state.auth);
   const { setMobileShowMessage, dispatch } = useApp();
-
+  const numIndex = index !== 0 ? index : 1;
   const DISPATCH = useDispatch();
   useEffect(() => {
     async function getData() {
@@ -17,12 +18,13 @@ function MessagesBox({ conv, index }) {
       setGroup(data);
       const unreads = await getReadNumber({
         conId: conv.id,
+        name: group.name,
         userId: currentUser.id,
       });
       setUnread(unreads);
     }
     getData();
-  }, [index, conv]);
+  }, [numIndex, conv]);
 
   return (
     <div
@@ -41,7 +43,9 @@ function MessagesBox({ conv, index }) {
       <div className="messages-content-box">
         <div>
           <h3>{group.name}</h3>
-          <span className="message-date">10h30</span>
+          <span className="message-date">
+            {formateMessageDate(conv.last_message.created_at)}
+          </span>
         </div>
         <div>
           <p className="content">{conv?.last_message?.content}</p>

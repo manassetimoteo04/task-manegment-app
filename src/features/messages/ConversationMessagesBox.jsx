@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getConversationMessages, setReadMessages } from "./messagesSlice";
 import { useApp } from "../../contexts/AppProvider";
 import useMessageChanges from "../../hooks/useMessageChanges";
+import { formatMessageGrouping } from "../../utils/helpers";
 
 function ConversationMessagesBox() {
   const { messages, conversationList, conversationId } = useSelector(
@@ -13,10 +14,9 @@ function ConversationMessagesBox() {
   const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
   const refEl = useRef();
-  const dateRef = useRef(new Date());
+  const dateRef = useRef(0);
   const { getMessageSubscription, removeMessageSubscription } =
     useMessageChanges();
-
   useEffect(() => {
     const subscription = getMessageSubscription(conversationId);
     return () => {
@@ -35,11 +35,9 @@ function ConversationMessagesBox() {
           conversation_id: item.conversation_id,
         };
       });
-    console.log(list);
     DISPATCH(setReadMessages(list));
   }, [messages]);
 
-  console.log(messages);
   useEffect(() => {
     refEl.current.scrollTop = refEl.current.scrollHeight;
   }, [conversationId, messages]);
@@ -50,15 +48,15 @@ function ConversationMessagesBox() {
   return (
     <div className="conversation-messages-box" ref={refEl}>
       {messages.map((message) => {
-        const date = new Date(message?.create_at);
-        if (
-          date.getDate() > dateRef.current.getDate() ||
-          dateRef.current.getDate === 0
-        ) {
-          dateRef.current === new Date(message?.create_at);
+        const date = new Date(message?.created_at);
+        if (date.getDate() !== dateRef.current || date.getDate() === 0) {
+          dateRef.current = new Date(message?.created_at).getDate();
+
           return (
             <>
-              <span className="date">{dateRef.current.toDateString()}</span>
+              <span className="date-grouping">
+                {formatMessageGrouping(date)}
+              </span>
               <ConversationMessage message={message} key={message.id} />
             </>
           );
