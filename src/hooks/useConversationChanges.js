@@ -23,8 +23,8 @@ function useConversationChanges() {
         (payload) => {
           // Filtragem manual usando OR
           const teamMatch = idFilter?.includes(payload.new.team_id);
-          const memberMatch = payload.new.members.includes(currentUser.id);
-          console.log(teamMatch, memberMatch);
+          console.log(teamMatch);
+          const memberMatch = payload.new?.members?.includes(currentUser.id);
 
           if (teamMatch || memberMatch) {
             if (currentUser.id !== payload.new?.last_message?.send_by) {
