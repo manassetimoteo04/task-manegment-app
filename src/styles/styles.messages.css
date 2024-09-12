@@ -325,6 +325,10 @@
     gap: 1rem;
 }
 
+.conv-detail-infor {
+    margin-top: 2rem;
+}
+
 .conversation-user-detail .btn-close-detail {
     align-self: end !important;
     background-color: var(--main-gray-scale-3);

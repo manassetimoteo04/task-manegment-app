@@ -3,7 +3,9 @@ import SearchInput from "../../ui/SearchInput";
 import MessagesHeader from "./MessagesHeader";
 import Button from "../../ui/Button";
 import { useApp } from "../../contexts/AppProvider";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { getConversationId } from "../../services/apiHelpers";
+import { setCurrConversation } from "./messagesSlice";
 
 function NewConversation() {
   const { setShowNewConvList } = useApp();
@@ -34,13 +36,18 @@ function ConvTeamList() {
   );
 }
 function ConvTeamItem({ team }) {
+  const DISPATCH = useDispatch();
+  async function handleClick() {
+    dispatch({
+      type: "messages/setCurrentConv",
+      payload: { id: team.id, isGroup: true },
+    });
+    const id = await getConversationId({ table: "team_id", value: team.id });
+    DISPATCH(setCurrConversation(id));
+  }
   const { dispatch, currentConversation } = useApp();
   return (
-    <li
-      onClick={() =>
-        dispatch({ type: "messages/setCurrentConv", payload: team.id })
-      }
-    >
+    <li onClick={handleClick}>
       <img src={team.image} alt="" /> <h3>{team.name}</h3>
     </li>
   );

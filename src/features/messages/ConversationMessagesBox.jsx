@@ -11,6 +11,7 @@ function ConversationMessagesBox() {
   const { messages, conversationList, conversationId } = useSelector(
     (state) => state.messages
   );
+  const { currentConversation } = useApp();
   const { currentUser } = useSelector((state) => state.auth);
   const DISPATCH = useDispatch();
   const refEl = useRef();
@@ -44,7 +45,7 @@ function ConversationMessagesBox() {
   useEffect(() => {
     if (conversationId)
       DISPATCH(getConversationMessages({ id: conversationId }));
-  }, [conversationId]);
+  }, [conversationId, currentConversation]);
   return (
     <div className="conversation-messages-box" ref={refEl}>
       {messages.map((message) => {

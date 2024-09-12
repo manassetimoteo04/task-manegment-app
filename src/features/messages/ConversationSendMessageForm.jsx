@@ -11,14 +11,26 @@ function ConversationSendMessageForm() {
   const DISPATCH = useDispatch();
   function handleSubmit(e) {
     e.preventDefault();
-    const newCon = {
-      message: {
-        send_by: currentUser.id,
-        content: value,
-      },
-      teamId: currentConversation,
-    };
-    if (value) DISPATCH(createNewConversation(newCon));
+    if (currentConversation.isGroup) {
+      const newCon = {
+        message: {
+          send_by: currentUser.id,
+          content: value,
+        },
+        teamId: currentConversation,
+      };
+      if (value) DISPATCH(createNewConversation(newCon));
+    }
+    if (!currentConversation.isGroup) {
+      const newCon = {
+        message: {
+          send_by: currentUser.id,
+          content: value,
+        },
+        idies: [currentUser.id, currentConversation.id],
+      };
+      if (value) DISPATCH(createNewConversation(newCon));
+    }
   }
   return (
     <form className="conversation-send-message-form" onSubmit={handleSubmit}>

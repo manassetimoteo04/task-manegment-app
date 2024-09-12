@@ -1,7 +1,7 @@
 import { ArrowLeft, Settings } from "react-feather";
 import { useApp } from "../../contexts/AppProvider";
 import { useEffect, useState } from "react";
-import { getTeamImageName } from "../../services/apiHelpers";
+import { getTeamImageName, getUserImageName } from "../../services/apiHelpers";
 
 function ConversationHeader() {
   const {
@@ -13,11 +13,17 @@ function ConversationHeader() {
 
   useEffect(() => {
     async function getUser() {
-      const data = await getTeamImageName(currentConversation);
-      setUser(data);
+      if (currentConversation.isGroup) {
+        const data = await getTeamImageName(currentConversation.id);
+        setUser(data);
+      }
+      if (!currentConversation.isGroup) {
+        const data = await getUserImageName(currentConversation.id);
+        setUser(data);
+      }
     }
     getUser();
-  }, [currentConversation]);
+  }, [currentConversation.id]);
   return (
     <header className="conversation-header" id={user?.id}>
       <div className="user">
@@ -27,7 +33,7 @@ function ConversationHeader() {
         >
           <ArrowLeft />
         </button>
-        <img src={user?.image} alt={user?.name} />
+        <img src={user?.image || user?.avatar} alt={user?.name} />
         <h3>{user?.name} </h3>
       </div>
       <button
