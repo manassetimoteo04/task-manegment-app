@@ -39,7 +39,10 @@ function TasksTable() {
       <div className="table">
         <header className="tasks-table-header">
           <span>
-            <Square />
+            <button
+              style={{ opacity: 0 }}
+              className={`btn-check-complete `}
+            ></button>
           </span>
           <span>Task</span>
           <span>Project</span>
