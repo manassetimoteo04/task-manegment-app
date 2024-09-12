@@ -19,7 +19,7 @@ function ConversationSendMessageForm() {
           send_by: currentUser.id,
           content: value,
         },
-        teamId: currentConversation,
+        teamId: currentConversation.id,
       };
       if (value) DISPATCH(createNewConversation(newCon));
     }

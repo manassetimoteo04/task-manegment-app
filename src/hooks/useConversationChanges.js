@@ -26,8 +26,7 @@ function useConversationChanges() {
           const memberMatch = payload.new.members.includes(currentUser.id);
 
           if (teamMatch || memberMatch) {
-            // Só despacha a ação se uma das condições for verdadeira
-            if (currentUser.id !== payload.new.last_message.send_by) {
+            if (currentUser.id !== payload.new?.last_message?.send_by) {
               DISPATCH(setRecentConversation(payload.new));
             }
           }

@@ -4,12 +4,13 @@ export const createConversation = async ({ teamId, message, idies }) => {
   if (teamId) {
     const { data, error } = await supabase
       .from("conversation")
-      .select("*")
-      .eq("team_id", teamId);
+      .select("")
+      .eq("team_id", teamId)
+      .single();
     if (!error) {
       const msg = await createMessage(message, data.id);
       const toSend = {
-        conversation: { ...data[0], last_message: msg },
+        conversation: { ...data, last_message: msg },
         message: msg,
       };
       return toSend;
@@ -22,11 +23,13 @@ export const createConversation = async ({ teamId, message, idies }) => {
       const { data: newConversation, error: err } = await supabase
         .from("conversation")
         .insert(newConv)
-        .select();
+        .select()
+        .single();
+      console.log(newConversation);
       if (err) throw new Error(err.message);
       const msg = await createMessage(message, newConversation.id);
       const toSend = {
-        conversation: { ...newConversation[0], last_message: msg },
+        conversation: { ...newConversation, last_message: msg },
         message: msg,
       };
       return toSend;
@@ -38,7 +41,6 @@ export const createConversation = async ({ teamId, message, idies }) => {
       .select("*")
       .contains("members", idies)
       .single();
-    console.log("members", data);
     if (!error) {
       const msg = await createMessage(message, data.id);
       const toSend = {
@@ -52,18 +54,21 @@ export const createConversation = async ({ teamId, message, idies }) => {
         is_group: false,
         members: idies,
       };
+      console.log(newConv);
       const { data: newConversation, error: err } = await supabase
         .from("conversation")
         .insert(newConv)
-        .select()
         .single();
       if (err) throw new Error(err.message);
-      const msg = await createMessage(message, newConversation.id);
-      const toSend = {
-        conversation: { ...newConversation, last_message: msg },
-        message: msg,
-      };
-      return toSend;
+      if (!err) {
+        const msg = await createMessage(message, newConversation.id);
+        console.log(newConversation);
+        const toSend = {
+          conversation: { ...newConversation, last_message: msg },
+          message: msg,
+        };
+        return toSend;
+      }
     }
   }
 };
@@ -74,16 +79,16 @@ const createMessage = async function (message, id) {
   };
   const { data: messages, error } = await supabase
     .from("messages")
-    .insert([newMessage])
+    .insert(newMessage)
     .select()
     .single();
 
   const { data, error: err } = await supabase
     .from("conversation")
     .update({ last_message: messages })
-    .eq("id", id)
     .select()
-    .single();
+    .eq("id", id);
+  console.log(data, messages, newMessage);
   if (err) throw new Error(err.message);
   if (error) {
     throw new Error(error.message);

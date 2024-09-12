@@ -17,7 +17,7 @@ function MessagesBox({ conv, index }) {
   const { setMobileShowMessage, dispatch } = useApp();
   const numIndex = index !== 0 ? index : 1;
   const id = conv.members?.filter((mem) => mem !== currentUser.id);
-  const [user] = useGetUserImg(conv.last_message.send_by);
+  const [user] = useGetUserImg(conv?.last_message?.send_by);
   const DISPATCH = useDispatch();
   useEffect(() => {
     async function getData() {
@@ -43,12 +43,12 @@ function MessagesBox({ conv, index }) {
       className="messages-box"
       onClick={() => {
         setMobileShowMessage(true);
-        DISPATCH(setCurrConversation(conv.id));
+        DISPATCH(setCurrConversation(conv?.id));
         dispatch({
           type: "messages/setCurrentConv",
           payload: {
-            id: conv.is_group ? conv.team_id : id,
-            isGroup: conv.is_group,
+            id: conv?.is_group ? conv?.team_id : id,
+            isGroup: conv?.is_group,
           },
         });
         setUnread(0);
@@ -66,14 +66,14 @@ function MessagesBox({ conv, index }) {
         <div>
           <h3>{inforData.name}</h3>
           <span className="message-date">
-            {formateMessageDate(conv.last_message.created_at)}
+            {formateMessageDate(conv?.last_message?.created_at || new Date())}
           </span>
         </div>
         <div>
           <p className="content">
-            {conv.last_message.send_by === currentUser.id
+            {conv?.last_message?.send_by === currentUser.id
               ? "you: "
-              : conv.is_group
+              : conv?.is_group
               ? user?.name?.split(" ").at(0) + ": "
               : ""}
             {conv?.last_message?.content}
