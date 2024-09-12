@@ -19,12 +19,18 @@ function useConversationChanges() {
           event: "UPDATE",
           schema: "public",
           table: "conversation",
-          filter: `team_id=in.(${idFilter})`,
         },
         (payload) => {
-          console.log("CHANGE RECEIVED", payload);
-          if (currentUser.id !== payload.new.last_message.send_by)
-            DISPATCH(setRecentConversation(payload.new));
+          // Filtragem manual usando OR
+          const teamMatch = idFilter.includes(payload.new.team_id);
+          const memberMatch = payload.new.members.includes(currentUser.id);
+
+          if (teamMatch || memberMatch) {
+            // Só despacha a ação se uma das condições for verdadeira
+            if (currentUser.id !== payload.new.last_message.send_by) {
+              DISPATCH(setRecentConversation(payload.new));
+            }
+          }
         }
       )
       .subscribe();

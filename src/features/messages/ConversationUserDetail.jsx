@@ -26,7 +26,7 @@ function ConversationUserDetail() {
       setIsLoand(false);
     }
     getData();
-  }, [currentConversation.id]);
+  }, [currentConversation?.id]);
   return (
     <div className="conversation-user-detail">
       {!isLoading ? (

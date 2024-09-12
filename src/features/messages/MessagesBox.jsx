@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrConversation } from "./messagesSlice";
 import { formateMessageDate } from "../../utils/helpers";
+import { useGetUserImg } from "../../hooks/useGetUserImg";
 
 function MessagesBox({ conv, index }) {
   const [inforData, setInforData] = useState({});
@@ -16,7 +17,7 @@ function MessagesBox({ conv, index }) {
   const { setMobileShowMessage, dispatch } = useApp();
   const numIndex = index !== 0 ? index : 1;
   const id = conv.members?.filter((mem) => mem !== currentUser.id);
-
+  const [user] = useGetUserImg(conv.last_message.send_by);
   const DISPATCH = useDispatch();
   useEffect(() => {
     async function getData() {
@@ -37,7 +38,6 @@ function MessagesBox({ conv, index }) {
     }
     getData();
   }, [numIndex, conv]);
-  console.log(inforData, id);
   return (
     <div
       className="messages-box"
@@ -70,8 +70,19 @@ function MessagesBox({ conv, index }) {
           </span>
         </div>
         <div>
-          <p className="content">{conv?.last_message?.content}</p>
-          {unRead > 0 && <span className="unread-messages">{unRead}</span>}
+          <p className="content">
+            {conv.last_message.send_by === currentUser.id
+              ? "you: "
+              : conv.is_group
+              ? user?.name?.split(" ").at(0) + ": "
+              : ""}
+            {conv?.last_message?.content}
+          </p>
+          {unRead > 0 && (
+            <span className="unread-messages">
+              {unRead > 9 ? "9+" : unRead}
+            </span>
+          )}
         </div>
       </div>
     </div>
