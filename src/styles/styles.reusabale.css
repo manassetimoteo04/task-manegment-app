@@ -48,11 +48,12 @@
 }
 
 .status {
-    padding: 0.5rem 1rem;
+    padding: 0.3rem 1rem;
     border-radius: 5rem;
     font-size: 1.4rem;
     color: var(--main-color);
     gap: 1rem;
+    display: inline;
 }
 
 .statu-progress {

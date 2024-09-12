@@ -17,6 +17,7 @@ function TaskDetails() {
   const [showPopup] = useShowPopup();
   const location = useLocation();
   const { currentTask, status } = useSelector((state) => state.tasks);
+  // const isAllowed= cur
   const {
     title,
     description,

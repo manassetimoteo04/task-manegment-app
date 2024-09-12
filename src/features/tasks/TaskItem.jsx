@@ -22,6 +22,7 @@ function TaskItem({ task }) {
     id,
   } = task;
   const { status: taskStatus } = useSelector((state) => state.tasks);
+  const { currentUser } = useSelector((state) => state.auth);
   const navigate = useNavigate();
   const location = useLocation();
   const [project, setProject] = useState({});
@@ -30,6 +31,7 @@ function TaskItem({ task }) {
   const [showPopup] = useShowPopup();
 
   const isCompleted = status === "done";
+  const isAllowed = enganged !== currentUser.id;
   useEffect(() => {
     async function getAsync() {
       const project = await getProjectImageName(projectID);
@@ -59,6 +61,7 @@ function TaskItem({ task }) {
         <button
           className={`btn-check-complete ${isCompleted ? "active" : ""}`}
           onClick={handleClick}
+          disabled={isAllowed}
         >
           {isCompleted && <Check size={15} />}
         </button>

@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useShowPopup } from "../../hooks/useShowPopup";
 
 function ProjectTaskItem({ task }) {
+  const { currentUser } = useSelector((state) => state.auth);
   const { title, responsable_id: enganged, status, description, id } = task;
   const [responsale] = useGetUserImg(enganged);
   const location = useLocation();
@@ -17,6 +18,8 @@ function ProjectTaskItem({ task }) {
   const [showPopup] = useShowPopup();
   const { status: taskStatus } = useSelector((state) => state.tasks);
   const isCompleted = status === "done";
+  const isAllowed = enganged !== currentUser.id;
+
   function handleClick() {
     DISPATCH(
       updateTaskStatus({ id: id, value: isCompleted ? "pending" : "done" })
@@ -37,6 +40,7 @@ function ProjectTaskItem({ task }) {
         <button
           className={`btn-check-complete ${isCompleted ? "active" : ""}`}
           onClick={handleClick}
+          disabled={isAllowed}
         >
           {isCompleted && <Check size={15} />}
         </button>
